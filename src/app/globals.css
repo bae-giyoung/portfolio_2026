@@ -1,26 +1,124 @@
 @import "tailwindcss";
 
+/* @media (prefers-color-scheme: dark) 삭제, provider에서 감지함. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: oklch(100% 0.00011 271.152);
+  --foreground: oklch(0.145 0 0);
+  --radius: 0.625rem;
+  --primary: #189e48;
+  
+  /* 메뉴버튼 */
+  --menu-line-width: 2.5rem;
+  --menu-line-height: 2px;
+  --menu-line-gap: 0.5rem;
+  --menu-height: calc(var(--menu-line-height) * 3 + var(--menu-line-gap) * 2);
+  --x-btn-width: calc((var(--menu-height) * 1.4142135));
+  --menu-ani-timing: 0.3s ease-in-out;
+}
+
+html.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(100% 0.00011 271.152);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* 색상 (Color) */
+  --color-app-bg: var(--background);
+  --color-app-fg: var(--foreground);
+  --color-app-primary: var(--primary);
+  
+  /* 폰트 */
+  --font-noto: var(--font-noto-sans-kr);
+  --font-urbanist: var(--font-urbanist);
+  --font-inst: var(--font-instrument-sans);
+  --font-space: var(--font-space-grotesk);
+  --font-serif: var(--font-instrument-serif);
+  --font-display: var(--font-instrument-sans) var(--font-noto-sans-kr), sans-serif;
+
+
+  /* 반응형 미디어 쿼리 (Breakpoint) */
+  /* 사용: 3xl:text-center, tablet:flex */
+  --breakpoint-tablet: 1300px;
+  --breakpoint-3xl: 1920px;
+  --breakpoint-sm: 500px;
+
+  /* 그림자 (Shadow) */
+  /* 사용: shadow-neon */
+  --shadow-custom: 0 0px 20px 10px rgba(0, 0, 0, 0.15);
+  --shadow-neon: 0 0 10px var(--color-app-primary), 0 0 20px var(--color-app-primary);
+
+  /* Easing */
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-expo: cubic-bezier(0.95, 0.05, 0.795, 0.035);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+body::selection,
+body ::-moz-selection,
+body ::-ms-selection,
+body ::-webkit-selection {
+  background: var(--primary);
+  color: var(--background);
+}
+
+::-webkit-scrollbar {
+  display: none;  
+}
+
+body,
+html {
+  display: block;
+  min-width: 320px;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+  -ms-overflow-style: none;
+}
+
+html.is-loading,
+html.is-loading body {
+  height: 100vh !important;
+  overflow: hidden !important;
+}
+
+/* == 커서 커스텀 */
+body,
+body * {
+  cursor: url('/cursors/cursor-basic.png') 2 0, default !important;
+}
+
+
+body .cursor-text,
+body .cursor-text * {
+  cursor: url('/cursors/cursor-text.png') 7 0, pointer !important;
+}
+
+body a,
+body a *,
+body button,
+body button *,
+.cursor-pointer,
+.cursor-pointer * {
+  cursor: url('/cursors/cursor-pointer.png') 7 0, pointer !important;
+}
+
+body a.clicked,
+body a.clicked *,
+body button.clicked,
+body button.clicked *,
+.cursor-pointer.clicked,
+.cursor-pointer.clicked * {
+  cursor: url('/cursors/cursor-pointer-click.png') 10 0, pointer !important;
+}
+
+html.is-loading,
+html.is-loading * {
+  cursor: url('/cursors/cursor-loading.png') 0 0,wait !important;
 }
