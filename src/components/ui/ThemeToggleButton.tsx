@@ -48,7 +48,7 @@ export default function ThemeToggleButton({
             <button
                 onClick={toggleTheme}
                 className={`
-                    relative flex items-center w-16 h-8 px-1 py-2 rounded-full transition-all duration-500 
+                    relative flex items-center w-16 h-7 px-1 py-2 rounded-full transition-all duration-500 
                     border-current/70 cursor-pointer outline-none border-2
                     ${className}
                 `}
@@ -60,14 +60,14 @@ export default function ThemeToggleButton({
                     layout
                     initial={false}
                     animate={{
-                        x: isDark ? 0 : 30 // 다시
+                        x: isDark ? 0 : 34 // 다시
                     }}
                     transition={{
                         type: 'spring',
                         stiffness: 500,
                         damping: 30
                     }}
-                    className="relative z-10 flex items-center justify-center w-6 h-6 bg-white border rounded-full shadow-lg overflow-hidden">
+                    className="relative z-10 flex items-center justify-center w-5 h-5 bg-white border rounded-full shadow-lg overflow-hidden">
                     <AnimatePresence mode="wait">
                         {isDark ? (
                             <motion.div

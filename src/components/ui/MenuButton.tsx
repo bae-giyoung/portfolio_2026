@@ -7,7 +7,6 @@ export default function MenuButton({
 }: {
 	className?: string;
 }) {
-
 	return (
 		<button type="button" className={className} onClick={toggleMenu}>
             <span className="inline-block mr-1">MENU</span>
