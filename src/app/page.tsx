@@ -1,28 +1,47 @@
 
 
+"use client";
+
+import { useRef } from "react";
 import CurtainIntro from "@/components/home/CurtainIntro";
-import NameModalButton from "@/components/home/NameModalButton";
 import Header from "@/components/layout/Header";
+import MainVisual from "@/components/home/MainVisual";
+import ProjectSection from "@/components/home/ProjectSection";
+import ProfileSection from "@/components/home/ProfileSection";
+import WorkSection from "@/components/home/WorkSection";
 
 export default function Home() {
+
+	const headerRef = useRef<HTMLDivElement>(null);
+	const mainRef = useRef<HTMLElement>(null);
+	const headingRef = useRef<HTMLHeadingElement>(null);
+	const mainContentsRef = useRef<HTMLDivElement>(null);
+
 	return (
 		<>
-			<CurtainIntro />
-			<main id="main" className="w-full h-screen flex items-center justify-center relative font-inst">
-				<h2 className="hero-text text-4xl sm:text-6xl font-medium tracking-tight text-app-fg text-left md:text-center leading-snug">
-					<span className="inline-block mr-6">Hello,</span>
-					<br className="block md:hidden" />
-					<span className="inline-block mr-2 font-serif">I</span>
-					<span className="inline-block mr-6 font-serif italic">am</span>
-					<NameModalButton />
-					<span className="inline-block mr-2 w-7.5 in-[.is-loading]:w-0 transition-all duration-700 overflow-hidden leading-none">_</span>
-					<span className="inline-block font-space animate-pulse text-[#189e48]">*</span>
-				</h2>
-			</main>
-			<section id="profile" className="relative w-full min-h-screen bg-amber-50">섹션1 profile</section>
-			<section id="projects" className="relative w-full min-h-screen bg-emerald-300">섹션2 projects</section>
-			<section id="works" className="relative w-full min-h-screen bg-emerald-300">섹션3 works</section>
+			{/* 헤더 */}
+			<Header headerRef={headerRef} />
+
+			{/* 메인 비주얼 */}
+			<MainVisual mainRef={mainRef} headingRef={headingRef} mainContentsRef={mainContentsRef} />
+
+			{/* 홈 컨텐츠 */}
+			<div id="contents" className="w-full px-5 md:px-7.5 lg:px-18 overflow-hidden">
+				{/* 프로필 섹션 */}
+				<ProfileSection />
+
+				{/* 프로젝트 섹션 */}
+				<ProjectSection />
+
+				{/* 작업 섹션 */}
+				<WorkSection />
+			</div>
+
+			{/* 푸터 */}
 			<footer className="relative w-full h-80 bg-app-fg text-app-bg">footer</footer>
+
+			{/* 인트로 */}
+			<CurtainIntro headerRef={headerRef} mainRef={mainRef} headingRef={headingRef} mainContentsRef={mainContentsRef} />
 		</>
 	);
 }

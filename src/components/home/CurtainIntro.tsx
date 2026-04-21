@@ -8,7 +8,7 @@ gsap.registerPlugin(useGSAP);
 
 /**
  * SVG path를 곡선 형태로 업데이트하는 유틸.
- * objectBoundingBox(0~1) 좌표계 사용 → 리사이즈에 자동 대응.
+ * objectBoundingBox(0~1) 좌표계 사용 -> 리사이즈에 자동 대응.
  *
  * @param path   - SVGPathElement
  * @param edgeY  - 커튼 하단 엣지 위치 (1 = 화면 맨 아래, 0 = 맨 위)
@@ -31,14 +31,25 @@ function setCurvePath(
     path.setAttribute("d", d);
 }
 
-export default function CurtainIntro() {
+export default function CurtainIntro({
+    headerRef,
+    mainRef,
+    headingRef,
+    mainContentsRef,
+} : {
+    headerRef: React.RefObject<HTMLDivElement | null>;
+    mainRef: React.RefObject<HTMLElement | null>;
+    headingRef: React.RefObject<HTMLHeadingElement | null>;
+    mainContentsRef: React.RefObject<HTMLDivElement | null>;
+}) {
     const [isAnimationComplete, setIsAnimationComplete] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
     const pathRef = useRef<SVGPathElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
     const overlayRef = useRef<HTMLDivElement>(null);
+    const tlRef = useRef<gsap.core.Timeline | null>(null);
 
-    /** 콘텐츠 등장 → 커튼 곡선 와이프 아웃 */
+    /** 콘텐츠 등장 -> 커튼 곡선 와이프 아웃 */
     const buildTimeline = useCallback(() => {
         const root = document.documentElement;
         const path = pathRef.current;
@@ -49,55 +60,96 @@ export default function CurtainIntro() {
         // 애니메이션 시작 시 스크롤 잠금
         root.classList.add("is-loading");
 
-        const tl = gsap.timeline({
+        if (tlRef.current) tlRef.current.kill(); // 기존 타임라인이 있으면 제거
+
+        tlRef.current = gsap.timeline({
             onComplete() {
                 // 애니메이션 완료 후 스크롤 허용
                 root.classList.remove("is-loading");
                 // will-change 힌트 제거 (GPU 메모리 반환)
                 overlay.style.willChange = "auto";
+                // GSAP이 남긴 인라인 transform 제거 (fixed 포지셔닝 containing block 방지)
+                //if (headerRef.current) gsap.set(headerRef.current, { clearProps: "transform" });
+                if (mainRef.current) gsap.set(mainRef.current, { clearProps: "transform" });
+                //if (headingRef.current) gsap.set(headingRef.current, { clearProps: "transform" });
+                if (mainContentsRef.current) gsap.set(mainContentsRef.current, { clearProps: "transform" });
                 // 애니메이션 완료 상태로 업데이트하여 컴포넌트 언마운트 트리거
                 setIsAnimationComplete(true);
             }
         });
 
         /* == Phase 1: 콘텐츠 페이드인 */
-        tl.fromTo(
+        tlRef.current.fromTo(
             content,
             { opacity: 0, y: 30 },
             { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }
         );
 
-        /* == Phase 2: 곡선 커튼 와이프 (아래→위) */
+        /* == Phase 2: 곡선 커튼 와이프 (아래->위) */
         const curve = { val: 1 }; // 1 = 맨 아래(전체 덮음), 0 = 맨 위(완전 열림)
-        tl.to(curve, {
+        tlRef.current.to(curve, {
             val: 0,
+            delay: 0.6,
             duration: 1.4,
             ease: "power4.inOut",
             onUpdate() {
                 const bend = Math.sin(Math.PI * curve.val) * 0.35;
                 setCurvePath(path, curve.val, bend, "top");
             },
-        }, "+=0.6");
+        }, "curtainWipe");
 
         /* 콘텐츠도 같이 사라짐 */
-        tl.to(
+        tlRef.current.to(
             content,
-            { opacity: 0, y: -20, duration: 0.5, ease: "power2.in" },
-            "<0.2"
+            { opacity: 0, y: -20, duration: 0.6, ease: "power2.in" },
+            "curtainWipe+=0.6"
         );
 
-        /* == Phase 3: 오버레이 제거 */
-        tl.set(overlay, { visibility: "hidden" });
+        /* == Phase 3: 곡선 커튼 와이프 중간에 app 콘텐츠 애니메이션 시작 */
+        if (headerRef.current) {
+            tlRef.current.fromTo(
+                headerRef.current,
+                { opacity: 0 },
+                { opacity: 1, duration: 1.2, ease: "power2.out" },
+                "curtainWipe+=1.6"
+            );
+        }
+        
+        if (mainRef.current) {
+            tlRef.current.fromTo(
+                mainRef.current,
+                { yPercent: 10 },
+                { yPercent: 0, duration: 0.8, ease: "power2.out" },
+                "curtainWipe+=1.2"
+            );
+        }
 
-        return tl;
-    }, []);
+        /* if (headingRef.current) {
+            tlRef.current.fromTo(
+                headingRef.current,
+                { yPercent: 100 },
+                { yPercent: 0, duration: 0.6, ease: "power2.out" },
+                "curtainWipe+=1.2"
+            );
+        } */
+
+        if (mainContentsRef.current) {
+            tlRef.current.fromTo(
+                mainContentsRef.current,
+                { xPercent: 10 },
+                { xPercent: 0, duration: 1.2, ease: "power2.out" },
+                "curtainWipe+=1.4"
+            );
+        }
+
+        /* == Phase 4: 오버레이 안보이게 */
+        tlRef.current.set(overlay, { visibility: "hidden" });
+    }, [headerRef, mainRef, headingRef, mainContentsRef]);
 
     useGSAP(
         () => {
             // 초기 상태: 커튼이 화면 전체를 덮음
-            if (pathRef.current) {
-                pathRef.current.setAttribute("d", "M 0 0 L 1 0 L 1 1 Q 0.5 1 0 1 Z");
-            }
+            pathRef.current?.setAttribute("d", "M 0 0 L 1 0 L 1 1 Q 0.5 1 0 1 Z");
             buildTimeline();
         },
         { scope: containerRef }

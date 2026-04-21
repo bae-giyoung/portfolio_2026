@@ -4,7 +4,7 @@ import NaviButton from "../ui/NaviButton";
 import LinkList from "./LinkList";
 import { LinkType } from "@/datas/menuConfig";
 import { useBreakpointClassCleanup } from "@/hooks/useBreakpointClassCleanup";
-import { closeMenu, MOBILE_BREAKPOINT } from "@/constants/layout";
+import { closeMenu, TABLET_BREAKPOINT } from "@/constants/layout";
 
 export default function SideNav ({
     menuList,
@@ -14,7 +14,7 @@ export default function SideNav ({
     linkList: LinkType[]
 }) {
     // breakpoint 이상에서 모바일 메뉴 강제 닫기
-    useBreakpointClassCleanup(MOBILE_BREAKPOINT);
+    useBreakpointClassCleanup(TABLET_BREAKPOINT);
 
     // 사이드 네비게이션 애니메이션 (오른쪽에서 슬라이드 인/아웃) -> gsap로 구현할지, 아니면 css transition으로 간단히 구현할지 고민 중.
     // gsap로 구현할 경우, 메뉴 버튼(Header.tsx > MenuButton.tsx) 클릭 시 asideRef를 통해 애니메이션을 트리거하는 방식.
