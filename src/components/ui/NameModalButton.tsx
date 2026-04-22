@@ -24,10 +24,10 @@ const BAE = () => {
 export default BAE;`;
 
 export default function NameButton({
-	children = "배기영",
+	name = "배기영",
 	tooltipText = "Curious about me?"
 } : {
-	children?: React.ReactNode;
+	name?: string;
 	tooltipText?: string;
 }) {
 	const openModal = useSetAtom(openModalAtom);
@@ -36,7 +36,7 @@ export default function NameButton({
 
 	const handleOpenModal = () => {
 		openModal(
-			<h2 className="font-noto font-bold text-lg text-app-fg">https://www.{children}.com</h2>,
+			<h2 className="font-noto font-bold text-lg text-app-fg">https://www.{name}.com</h2>,
 			<CodeBlockViewer rawCode={codeString} language="tsx" />
 		);
 	};
@@ -50,13 +50,13 @@ export default function NameButton({
 			<button
 				type="button"
 				onClick={handleOpenModal}
-				aria-label={`${children} 소개 모달 보기`}
+				aria-label={`${name} 소개 모달 보기`}
 				onMouseEnter={() => setHovered(true)}
 				onMouseLeave={() => setHovered(false)}
 				onMouseMove={handleMouseMove}
 				className="group"
 			>
-				<SlideUpText slideUpSpeed={400}>{children}</SlideUpText>
+				<SlideUpText slideUpSpeed={400}>{name}</SlideUpText>
 			</button>
 
 			{/* Floating Box — mobile / non-hover: 항상 보임, 버튼 아래 */}

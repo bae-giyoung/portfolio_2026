@@ -3,6 +3,7 @@
 import Image from "next/image";
 import MulAlim from "@/assets/project_mulalim.webp";
 import SectionLayout from "../ui/section/SectionLayout";
+import ImageBox from "../ui/ImageBox";
 
 export default function ProjectSection() {
     return (
@@ -15,9 +16,7 @@ export default function ProjectSection() {
             {/* 물알림단 프로젝트 */}
             <div className="w-full flex justify-between">
                 <div className="w-[50%] pt-10">
-                    <div className="relative w-full h-100 rounded-xl overflow-hidden">
-                        <Image src={MulAlim} alt="물알림단 프로젝트" fill className="object-cover" />
-                    </div>
+                    <ImageBox src={MulAlim} alt="물알림단 프로젝트" className="rounded-xl" />
                     <p className="flex justify-between mt-4">
                         <span>MulAlim</span>
                         <span>2025.09 - 2025.11</span>
@@ -37,9 +36,7 @@ export default function ProjectSection() {
             {/* 물알림단 v.2.0. */}
             <div className="w-full flex justify-between">
                 <div className="w-[50%] pt-10">
-                    <div className="relative w-full h-100 rounded-xl overflow-hidden">
-                        <Image src={MulAlim} alt="물알림단 v.2.0 프로젝트" fill className="object-cover" />
-                    </div>
+                    <ImageBox src={MulAlim} alt="물알림단 v2.0 프로젝트" className="rounded-xl" />
                     <p className="flex justify-between mt-4">
                         <span>MulAlim v2.0</span>
                         <span>2026.03 - 진행중</span>
@@ -75,9 +72,7 @@ export default function ProjectSection() {
             {/* 미니 노션 프로젝트 */}
             <div className="w-full flex justify-between">
                 <div className="w-[50%] pt-10">
-                    <div className="relative w-full h-100 rounded-xl overflow-hidden">
-                        <Image src={MulAlim} alt="미니 노션 프로젝트" fill className="object-cover" />
-                    </div>
+                    <ImageBox src={MulAlim} alt="미니 노션 프로젝트" className="rounded-xl" />
                     <p className="flex justify-between mt-4">
                         <span>Mini Notion</span>
                         <span>2026.04 - 진행중</span>

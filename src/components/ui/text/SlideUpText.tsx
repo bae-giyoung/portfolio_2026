@@ -4,11 +4,15 @@ const defaultClassName = "relative inline-flex items-center justify-center group
 
 export default function SlideUpText({
     children,
+	subText,
     className = "",
+	subClassName = "",
     slideUpSpeed = 500, // 슬라이드 업 속도 (ms)
 } : {
-    children: React.ReactNode;
+    children: string;
+    subText?: string;
     className?: string;
+	subClassName?: string;
     slideUpSpeed?: number;
 }) {
 
@@ -25,10 +29,10 @@ export default function SlideUpText({
 			{/* 호버 텍스트: 아래에서 위로 올라옴 */}
 			<span
 				aria-hidden="true"
-				className="absolute inset-0 flex items-center justify-center translate-y-full group-hover:translate-y-0 transition-transform ease-[cubic-bezier(0.76,0,0.24,1)] select-none pointer-events-none"
+				className={`absolute inset-0 flex items-center justify-center translate-y-full group-hover:translate-y-0 transition-transform ease-[cubic-bezier(0.76,0,0.24,1)] select-none pointer-events-none ${subClassName}`}
                 style={{ transitionDuration: `${slideUpSpeed}ms` }}
 			>
-				{children}
+				{subText || children}
 			</span>
 		</>
 	);

@@ -49,10 +49,9 @@ export default function RevealingText({
             scrollTrigger: {
                 trigger: el,
                 start: "top+=30% bottom",
-                end: "top 10%",
-                markers: true,
+                end: "top top",
+                markers: false,
                 scrub: true,
-                toggleActions: "play none none reverse",
             },
         });
 

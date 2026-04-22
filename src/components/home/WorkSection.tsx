@@ -3,6 +3,7 @@
 import Image from "next/image";
 import MulAlim from "@/assets/project_mulalim.webp";
 import SectionLayout from "../ui/section/SectionLayout";
+import ImageBox from "../ui/ImageBox";
 
 export default function WorkSection() {
     return (
@@ -14,9 +15,7 @@ export default function WorkSection() {
             {/* 대표 작업 2개 */}
             <div className="w-full flex justify-between">
                 <div className="w-[50%] pt-20">
-                    <div className="relative w-full h-100 rounded-xl overflow-hidden">
-                        <Image src={MulAlim} alt="Work 1" fill className="object-cover" />
-                    </div>
+                    <ImageBox src={MulAlim} alt="현대 트랜시스" className="rounded-xl" />
                     <p className="flex justify-between mt-4">
                         <span>현대 트랜시스</span>
                         <span>퍼블리싱</span>
@@ -25,9 +24,7 @@ export default function WorkSection() {
                 </div>
 
                 <div className="w-[30%] -mt-20">
-                    <div className="relative w-full h-100 rounded-xl overflow-hidden">
-                        <Image src={MulAlim} alt="Work 2" fill className="object-cover" />
-                    </div>
+                    <ImageBox src={MulAlim} alt="영렘브란트 사이트 구축" className="rounded-xl" />
                     <p className="flex justify-between mt-4">
                         <span>영렘브란트 사이트 구축</span>
                         <span>퍼블리싱</span>

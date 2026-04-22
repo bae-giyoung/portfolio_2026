@@ -32,7 +32,7 @@ export default function SideNav ({
                             <li key={item.name + i} className="relative" onClick={closeMenu}>
                                 <NaviButton targetId={item.href} className="group">
                                     <SlideUpText slideUpSpeed={300}>
-                                        <span>{item.name}</span>
+                                        {item.name}
                                     </SlideUpText>
                                     <span className="text-app-primary text-[14px] ml-2">{i > 8 ? '' : '0'}{i + 1}</span>
                                 </NaviButton>
