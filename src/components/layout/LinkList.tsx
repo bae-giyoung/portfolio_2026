@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { LinkType } from "@/datas/menuConfig";
+import SlideUpText from "../ui/text/SlideUpText";
 
 type LinkListProps = {
 	linkList: LinkType[];
@@ -22,9 +23,11 @@ export default function LinkList({
 						href={href}
 						target={href.includes("http") ? "_blank" : undefined}
 						rel={href.includes("http") ? "noopener noreferrer" : undefined}
-						className="inline-block w-full h-full"
+						className="inline-block w-full h-full group"
 					>
-						<span>{name}</span>
+						<SlideUpText slideUpSpeed={300}>
+							{name}
+						</SlideUpText>
 					</Link>
 				</li>
 			))}

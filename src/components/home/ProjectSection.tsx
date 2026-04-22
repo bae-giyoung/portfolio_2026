@@ -2,18 +2,16 @@
 
 import Image from "next/image";
 import MulAlim from "@/assets/project_mulalim.webp";
-import SectionMeta from "@/components/ui/SectionMeta";
-import SectionTitle from "@/components/ui/SectionTitle";
+import SectionLayout from "../ui/section/SectionLayout";
 
 export default function ProjectSection() {
     return (
-        <section id="projects" className="relative w-full flex flex-col gap-10 sm:gap-20 mt-20 pt-8 pb-20 border-t border-app-fg font-inst">
-            {/* 섹션 메타 */}
-            <SectionMeta number="03" category="projects" label="2025-2026" />
-    
-            {/* 섹션 타이틀 */}
-            <SectionTitle className="text-9xl font-bold text-app-fg overflow-hidden">Projects</SectionTitle>
-
+        <SectionLayout
+            sectionId="projects"
+            sectionMeta={{ number: "03", category: "projects", label: "2025-2026" }}
+            sectionTitle="Projects"
+        >
+            
             {/* 물알림단 프로젝트 */}
             <div className="w-full flex justify-between">
                 <div className="w-[50%] pt-10">
@@ -100,6 +98,6 @@ export default function ProjectSection() {
                     </div>
                 </div>
             </div>
-        </section>
+        </SectionLayout>
     );
 }

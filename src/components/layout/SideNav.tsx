@@ -5,6 +5,7 @@ import LinkList from "./LinkList";
 import { LinkType } from "@/datas/menuConfig";
 import { useBreakpointClassCleanup } from "@/hooks/useBreakpointClassCleanup";
 import { closeMenu, TABLET_BREAKPOINT } from "@/constants/layout";
+import SlideUpText from "../ui/text/SlideUpText";
 
 export default function SideNav ({
     menuList,
@@ -29,8 +30,10 @@ export default function SideNav ({
                     {
                         menuList.map((item, i) => (
                             <li key={item.name + i} className="relative" onClick={closeMenu}>
-                                <NaviButton targetId={item.href}>
-                                    <span>{item.name}</span>
+                                <NaviButton targetId={item.href} className="group">
+                                    <SlideUpText slideUpSpeed={300}>
+                                        <span>{item.name}</span>
+                                    </SlideUpText>
                                     <span className="text-app-primary text-[14px] ml-2">{i > 8 ? '' : '0'}{i + 1}</span>
                                 </NaviButton>
                             </li>

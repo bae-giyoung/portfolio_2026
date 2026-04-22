@@ -1,5 +1,6 @@
 import NavigationButton from "../ui/NaviButton";
 import { LinkType } from "@/datas/menuConfig";
+import SlideUpText from "../ui/text/SlideUpText";
 
 export default function Nav ({
 	menuList
@@ -15,7 +16,11 @@ export default function Nav ({
 	 			{
 	 				menuList.map((item, i) => (
 	 					<li key={item.name + i}>
-	 						<NavigationButton targetId={item.href}><span>{item.name}</span></NavigationButton>
+	 						<NavigationButton targetId={item.href} className="group">
+								<SlideUpText slideUpSpeed={300} className="">
+									{item.name}
+								</SlideUpText>
+							</NavigationButton>
 	 					</li>
 	 				))
 	 			}

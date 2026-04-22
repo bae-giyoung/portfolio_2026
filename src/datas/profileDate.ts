@@ -6,7 +6,7 @@ import profile03 from "@/assets/profile_03.webp";
 export const profileSlides: CarouselSlide[] = [
     { src: profile01, alt: "프로필 사진 1", title: "FrontEnd Developer" },
     { src: profile02, alt: "프로필 사진 2", title: "Coffee Addict" },
-    { src: profile03, alt: "프로필 사진 3", title: "Healing Mode" },
+    { src: profile03, alt: "프로필 사진 3", title: "Pressure-Proof" },
 ];
 
 export const skillSet = [
@@ -23,7 +23,7 @@ export const skillSet = [
 export const relevantExperience = [
     { title: "주식회사 아리모아 웹 퍼블리셔 실무", period: "2023.11. - 2025.04." },
     { title: "부산대학교 주관 『AI 데이터 분석 풀스택 웹 개발자 양성과정』 수료", period: "2025.05. - 2025.11." },
-    { title: "풀스택 역량 개발 중", period: "2026.02. - 현재" }
+    { title: "풀스택 프로젝트 고도화 및 리팩토링", period: "2026.02. - 현재" }
 ];
 
 export const allExperience = [

@@ -1,11 +1,11 @@
-'use client';
-import { useLenis } from 'lenis/react';
-import { useCallback } from 'react';
-import type { MouseEvent } from 'react';
+"use client";
+import { useLenis } from "lenis/react";
+import { useCallback } from "react";
+import type { MouseEvent } from "react";
 
 export default function NaviButton({
-    targetId = '',
-    className = '',
+    targetId = "",
+    className = "",
     children,
 }: {
     targetId?: string;
@@ -16,12 +16,12 @@ export default function NaviButton({
 
     const handleScrollToSection = useCallback((e: MouseEvent<HTMLButtonElement>, id: string) => {
         e.preventDefault();
-        const cleanId = id.startsWith('#') ? id : `#${id}`;
+        const cleanId = id.startsWith("#") ? id : `#${id}`;
         const el = document.querySelector(cleanId) as HTMLElement | null;
         if (lenis && el) {
-            lenis.scrollTo(el, { offset: 0, immediate: false });
+            lenis.scrollTo(el, { offset: -50, immediate: false });
         } else if (el) {
-            el.scrollIntoView({ behavior: 'smooth' });
+            el.scrollIntoView({ behavior: "smooth" });
         }
     }, [lenis]);
 

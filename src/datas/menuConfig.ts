@@ -4,7 +4,7 @@ export type LinkType = {
 }
 
 export const menuList : LinkType[] = [
-    {name: "프로필", href: "#profile"},
+    {name: "프로필", href: "#profile-contents"},
     {name: "프로젝트", href: "#projects"},
     {name: "작업", href: "#works"}
 ]

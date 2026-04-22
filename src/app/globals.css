@@ -41,10 +41,12 @@ html.dark {
 
 
   /* 반응형 미디어 쿼리 (Breakpoint) */
-  /* 사용: 3xl:text-center, tablet:flex */
-  --breakpoint-tablet: 1300px;
-  --breakpoint-3xl: 1920px;
   --breakpoint-sm: 500px;
+  /* md: 768px (기본값 유지) */
+  /* lg: 1024px (기본값 유지) */
+  /* xl: 1280px (tablet과 충돌) */
+  /* 2xl: 1536px */
+  --breakpoint-3xl: 1920px;
 
   /* 그림자 (Shadow) */
   /* 사용: shadow-neon */
@@ -57,13 +59,7 @@ html.dark {
   --ease-expo: cubic-bezier(0.95, 0.05, 0.795, 0.035);
 
   /* Background Image */
-  /* 사용: bg-fade-gradient */
-  --background-image-fade-gradient: linear-gradient(
-    to bottom, 
-    var(--color-app-bg) 10%, 
-    color-mix(in srgb, var(--color-app-bg) 60%, transparent) 50%,
-    color-mix(in srgb, var(--color-app-bg) 0%, transparent) 100%
-  );
+  /* 사용: bg-grain-gradient */
   --background-image-grain-gradient: linear-gradient(
     135deg,
     oklch(0.83 0.08 55) 0%,

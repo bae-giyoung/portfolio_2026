@@ -2,18 +2,15 @@
 
 import Image from "next/image";
 import MulAlim from "@/assets/project_mulalim.webp";
-import SectionTitle from "../ui/SectionTitle";
-import SectionMeta from "../ui/SectionMeta";
+import SectionLayout from "../ui/section/SectionLayout";
 
 export default function WorkSection() {
     return (
-        <section id="works" className="relative w-full flex flex-col gap-10 sm:gap-20 mt-20 pt-8 pb-20 border-t border-app-fg font-inst">
-            {/* 섹션 메타 */}
-            <SectionMeta number="04" category="works" label="2023-2025" />
-
-            {/* 섹션 타이틀 */}
-            <SectionTitle className="text-9xl font-bold text-app-fg overflow-hidden">Works</SectionTitle>
-
+        <SectionLayout
+            sectionId="works"
+            sectionMeta={{ number: "04", category: "works", label: "2023-2025" }}
+            sectionTitle="Works"
+        >
             {/* 대표 작업 2개 */}
             <div className="w-full flex justify-between">
                 <div className="w-[50%] pt-20">
@@ -44,6 +41,6 @@ export default function WorkSection() {
                 갤러리 컴포넌트 구상하기!
                 작업 사이트 링크(경복대학교, 울산과학대학교, 대동대학교, 벡스코, 부산여성가족부 평생교육진흥원, 경인교육대학교, UbiDecision 등등 전부)
             </div>
-        </section>
+        </SectionLayout>
     );
 }

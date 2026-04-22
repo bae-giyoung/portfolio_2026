@@ -97,7 +97,7 @@ export default function CarouselSlider({
                         data-active={i === activeIndex || undefined}
                         aria-hidden={i !== activeIndex}
                         className={[
-                            "absolute inset-0 transition-opacity duration-700",
+                            "absolute inset-0 transition-opacity duration-800",
                             i === activeIndex ? "opacity-100 is-active" : "opacity-0",
                         ].join(" ")}
                     >
@@ -113,17 +113,17 @@ export default function CarouselSlider({
             </div>
 
             {/* 카드 하단: 제목 + 네비게이션  */}
-            <div className="flex justify-between items-center mt-6">
+            <div className="flex justify-between items-center mt-2 lg:mt-6">
                 {/* 제목 */}
                 <div className="relative overflow-y-hidden">
                     {/* 입장 제목: 아래에서 위로 fadeIn */}
                     <p
                         key={`enter-${activeIndex}`}
-                        className="font-extrabold text-xl whitespace-nowrap"
+                        className="font-extrabold text-xl lg:text-2xl whitespace-nowrap"
                         style={{
                             animation: isReducedMotion
                                 ? undefined
-                                : "carousel-title-in 0.4s cubic-bezier(0.0, 0.0, 0.2, 1) 0.1s both",
+                                : "carousel-title-in 0.6s cubic-bezier(0.0, 0.0, 0.2, 1) 0.1s both",
                         }}
                     >
                         {slides[activeIndex].title}

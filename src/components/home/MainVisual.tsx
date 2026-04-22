@@ -2,7 +2,7 @@
 import Image from "next/image";
 import NameModalButton from "../ui/NameModalButton";
 import profileImg from "@/assets/profile_00.webp";
-import TypingText from "../ui/TypingText";
+import TypingText from "../ui/text/TypingText";
 import LiveDualClock from "../ui/LiveDualClock";
 
 export default function MainVisual({

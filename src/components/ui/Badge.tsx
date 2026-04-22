@@ -7,7 +7,7 @@ export default function Badge ({
 }: BadgeProps
 ) {
     return (
-        <span className="inline-block px-4 py-2.5 border border-current/40 rounded-4xl leading-none font-bold">
+        <span className="inline-block px-2 md:px-4 py-1.5 md:py-2.5 border border-current/40 rounded-4xl leading-none font-bold">
             {text}
         </span>
     );
