@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Noto_Sans_KR, Urbanist, Instrument_Sans, Space_Grotesk, Instrument_Serif, Hurricane } from "next/font/google";
 import "./globals.css";
 import Modal from "@/components/ui/Modal";
+import Toast from "@/components/ui/Toast";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import SmoothScrollProvider from "@/components/providers/SmoothScrollProvider";
 import PointerClickCursor from "@/components/effects/PointerClickCursor";
@@ -66,7 +67,7 @@ export const metadata: Metadata = {
   authors: [{ name: "배기영" }],
   creator: "배기영",
   icons: {
-    icon: "/favicon.ico",
+    icon: "src/app/favicon.ico",
   },
 
   openGraph: {
@@ -106,6 +107,8 @@ export default function RootLayout({
           <Modal />
         </ThemeProvider>
         <div id="modal-root"></div>
+        <div id="toast-root"></div>
+        <Toast />
       </body>
     </html>
   );

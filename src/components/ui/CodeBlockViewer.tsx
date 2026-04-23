@@ -5,6 +5,7 @@ import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus, oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { useTheme } from "../providers/ThemeProvider";
+import { useToast } from "@/hooks/useToast";
 
 interface CodeBlockProps {
     rawCode: string;
@@ -29,6 +30,8 @@ function SyntaxHighlighterWithCopy({
     const [isCopied, setIsCopied] = useState(false);
 
     const syntaxStyle = theme === "dark" ? vscDarkPlus : oneLight;
+
+    const toast = useToast();
 
     const handleCopy = async () => {
         // 성공 시 실행할 공통 로직
@@ -86,7 +89,7 @@ function SyntaxHighlighterWithCopy({
             }
         } catch (error) {
             console.error("구형 clipboard API Fallback 복사 중 에러 발생: ", error);
-            alert("이 브라우저에서는 복사 기능을 지원하지 않습니다."); // 나중에 toast로 바꾸기
+            toast.error("이 브라우저에서는 복사 기능을 지원하지 않습니다.");
         }
     }
 
@@ -98,7 +101,7 @@ function SyntaxHighlighterWithCopy({
                 className={`
                     absolute top-3 right-3 px-2 py-1 bg-app-fg hover:bg-app-bg text-app-bg hover:text-app-fg 
                     border border-app-bg hover:border-app-fg text-xs rounded-md opacity-50 group-hover:opacity-100 
-                    transitoin-opacity duration-200 cursuor-pointer z-10
+                    transition-opacity duration-200 cursor-pointer z-10
                 `}
             >
                 {isCopied ? "Copied!" : "Copy"}
