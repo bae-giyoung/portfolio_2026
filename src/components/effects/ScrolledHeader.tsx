@@ -7,7 +7,7 @@ export default function ScrolledHeader() {
     const handleScroll = (header: HTMLElement | null) => {
         const scrollY = typeof window !== "undefined" ? window.scrollY : 0;
         if (header) {
-            header.classList.toggle("scrolled", scrollY > 120);
+            header.classList.toggle("scrolled", scrollY > 200);
         }
     };
 

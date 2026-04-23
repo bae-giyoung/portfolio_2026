@@ -17,19 +17,21 @@ export default function ProfileSection() {
             <h2 className="sr-only">Profile</h2>
             
             {/* 프로필 컨텐츠 */}
-            <div id="profile-contents" className="w-full flex flex-col lg:flex-row-reverse gap-15 lg:gap-0 justify-between items-center lg:items-center pt-32 -mt-18">
+            <div id="profile-contents" className="w-full flex flex-col lg:flex-row-reverse gap-8 lg:gap-0 justify-between items-center lg:items-center pt-32 -mt-18">
                 {/* 프로필 슬라이더 */}
-                <div className="w-[min(100%,20rem)] lg:w-105 2xl:w-120 mt-0 lg:mt-4 shrink-0">
-                    <CarouselSlider slides={profileSlides} interval={4000} />
+                <div className="w-[min(100%,20rem)] xl:w-120 mt-0 lg:mt-4 shrink-0">
+                    <CarouselSlider slides={profileSlides} interval={8000} />
                 </div>
 
                 {/* 프로필 정보 */}
-                <div className="w-full lg:w-[calc(100%-32rem)] 2xl:w-[calc(100%-38rem)] flex flex-col gap-5 xl:gap-10 mt-5">
+                <div className="w-full lg:w-[calc(100%-24rem)] xl:w-[calc(100%-34rem)] flex flex-col gap-5 xl:gap-10 mt-5 lg:mt-0">
                     {/* About */}
                     <RevealingText>
                         <span className="block text-9xl font-bold font-space text-app-primary">*</span>
-                        <p className="text-[28px] sm:text-[34px] lg:text-[36px] 2xl:text-[50px] font-bold text-app-fg leading-[1.2] overflow-hidden mb-8 2xl:mb-12">
-                            안녕하세요. 문제 해결과 성장을 즐기는 프론트엔드 개발자 배기영입니다.
+                        <p className="text-[28px] sm:text-[34px] lg:text-[36px] 2xl:text-[50px] max-w-172 font-bold text-app-fg leading-[1.2] overflow-hidden mb-8 2xl:mb-12">
+                            안녕하세요.
+                            <br className="hidden 2xl:block" />문제 해결과 성장을 즐기는 
+                            <br className="hidden 2xl:block" /> 프론트엔드 개발자 배기영입니다.
                         </p>
                     </RevealingText>
                     <p className="text-[15px] lg:text-[17px] xl:text-lg 2xl:text-xl leading-relaxed">

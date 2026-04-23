@@ -119,7 +119,7 @@ export default function CarouselSlider({
                     {/* 입장 제목: 아래에서 위로 fadeIn */}
                     <p
                         key={`enter-${activeIndex}`}
-                        className="font-extrabold text-xl lg:text-2xl whitespace-nowrap"
+                        className="font-extrabold text-xl xl:text-2xl whitespace-nowrap"
                         style={{
                             animation: isReducedMotion
                                 ? undefined

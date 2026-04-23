@@ -12,7 +12,7 @@ export default function Nav ({
 
 	 return (
 	 	<nav className="hidden lg:block">
-	 		<ul className="flex items-center justify-center gap-10 text-xl">
+	 		<ul className="flex items-center justify-center gap-10">
 	 			{
 	 				menuList.map((item, i) => (
 	 					<li key={item.name + i}>

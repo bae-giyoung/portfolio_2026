@@ -1,7 +1,7 @@
 'use client';
 
 import Image from "next/image";
-import MulAlim from "@/assets/project_mulalim.webp";
+import MulAlim from "@/assets/project-mulalim.webp";
 import SectionLayout from "../ui/section/SectionLayout";
 import ImageBox from "../ui/ImageBox";
 

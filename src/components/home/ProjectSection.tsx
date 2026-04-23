@@ -1,11 +1,13 @@
 'use client';
 
 import Image from "next/image";
-import MulAlim from "@/assets/project_mulalim.webp";
+import MulAlim from "@/assets/project-mulalim.webp";
 import SectionLayout from "../ui/section/SectionLayout";
 import ImageBox from "../ui/ImageBox";
+import { useToast } from "@/hooks/useToast";
 
 export default function ProjectSection() {
+    const toast = useToast();
     return (
         <SectionLayout
             sectionId="projects"
@@ -16,7 +18,7 @@ export default function ProjectSection() {
             {/* 물알림단 프로젝트 */}
             <div className="w-full flex justify-between">
                 <div className="w-[50%] pt-10">
-                    <ImageBox src={MulAlim} alt="물알림단 프로젝트" className="rounded-xl" />
+                    <ImageBox src={MulAlim} alt="물알림단 프로젝트" asLink={{ type: "external", alt: "물알림단 프로젝트 시연 동영상", src: "https://www.awesomescreenshot.com/video/46379582?key=841a26872d250d5c3c5fcddca08a67d5" }} className="rounded-xl" />
                     <p className="flex justify-between mt-4">
                         <span>MulAlim</span>
                         <span>2025.09 - 2025.11</span>
@@ -36,7 +38,7 @@ export default function ProjectSection() {
             {/* 물알림단 v.2.0. */}
             <div className="w-full flex justify-between">
                 <div className="w-[50%] pt-10">
-                    <ImageBox src={MulAlim} alt="물알림단 v2.0 프로젝트" className="rounded-xl" />
+                    <ImageBox src={MulAlim} alt="물알림단 v2.0 프로젝트" asButton={{type: "button", onClick: () => {toast.info("배포 준비중입니다.")}, alt: "물알림단 v2.0 프로젝트 사이트"}} className="rounded-xl" />
                     <p className="flex justify-between mt-4">
                         <span>MulAlim v2.0</span>
                         <span>2026.03 - 진행중</span>
@@ -72,7 +74,7 @@ export default function ProjectSection() {
             {/* 미니 노션 프로젝트 */}
             <div className="w-full flex justify-between">
                 <div className="w-[50%] pt-10">
-                    <ImageBox src={MulAlim} alt="미니 노션 프로젝트" className="rounded-xl" />
+                    <ImageBox src={MulAlim} alt="미니 노션 프로젝트" asButton={{type: "button", onClick: () => {toast.info("배포 준비중입니다.")}, alt: "미니 노션 프로젝트 사이트"}} className="rounded-xl" />
                     <p className="flex justify-between mt-4">
                         <span>Mini Notion</span>
                         <span>2026.04 - 진행중</span>
