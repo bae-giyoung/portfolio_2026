@@ -21,7 +21,7 @@ export const skillSet = [
 ];
 
 export const relevantExperience = [
-    { title: "주식회사 아리모아 웹 퍼블리셔 실무", period: "2023.11. - 2025.04." },
+    { title: "주식회사 아리모아 웹 퍼블리셔", period: "2023.11. - 2025.04." },
     { title: "부산대학교 주관 『AI 데이터 분석 풀스택 웹 개발자 양성과정』 수료", period: "2025.05. - 2025.11." },
     { title: "풀스택 프로젝트 고도화 및 리팩토링", period: "2026.02. - 현재" }
 ];

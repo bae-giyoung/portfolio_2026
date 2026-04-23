@@ -26,8 +26,8 @@ export default function ExperienceList({
 
                     return (
                         <li key={i} className="flex flex-col lg:flex-row items-start 2xl:gap-10 mb-3 lg:mb-4 xl:mb-6">
-                            {period && <span className="block w-auto lg:w-40 text-[14px] md:text-[16px] 2xl:text-lg text-current/80 shrink-0">{period}</span>}
-                            <span className="block font-bold text-[16px] 2xl:text-lg">
+                            {period && <span className="block w-auto lg:w-40 text-[14px] md:text-[16px] 2xl:text-lg text-current/70 shrink-0">{period}</span>}
+                            <span className="block font-bold text-[16px] 2xl:text-lg text-current/90">
                                 {title}
                             </span>
                         </li>

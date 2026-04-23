@@ -34,14 +34,14 @@ export default function ProfileSection() {
                             <br className="hidden 2xl:block" /> 프론트엔드 개발자 배기영입니다.
                         </p>
                     </RevealingText>
-                    <p className="text-[15px] lg:text-[17px] xl:text-lg 2xl:text-xl leading-relaxed">
+                    <p className="text-[15px] lg:text-[17px] xl:text-lg 2xl:text-xl leading-relaxed text-current/80">
                         새로운 기술을 배우고, 협업을 통해 더 나은 사용자 경험을 만드는 데 가치를 두고 있습니다.
                         <br />
                         제 포트폴리오를 통해 저의 경험과 역량을 확인해보시고, 함께 멋진 프로젝트를 만들어 나가길 기대합니다!
                     </p>
 
                     {/* Skills */}
-                    <p className="flex gap-2 flex-wrap mb-10">
+                    <p className="flex gap-2 flex-wrap mb-10 text-current/90">
                         {skillSet.map((skill, index) => (
                             <Badge key={index} text={skill} />
                         ))}

@@ -28,10 +28,7 @@ export default function SideNav ({
         <aside className="side-nav lg:hidden fixed top-0 right-0 z-20 w-[min(450px,100vw)] h-screen bg-app-fg text-app-bg tracking-wider">
             <div className="curved-div-wrapper absolute top-0 left-px h-full -translate-x-full pointer-events-none">
                 <div className="side-nav-curved curved-div-box relative top-0 h-full overflow-hidden">
-                    <div
-                        style={{ content: '""' }} 
-                        className="curved-div block w-[775%] h-[150%] absolute top-1/2 left-1/2 -translate-x-[6.5%] -translate-y-1/2 rounded-[50%] bg-app-fg" 
-                    />
+                    <div className="curved-div block w-[775%] h-[150%] absolute top-1/2 left-1/2 -translate-x-[6.5%] -translate-y-1/2 rounded-[50%] bg-app-fg" />
                 </div>
             </div>
 
