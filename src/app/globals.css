@@ -44,8 +44,8 @@ html.dark {
   --breakpoint-sm: 500px;
   /* md: 768px (기본값 유지) */
   /* lg: 1024px (기본값 유지) */
-  /* xl: 1280px (tablet과 충돌) */
-  /* 2xl: 1536px */
+  /* xl: 1280px (기본값 유지) */
+  /* 2xl: 1536px (기본값 유지) */
   --breakpoint-3xl: 1920px;
 
   /* 그림자 (Shadow) */
@@ -103,6 +103,15 @@ html.is-loading body {
   overflow: hidden !important;
 }
 
+/* == 반응형: 1920px 이상 */
+@media (min-width: 1920px) {
+  #doc-wrap {
+    max-width: 1920px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 /* == 커서 커스텀 */
 body,
 body * {
@@ -136,6 +145,16 @@ body button.clicked *,
 html.is-loading,
 html.is-loading * {
   cursor: url('/cursors/cursor-loading.png') 0 0,wait !important;
+}
+
+html body .cursor-grab,
+html body .cursor-grab * {
+  cursor: url('/cursors/cursor-grab.png') 5 0, grab !important;
+}
+
+html body .cursor-grab.grabbed,
+html body .cursor-grab.grabbed * {
+  cursor: url('/cursors/cursor-grabbed.png') 9 0, grab !important;
 }
 
 /* == Curious 플로팅 박스 애니메이션 */

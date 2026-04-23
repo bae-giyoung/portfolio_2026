@@ -1,14 +1,17 @@
 'use client';
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { AnimatePresence, motion } from "framer-motion";
 import { createPortal } from "react-dom";
 import { closeModalAtom, modalStateAtom } from "@/atoms/atoms";
 
 export default function Modal() {
+    const [mounted, setMounted] = useState(false);
     const modalState = useAtomValue(modalStateAtom);
     const closeModal = useSetAtom(closeModalAtom);
+    
+    useEffect(() => setMounted(true), []);
 
     useEffect(() => {
         if (!modalState.isOpen) return;
@@ -18,19 +21,19 @@ export default function Modal() {
                 closeModal();
             }
         };
-
+        
         const originalOverflow = document.body.style.overflow;
         document.body.style.overflow = "hidden";
         window.addEventListener("keydown", handleKeyDown);
-
+        
         return () => {
             document.body.style.overflow = originalOverflow;
             window.removeEventListener("keydown", handleKeyDown);
         };
     }, [closeModal, modalState.isOpen]);
-
-    if (typeof document === "undefined") return null;
-
+    
+    // SSR 방지 및 클라이언트에서만 렌더링
+    if (!mounted) return null;
     const modalRoot = document.getElementById("modal-root");
     if (!modalRoot) return null;
 

@@ -1,7 +1,7 @@
 import { type CarouselSlide } from "@/components/ui/CarouselSlider";
-import profile01 from "@/assets/profile_01.webp";
-import profile02 from "@/assets/profile_02.webp";
-import profile03 from "@/assets/profile_03.webp";
+import profile01 from "@/assets/character-1.webp";
+import profile02 from "@/assets/profile-02.webp";
+import profile03 from "@/assets/profile-03.webp";
 
 export const profileSlides: CarouselSlide[] = [
     { src: profile01, alt: "프로필 사진 1", title: "FrontEnd Developer" },
