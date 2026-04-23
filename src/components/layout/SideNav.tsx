@@ -7,6 +7,11 @@ import { useBreakpointClassCleanup } from "@/hooks/useBreakpointClassCleanup";
 import { closeMenu, TABLET_BREAKPOINT } from "@/constants/layout";
 import SlideUpText from "../ui/text/SlideUpText";
 
+const homeConfig = {
+    name: "홈",
+    href: "#main"
+}
+
 export default function SideNav ({
     menuList,
     linkList
@@ -17,18 +22,23 @@ export default function SideNav ({
     // breakpoint 이상에서 모바일 메뉴 강제 닫기
     useBreakpointClassCleanup(TABLET_BREAKPOINT);
 
-    // 사이드 네비게이션 애니메이션 (오른쪽에서 슬라이드 인/아웃) -> gsap로 구현할지, 아니면 css transition으로 간단히 구현할지 고민 중.
-    // gsap로 구현할 경우, 메뉴 버튼(Header.tsx > MenuButton.tsx) 클릭 시 asideRef를 통해 애니메이션을 트리거하는 방식.
-    // gsap로 구현할 경우, CurtainIntro 처럼 curved animation 구현 예정.
-
     if(!menuList) return null;
 
     return (
-        <aside className="lg:hidden fixed in-[.menu-open]:translate-x-0 translate-x-full top-0 right-0 z-20 w-[min(450px,100vw)] h-screen tracking-wider transition-all duration-500 overflow-hidden">
-            <div className="w-full h-full flex flex-col justify-between ml-5 px-10 pt-25 sm:pt-30 pb-10 bg-app-bg text-app-fg rounded-l-4xl border border-app-fg">
+        <aside className="side-nav lg:hidden fixed top-0 right-0 z-20 w-[min(450px,100vw)] h-screen bg-app-fg text-app-bg tracking-wider">
+            <div className="curved-div-wrapper absolute top-0 left-px h-full -translate-x-full pointer-events-none">
+                <div className="side-nav-curved curved-div-box relative top-0 h-full overflow-hidden">
+                    <div
+                        style={{ content: '""' }} 
+                        className="curved-div block w-[775%] h-[150%] absolute top-1/2 left-1/2 -translate-x-[6.5%] -translate-y-1/2 rounded-[50%] bg-app-fg" 
+                    />
+                </div>
+            </div>
+
+            <div className="side-nav-inner w-full h-full flex flex-col justify-between pl-15 pt-25 sm:pt-30 pb-10 overflow-hidden">
                 <ul className="flex flex-col items-start gap-10 text-3xl font-bold">
                     {
-                        menuList.map((item, i) => (
+                        [homeConfig, ...menuList].map((item, i) => (
                             <li key={item.name + i} className="relative" onClick={closeMenu}>
                                 <NaviButton targetId={item.href} className="group">
                                     <SlideUpText slideUpSpeed={300}>

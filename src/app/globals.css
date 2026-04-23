@@ -10,6 +10,9 @@
   --radius: 0.625rem;
   --primary: #189e48;
   
+  /* SideNav */
+  --sidenav-curve-peak: 8vw;
+
   /* 메뉴버튼 */
   --menu-line-width: 2.5rem;
   --menu-line-height: 2px;
@@ -57,6 +60,7 @@ html.dark {
   --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-expo: cubic-bezier(0.95, 0.05, 0.795, 0.035);
+  --ease-curve: cubic-bezier(.715, 0.055, .225, 1);
 
   /* Background Image */
   /* 사용: bg-grain-gradient */
@@ -257,4 +261,59 @@ html:not(.is-loading) .animate-curious-float {
 .dark #header-wrap.scrolled {
   background-color: #000000cc;
   border-bottom: 1px solid #ffffff55;
+}
+
+/* == SideNav 애니메이션 */
+.side-nav {
+  transform: translateX(calc(100% + var(--sidenav-curve-peak)));
+  transition: transform 0.8s cubic-bezier(.715, 0.055, .225, 1);
+}
+
+.side-nav-curved {
+  width: var(--sidenav-curve-peak);
+  will-change: width;
+  transition: width .85s cubic-bezier(.715, 0.055, .225, 1);
+}
+
+html.menu-open .side-nav {
+  transform: translateX(0);
+}
+
+html.menu-open .side-nav-curved {
+  width: 0;
+}
+
+.side-nav-inner {
+  transform: translateX(10%);
+  transition: transform .8s cubic-bezier(.715, 0.055, .225, 1);
+}
+
+html.menu-open .side-nav-inner {
+  transform: translateX(0);
+}
+
+.side-nav-inner li {
+  transform: translateX(80%);
+  transition: transform .8s cubic-bezier(.715, 0.055, .225, 1);
+}
+
+.side-nav-inner li:nth-child(1) {
+  transition-delay: 0.03s;
+}
+
+.side-nav-inner li:nth-child(2) {
+  transition-delay: 0.06s;
+}
+
+.side-nav-inner li:nth-child(3) {
+  transition-delay: 0.09s;
+}
+
+
+.side-nav-inner li:nth-child(4) {
+  transition-delay: 0.12s;
+}
+
+html.menu-open .side-nav-inner li {
+  transform: translateX(0);
 }
