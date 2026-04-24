@@ -16,24 +16,24 @@ const TOAST_CONFIG: Record<
     success: {
         icon: "✓",
         bar: "bg-emerald-500",
-        bg: "bg-transparent dark:bg-transparent",
+        bg: "bg-app-bg/70 dark:bg-app-bg/70",
         border: "border-emerald-400/60 dark:border-emerald-500/40",
     },
     error: {
         icon: "✕",
         bar: "bg-red-500",
-        bg: "bg-transparent dark:bg-transparent",
+        bg: "bg-app-bg/70 dark:bg-app-bg/70",
         border: "border-red-400/60 dark:border-red-500/40",
     },
     warning: {
         icon: "!",
         bar: "bg-amber-400",
-        bg: "bg-transparent dark:bg-transparent",
+        bg: "bg-app-bg/70 dark:bg-app-bg/70",
         border: "border-amber-400/60 dark:border-amber-500/40",
     },
     info: {
         bar: "bg-transparent",
-        bg: "bg-transparent dark:bg-transparent",
+        bg: "bg-app-bg/70 dark:bg-app-bg/70",
         border: "border-app-primary/60 dark:border-app-primary/40",
     },
 };
