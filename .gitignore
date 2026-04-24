@@ -43,3 +43,5 @@ next-env.d.ts
 # others
 src/assets/originals/*
 src/components/experiment/*
+00_*.ts
+00_*.tsx
