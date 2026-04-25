@@ -2,7 +2,7 @@
  *
  * [포트폴리오 프로젝트 데이터]
  *
- * 핵심 작성 기준 -> 더 고민해보기!!!!!
+ * 핵심 작성 기준
  * 1. 프로젝트가 무엇인지
  * 2. 내가 맡은 역할
  * 3. 어떤 문제를 해결했는지
@@ -51,7 +51,7 @@ export const projects: Project[] = [
         category: "AI Data Dashboard",
         period: "2025.09 - 2025.11",
         status: "Completed",
-        image: "/images/projects/groundwater-dashboard.jpg",
+        image: "/src/assets/project-mulalim.webp",
 
         summary:
             "Data/AI 경진대회 본선 진출작으로, 공공 지하수 관측 데이터와 AI 예측 결과를 시각화한 지하수위 예측 웹 대시보드입니다.",
@@ -129,7 +129,7 @@ export const projects: Project[] = [
         category: "Full-stack Refactoring",
         period: "2026.02 - 진행 중",
         status: "Refactoring",
-        image: "/images/projects/groundwater-refactoring.jpg",
+        image: "/src/assets/project-mulalim-refactoring.webp",
 
         summary:
             "Next.js에 집중되어 있던 데이터 수집·가공 책임을 Spring Boot와 MySQL 중심으로 이관한 구조 개선 프로젝트입니다.",
@@ -231,7 +231,7 @@ export const projectCards: ProjectCard[] = [
         id: 1,
         title: "물알림단",
         category: "AI Data Dashboard",
-        image: "/images/projects/groundwater-dashboard.jpg",
+        image: "/src/assets/project-mulalim.webp",
         summary:
             "Data/AI 경진대회 본선 진출작으로, 지하수 관측 데이터와 AI 예측 결과를 시각화한 대시보드",
         role: "Frontend / Team Lead / Data Visualization",
@@ -245,7 +245,7 @@ export const projectCards: ProjectCard[] = [
         id: 2,
         title: "물알림단 리팩토링",
         category: "Full-stack Refactoring",
-        image: "/images/projects/groundwater-refactoring.jpg",
+        image: "/src/assets/project-mulalim-refactoring.webp",
         summary:
             "Next.js BFF 중심 구조를 Spring Boot 데이터 허브 구조로 개선한 리팩토링 프로젝트",
         role: "Backend Refactoring / API Design",
@@ -303,7 +303,7 @@ export const projectDetails: ProjectDetail[] = [
         overview: {
         summary:
             "Data/AI 경진대회 본선 진출작으로, 지하수 관측 데이터와 AI 예측 결과를 시각화한 대시보드",
-        period: "2025.00 - 2025.00",
+        period: "2025.09 - 2025.11",
         team: "팀 프로젝트",
         role: "Frontend / Team Lead / Dashboard UI",
             status: "Completed",
@@ -377,7 +377,7 @@ export const projectDetails: ProjectDetail[] = [
         overview: {
             summary:
                 "Next.js BFF에 집중된 데이터 수집·가공 책임을 Spring Boot와 MySQL 중심으로 이관한 구조 개선 프로젝트",
-            period: "2026.00 - 진행 중",
+            period: "2026.02 - 진행 중",
             team: "개인 리팩토링 / 기존 팀 프로젝트 개선",
             role: "Backend Refactoring / API Design / Data Pipeline",
             status: "Refactoring",

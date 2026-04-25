@@ -12,7 +12,7 @@ export default function ToolTipText({
 				{text}
 			</span>
 
-			{/* Floating Box — mobile / non-hover: 항상 보임, 버튼 아래 */}
+			{/* Floating Box - mobile / non-hover: 항상 보임, 버튼 아래 */}
 			<div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 can-hover:md:hidden">
 				<div className="relative px-3 py-1 bg-app-fg text-app-bg text-xs font-noto rounded-lg shadow-lg whitespace-nowrap animate-curious-float">
 					{tooltipText}

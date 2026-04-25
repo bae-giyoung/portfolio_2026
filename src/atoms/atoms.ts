@@ -27,6 +27,9 @@ export const removeToastAtom = atom(
     }
 );
 
+//* == 인트로 Intro
+export const introPlayedAtom = atom<boolean>(false);
+
 //* == 모달 Modal
 // 타입 정의
 interface ModalState {

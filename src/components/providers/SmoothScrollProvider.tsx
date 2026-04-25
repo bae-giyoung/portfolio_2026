@@ -21,7 +21,11 @@ export default function SmoothScrollProvider({ children }: { children: ReactNode
   }, []);
 
   return (
-    <ReactLenis root options={{ lerp: 0.1, duration: 1.2 }}>
+    <ReactLenis root options={{ 
+      lerp: 0.1, 
+      duration: 1.2,
+      stopInertiaOnNavigate: true,
+    }}>
       <LenisScrollTriggerSync />
       {children}
     </ReactLenis>

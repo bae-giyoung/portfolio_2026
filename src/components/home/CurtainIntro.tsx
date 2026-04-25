@@ -1,8 +1,10 @@
 "use client";
 
 import { useRef, useCallback, useState } from "react";
+import { useSetAtom } from "jotai";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { introPlayedAtom } from "@/atoms/atoms";
 
 gsap.registerPlugin(useGSAP);
 
@@ -32,17 +34,16 @@ function setCurvePath(
 }
 
 export default function CurtainIntro({
-    headerRef,
     mainRef,
     headingRef,
     mainContentsRef,
 } : {
-    headerRef: React.RefObject<HTMLDivElement | null>;
     mainRef: React.RefObject<HTMLElement | null>;
     headingRef: React.RefObject<HTMLHeadingElement | null>;
     mainContentsRef: React.RefObject<HTMLDivElement | null>;
 }) {
     const [isAnimationComplete, setIsAnimationComplete] = useState(false);
+    const setIntroPlayed = useSetAtom(introPlayedAtom);
     const containerRef = useRef<HTMLDivElement>(null);
     const pathRef = useRef<SVGPathElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
@@ -69,12 +70,12 @@ export default function CurtainIntro({
                 // will-change 힌트 제거 (GPU 메모리 반환)
                 overlay.style.willChange = "auto";
                 // GSAP이 남긴 인라인 transform 제거 (fixed 포지셔닝 containing block 방지)
-                //if (headerRef.current) gsap.set(headerRef.current, { clearProps: "transform" });
                 if (mainRef.current) gsap.set(mainRef.current, { clearProps: "transform" });
                 //if (headingRef.current) gsap.set(headingRef.current, { clearProps: "transform" });
                 if (mainContentsRef.current) gsap.set(mainContentsRef.current, { clearProps: "transform" });
                 // 애니메이션 완료 상태로 업데이트하여 컴포넌트 언마운트 트리거
                 setIsAnimationComplete(true);
+                setIntroPlayed(true);
             }
         });
 
@@ -106,15 +107,6 @@ export default function CurtainIntro({
         );
 
         /* == Phase 3: 곡선 커튼 와이프 중간에 app 콘텐츠 애니메이션 시작 */
-        if (headerRef.current) {
-            tlRef.current.fromTo(
-                headerRef.current,
-                { opacity: 0 },
-                { opacity: 1, duration: 1.2, ease: "power2.out" },
-                "curtainWipe+=1.6"
-            );
-        }
-        
         if (mainRef.current) {
             tlRef.current.fromTo(
                 mainRef.current,
@@ -136,7 +128,7 @@ export default function CurtainIntro({
         if (mainContentsRef.current) {
             tlRef.current.fromTo(
                 mainContentsRef.current,
-                { xPercent: 10 },
+                { xPercent: 50 },
                 { xPercent: 0, duration: 1.2, ease: "power2.out" },
                 "curtainWipe+=1.4"
             );
@@ -144,7 +136,7 @@ export default function CurtainIntro({
 
         /* == Phase 4: 오버레이 안보이게 */
         tlRef.current.set(overlay, { visibility: "hidden" });
-    }, [headerRef, mainRef, headingRef, mainContentsRef]);
+    }, [mainRef, headingRef, mainContentsRef]);
 
     useGSAP(
         () => {
@@ -159,14 +151,14 @@ export default function CurtainIntro({
     if (isAnimationComplete) return null;
 
     return (
-        <div ref={containerRef} className="fixed w-full h-screen inset-0 z-50">
+        <div ref={containerRef} className="fixed w-full h-screen inset-0 z-[999]">
             {/* 곡선 커튼 오버레이 */}
             <div
                 ref={overlayRef}
                 className="relative w-full h-full"
                 style={{ willChange: "clip-path", clipPath: "url(#curtain-curve)" }}
             >
-                {/* SVG clipPath 정의 — objectBoundingBox로 0~1 비율, 리사이즈 안전 */}
+                {/* SVG clipPath 정의 - objectBoundingBox로 0~1 비율, 리사이즈 안전 */}
                 <svg
                     className="absolute"
                     width="0"

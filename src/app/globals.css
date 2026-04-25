@@ -9,6 +9,9 @@
   --foreground: oklch(0.145 0 0);
   --radius: 0.625rem;
   --primary: #189e48;
+
+  /* Header */
+  --header-height: 7.5rem;
   
   /* SideNav */
   --sidenav-curve-peak: 8vw;
@@ -20,6 +23,12 @@
   --menu-height: calc(var(--menu-line-height) * 3 + var(--menu-line-gap) * 2);
   --x-btn-width: calc((var(--menu-height) * 1.4142135));
   --menu-ani-timing: 0.3s ease-in-out;
+}
+
+@media all and (max-width: 1024px) {
+  :root {
+    --header-height: 5.625rem;
+  }
 }
 
 html.dark {

@@ -1,8 +1,8 @@
-
-
 "use client";
 
 import { useRef } from "react";
+import { useAtomValue } from "jotai";
+import { introPlayedAtom } from "@/atoms/atoms";
 import CurtainIntro from "@/components/home/CurtainIntro";
 import Header from "@/components/layout/Header";
 import MainVisual from "@/components/home/MainVisual";
@@ -11,8 +11,8 @@ import ProfileSection from "@/components/home/ProfileSection";
 import WorkSection from "@/components/home/WorkSection";
 
 export default function Home() {
+	const introPlayed = useAtomValue(introPlayedAtom);
 
-	const headerRef = useRef<HTMLDivElement>(null);
 	const mainRef = useRef<HTMLElement>(null);
 	const headingRef = useRef<HTMLHeadingElement>(null);
 	const mainContentsRef = useRef<HTMLDivElement>(null);
@@ -20,7 +20,7 @@ export default function Home() {
 	return (
 		<>
 			{/* 헤더 */}
-			<Header headerRef={headerRef} />
+			<Header />
 			
 			<div id="doc-wrap" className="relative w-full h-full">
 				{/* 메인 비주얼 */}
@@ -43,7 +43,9 @@ export default function Home() {
 			<footer className="relative w-full h-80 bg-app-fg text-app-bg">footer</footer>
 
 			{/* 인트로 */}
-			<CurtainIntro headerRef={headerRef} mainRef={mainRef} headingRef={headingRef} mainContentsRef={mainContentsRef} />
+			{!introPlayed && (
+				<CurtainIntro mainRef={mainRef} headingRef={headingRef} mainContentsRef={mainContentsRef} />
+			)}
 		</>
 	);
 }
