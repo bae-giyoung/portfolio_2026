@@ -2,8 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { useLenis } from "lenis/react";
-
-const SCROLL_AFTER_NAV_KEY = "portfolioScrollAfterNav";
+import { SCROLL_AFTER_NAV_KEY } from "@/constants/layout";
 
 /**
  * 다른 페이지에서 홈('/')으로 이동 후 특정 섹션으로 Lenis scrollTo 처리하는 함수!

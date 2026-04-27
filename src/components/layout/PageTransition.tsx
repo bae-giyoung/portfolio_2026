@@ -1,7 +1,5 @@
 "use client";
 
-
-/** 일단은 임시로      */
 import {
     useEffect,
     useRef,
@@ -35,7 +33,7 @@ export function usePageTransition(): NavigateFn {
 
 /**
  * DOM 구조 참고자료: 
- * .pt-container (fixed)
+ * .pt-container (fixed, pointer-events-none)
  *   .pt-screen (position:relative, will-change:top)
  *     .pt-curve-top (absolute, bottom pill)
  *     .pt-curve-bottom (absolute, top pill)
@@ -75,6 +73,11 @@ export default function PageTransition({ children }: Props) {
                 if (!screenRef.current || !curveTopRef.current || !curveBotRef.current || !labelRef.current) {
                     resolve();
                     return;
+                }
+
+                // 커튼 컨테이너 pointer-events 활성화 (클릭 차단하기 위함)
+                if (containerRef.current) {
+                    containerRef.current.style.pointerEvents = "all";
                 }
 
                 if (labelRef.current) {
@@ -135,6 +138,9 @@ export default function PageTransition({ children }: Props) {
                     gsap.set(curveTopRef.current!, { height: "0vh" });
                     gsap.set(curveBotRef.current!, { height: "10vh" });
                     gsap.set(labelRef.current!, { opacity: 0, xPercent: -50, yPercent: -50 });
+                    if (containerRef.current) {
+                        containerRef.current.style.pointerEvents = "none";
+                    }
                     isAnimatingRef.current = false;
                     resolve();
                 },
@@ -193,9 +199,11 @@ export default function PageTransition({ children }: Props) {
 
             {/* 커튼 오버레이 */}
             <div
+                ref={containerRef}
                 aria-hidden="true"
                 role="presentation"
                 className="pt-container"
+                style={{ pointerEvents: "none" }}
             >
                 <div ref={screenRef} className="pt-screen">
                     {/* 상단 곡선 */}

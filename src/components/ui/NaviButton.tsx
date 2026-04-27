@@ -1,4 +1,6 @@
 "use client";
+import { usePathname } from "next/navigation";
+import useBackToHome from "@/hooks/useBackToHome";
 import { useLenis } from "lenis/react";
 import { useCallback } from "react";
 import type { MouseEvent } from "react";
@@ -12,6 +14,9 @@ export default function NaviButton({
     className?: string;
     children?: React.ReactNode;
 }) {
+    const pathname = usePathname();
+    const handleBackToHome = useBackToHome();
+
     const lenis = useLenis(); // lenis 훅을 사용하여 Lenis 인스턴스를 안전하게 가져옴(렌더링 시점에 따라 null일 수 있으므로)
 
     const handleScrollToSection = useCallback((e: MouseEvent<HTMLButtonElement>, id: string) => {
@@ -24,6 +29,15 @@ export default function NaviButton({
             el.scrollIntoView({ behavior: "smooth" });
         }
     }, [lenis]);
+
+    if(pathname !== "/") {
+        const cleanTargetId = targetId.startsWith("#") ? targetId.slice(1) : targetId;
+        return (
+            <button onClick={() => handleBackToHome(cleanTargetId)} className={`shrink-0 ${className}`}>
+                {children}
+            </button>
+        );
+    }
 
     return (
         <button onClick={(e) => handleScrollToSection(e, targetId)} className={`shrink-0 ${className}`}>

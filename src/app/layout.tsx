@@ -103,12 +103,12 @@ export default function RootLayout({
       <body>
         <ThemeProvider>
           <PointerClickCursor />
-          <Header />
-          <SmoothScrollProvider>
-              <PageTransition>
-                  {children}
-              </PageTransition>
-          </SmoothScrollProvider>
+          <PageTransition>
+            <Header />
+            <SmoothScrollProvider>
+                    {children}
+            </SmoothScrollProvider>
+          </PageTransition>
           <Modal />
         </ThemeProvider>
         <div id="modal-root"></div>
