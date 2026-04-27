@@ -10,13 +10,16 @@
  * 5. 결과적으로 무엇이 개선됐는지
  */
 
-export type ProjectStatus = "Completed" | "Refactoring" | "In Progress";
+export type ProjectStatus = "Completed" | "InProgress";
+
+export type ProjectRoleCategory = "Frontend" | "Backend" | "FullStack";
 
 export type Project = {
     id: number;
     title: string;
     subTitle: string;
     category: string;
+    roleCategory: ProjectRoleCategory;
     period: string;
     status: ProjectStatus;
     image: string;
@@ -49,6 +52,7 @@ export const projects: Project[] = [
         title: "물알림단",
         subTitle: "AI 기반 지하수위 예측 대시보드",
         category: "AI Data Dashboard",
+        roleCategory: "Frontend",
         period: "2025.09 - 2025.11",
         status: "Completed",
         image: "/src/assets/project-mulalim.webp",
@@ -60,7 +64,7 @@ export const projects: Project[] = [
             "Data/AI 경진대회 본선에 진출한 팀 프로젝트로, 기후변화 대응을 위한 수자원 관리 문제를 바탕으로 지하수 관측 데이터와 기상 데이터를 활용해 지하수위 변화를 예측하고 시각화했습니다. LSTM/Transformer 기반 예측 결과를 웹 대시보드에서 확인할 수 있도록 구성했으며, 사용자가 관측소별 수위 추이와 예측 데이터를 직관적으로 파악할 수 있는 UI를 구현했습니다.",
         
             team: "팀 프로젝트",
-        role: "Frontend / Team Lead / Dashboard UI & Data Visualization",
+        role: "프론트엔드 개발 및 팀 리드 / 대시보드 UI & 데이터 시각화",
 
         contribution: [
             "Next.js와 React 기반 대시보드 화면 구조 설계 및 구현",
@@ -97,7 +101,7 @@ export const projects: Project[] = [
             "Next.js",
             "React",
             "TypeScript",
-            "Zustand",
+            "Jotai",
             "Highcharts",
             "Tailwind CSS",
             "Spring Boot",
@@ -124,21 +128,22 @@ export const projects: Project[] = [
 
     {
         id: 2,
-        title: "물알림단 리팩토링",
+        title: "물알림단 풀스택 아키텍처 고도화",
         subTitle: "Spring Boot 중심 데이터 허브 및 API Gateway 구조 개선",
         category: "Full-stack Refactoring",
+        roleCategory: "Backend",
         period: "2026.02 - 진행 중",
-        status: "Refactoring",
+        status: "InProgress",
         image: "/src/assets/project-mulalim-refactoring.webp",
 
         summary:
             "Next.js에 집중되어 있던 데이터 수집·가공 책임을 Spring Boot와 MySQL 중심으로 이관한 구조 개선 프로젝트입니다.",
 
         description:
-            "기존 물알림단 프로젝트의 구조적 한계를 개선하기 위해 진행한 리팩토링 프로젝트입니다. 기존에는 Next.js BFF가 사용자 요청 시점마다 공공 Open API를 호출하고, 메모리에서 통계 데이터를 가공한 뒤 화면에 전달했습니다. 리팩토링에서는 Spring Boot를 데이터 허브로 두고, Open API 데이터 수집, DB 적재, 조회 정책, 집계 API를 백엔드 계층으로 이관했습니다. Next.js는 화면 렌더링과 사용자 경험에 집중하도록 역할을 축소하는 것을 목표로 했습니다.",
+            "기존 물알림단 프로젝트의 구조적 한계를 개선하기 위해 진행한 고도화 프로젝트입니다. 기존에는 Next.js BFF가 사용자 요청 시점마다 공공 Open API를 호출하고, 메모리에서 통계 데이터를 가공한 뒤 화면에 전달했습니다. 고도화 프로젝트에서는 Spring Boot를 데이터 허브로 두고, Open API 데이터 수집, DB 적재, 조회 정책, 집계 API를 백엔드 계층으로 이관했습니다. Next.js는 화면 렌더링과 사용자 경험에 집중하도록 역할을 축소하는 것을 목표로 했습니다.",
 
-        team: "개인 리팩토링 / 기존 팀 프로젝트 개선",
-        role: "Backend Refactoring / API Design / Data Pipeline Design",
+        team: "개인 작업 / 기존 팀 프로젝트 개선",
+        role: "백엔드 개선 / API 설계 / 데이터 파이프라인",
 
         contribution: [
             "Spring Boot 기반 지하수 관측 데이터 도메인 모델 재설계",
@@ -216,6 +221,7 @@ export type ProjectCard = {
     id: number;
     title: string;
     category: string;
+    roleCategory: ProjectRoleCategory;
     image: string;
     summary: string;
     role: string;
@@ -231,10 +237,11 @@ export const projectCards: ProjectCard[] = [
         id: 1,
         title: "물알림단",
         category: "AI Data Dashboard",
+        roleCategory: "Frontend",
         image: "/src/assets/project-mulalim.webp",
         summary:
             "Data/AI 경진대회 본선 진출작으로, 지하수 관측 데이터와 AI 예측 결과를 시각화한 대시보드",
-        role: "Frontend / Team Lead / Data Visualization",
+        role: "프론트엔드 개발 및 팀 리드 / 대시보드 UI & 데이터 시각화",
         tech: ["Next.js", "React", "TypeScript", "FastAPI", "PyTorch"],
         links: {
             github: "https://github.com/bae-giyoung/groundwater-nextjs",
@@ -243,12 +250,13 @@ export const projectCards: ProjectCard[] = [
     },
     {
         id: 2,
-        title: "물알림단 리팩토링",
+        title: "물알림단 풀스택 아키텍처 고도화",
         category: "Full-stack Refactoring",
+        roleCategory: "Backend",
         image: "/src/assets/project-mulalim-refactoring.webp",
         summary:
-            "Next.js BFF 중심 구조를 Spring Boot 데이터 허브 구조로 개선한 리팩토링 프로젝트",
-        role: "Backend Refactoring / API Design",
+            "Next.js BFF 중심 구조를 Spring Boot 데이터 허브 구조로 개선한 고도화 프로젝트",
+        role: "백엔드 개선 / API 설계 / 데이터 파이프라인",
         tech: ["Spring Boot", "Java", "MySQL", "JPA", "Next.js"],
         links: {
             github: "",
@@ -267,6 +275,7 @@ export type ProjectDetail = {
         period: string;
         team: string;
         role: string;
+        roleCategory: ProjectRoleCategory;
         status: ProjectStatus;
     };
     background: string;
@@ -305,7 +314,8 @@ export const projectDetails: ProjectDetail[] = [
             "Data/AI 경진대회 본선 진출작으로, 지하수 관측 데이터와 AI 예측 결과를 시각화한 대시보드",
         period: "2025.09 - 2025.11",
         team: "팀 프로젝트",
-        role: "Frontend / Team Lead / Dashboard UI",
+        role: "프론트엔드 개발 및 팀 리드 / 대시보드 UI & 데이터 시각화",
+        roleCategory: "Frontend",
             status: "Completed",
         },
 
@@ -357,7 +367,7 @@ export const projectDetails: ProjectDetail[] = [
         },
 
         techStack: {
-            frontend: ["Next.js", "React", "TypeScript", "Zustand", "Highcharts"],
+            frontend: ["Next.js", "React", "TypeScript", "Jotai", "Highcharts"],
             backend: ["Spring Boot"],
             dataAi: ["FastAPI", "PyTorch", "LSTM", "Transformer"],
             database: ["MySQL"],
@@ -373,21 +383,22 @@ export const projectDetails: ProjectDetail[] = [
 
     {
         id: 2,
-        title: "물알림단 리팩토링",
+        title: "물알림단 풀스택 아키텍처 고도화",
         overview: {
             summary:
                 "Next.js BFF에 집중된 데이터 수집·가공 책임을 Spring Boot와 MySQL 중심으로 이관한 구조 개선 프로젝트",
             period: "2026.02 - 진행 중",
-            team: "개인 리팩토링 / 기존 팀 프로젝트 개선",
-            role: "Backend Refactoring / API Design / Data Pipeline",
-            status: "Refactoring",
+            team: "개인 작업 / 기존 팀 프로젝트 개선",
+            role: "백엔드 개선 / API 설계 / 데이터 파이프라인",
+            roleCategory: "Backend",
+            status: "InProgress",
         },
 
         background:
             "초기 프로젝트에서는 Next.js BFF가 사용자 요청 시점마다 공공 Open API를 호출하고, 이동평균·전일 대비 증감·상태 계산 등 비즈니스 로직까지 처리했습니다. 이 구조는 API 호출 한도, 응답 지연, 데이터 일관성, 책임 분리 측면에서 운영상 한계가 있었습니다.",
 
         responsibilities: [
-            "Spring Boot 중심 데이터 파이프라인 리팩토링 방향 설계",
+            "Spring Boot 중심 데이터 파이프라인 고도화 방향 설계",
             "지하수 관측 데이터 DB 스키마 및 JPA Entity 설계",
             "레거시 데이터와 Open API 데이터의 저장/조회 정책 분리",
             "DAILY_MERGED + PREFER_API 조회 정책 구현",

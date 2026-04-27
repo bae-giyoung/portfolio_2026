@@ -57,7 +57,7 @@ export const frontendSkillItems: SkillItem[] = [
 
 export const frontendCaps = [
     "반응형·접근성 기반 UI 구현",
-    "상태 관리(Zustand 등) 및 비동기 데이터 처리",
+    "상태 관리(Jotai) 및 비동기 데이터 처리",
     "인터랙션 중심 UI/UX 설계 및 구현",
     "TypeScript 기반 데이터 구조 정의 및 컴포넌트 안정성 개선",
     "실행 컨텍스트·클로저 등 JavaScript 핵심 동작 원리 기반 코드 설계",

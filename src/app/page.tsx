@@ -4,11 +4,11 @@ import { useRef } from "react";
 import { useAtomValue } from "jotai";
 import { introPlayedAtom } from "@/atoms/atoms";
 import CurtainIntro from "@/components/home/CurtainIntro";
-import Header from "@/components/layout/Header";
 import MainVisual from "@/components/home/MainVisual";
 import ProjectSection from "@/components/home/ProjectSection";
 import ProfileSection from "@/components/home/ProfileSection";
 import WorkSection from "@/components/home/WorkSection";
+import { useScrollAfterNav } from "@/hooks/useScrollAfterNav";
 
 export default function Home() {
 	const introPlayed = useAtomValue(introPlayedAtom);
@@ -17,11 +17,11 @@ export default function Home() {
 	const headingRef = useRef<HTMLHeadingElement>(null);
 	const mainContentsRef = useRef<HTMLDivElement>(null);
 
+	// 서브 페이지(프로젝트 상세 등)에서 홈으로 돌아올 때 섹션 scrollTo 처리
+	useScrollAfterNav();
+
 	return (
-		<>
-			{/* 헤더 */}
-			<Header />
-			
+		<>	
 			<div id="doc-wrap" className="relative w-full h-full">
 				{/* 메인 비주얼 */}
 				<MainVisual mainRef={mainRef} headingRef={headingRef} mainContentsRef={mainContentsRef} />

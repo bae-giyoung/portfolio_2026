@@ -1,7 +1,7 @@
 'use client';
 
 import Image, { type StaticImageData } from "next/image";
-import Link from "next/link";
+import AppLink from "@/components/layout/AppLink";
 
 type ImageBoxProps = {
     src: StaticImageData | string;
@@ -10,8 +10,9 @@ type ImageBoxProps = {
     scaleAmount?: number;
     priority?: boolean;
     sizes?: string;
-    asLink?: {type: "external" | "internal", src: string, alt: string};
-    asButton?: { type: "button", onClick: () => void, alt: string };
+    asLink?: {src: string, alt: string};
+    asButton?: { onClick: () => void, alt: string };
+    children?: React.ReactNode;
 };
 
 export default function ImageBox({
@@ -23,9 +24,10 @@ export default function ImageBox({
     sizes = "100vw",
     asLink,
     asButton,
+    children,
 }: ImageBoxProps) {
 
-    const sharedClass = `group relative block w-full overflow-hidden aspect-video ${className}`;
+    const sharedClass = `group relative block w-full overflow-hidden aspect-4/3 ${className}`;
 
     const imageContent = (
         <Image
@@ -39,19 +41,12 @@ export default function ImageBox({
         />
     );
 
-    if (asLink?.type === "internal") {
+    if (asLink) {
         return (
-            <Link href={asLink.src} aria-label={asLink.alt || alt} className={sharedClass}>
+            <AppLink href={asLink.src} aria-label={asLink.alt || alt} className={sharedClass}>
                 {imageContent}
-            </Link>
-        );
-    }
-
-    if (asLink?.type === "external") {
-        return (
-            <a href={asLink.src} rel="noopener noreferrer" target="_blank" aria-label={asLink.alt || alt} className={sharedClass}>
-                {imageContent}
-            </a>
+                {children}
+            </AppLink>
         );
     }
 
@@ -59,6 +54,7 @@ export default function ImageBox({
         return (
             <button type="button" onClick={asButton.onClick} aria-label={asButton.alt || alt} className={sharedClass}>
                 {imageContent}
+                {children}
             </button>
         );
     }
@@ -66,6 +62,7 @@ export default function ImageBox({
     return (
         <div aria-label={alt} className={sharedClass}>
             {imageContent}
+            {children}
         </div>
     );
 }

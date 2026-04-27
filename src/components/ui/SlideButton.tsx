@@ -1,8 +1,8 @@
-import Link from "next/link";
-
+import AppLink from "@/components/layout/AppLink";
 interface SlideButtonBaseProps {
     children: React.ReactNode;
     className?: string;
+    revealText?: string;
 }
 
 interface SlideButtonAsButton extends SlideButtonBaseProps {
@@ -17,6 +17,7 @@ interface SlideButtonAsLink extends SlideButtonBaseProps {
     href: string;
     onClick?: never;
     type?: never;
+    alt?: string;
 }
 
 type SlideButtonProps = SlideButtonAsButton | SlideButtonAsLink;
@@ -26,8 +27,10 @@ const innerClassName = "relative inline-flex items-center justify-center overflo
 export default function SlideButton({
     children,
     className = "",
+    revealText = "",
     ...props
 }: SlideButtonProps) {
+
     const content = (
         <>
             {/* 슬라이드 배경 fill: 아래에서 위로 */}
@@ -48,19 +51,21 @@ export default function SlideButton({
                 aria-hidden="true"
                 className="absolute inset-0 flex items-center justify-center text-app-bg translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] select-none pointer-events-none"
             >
-                {children}
+                {revealText || children}
             </span>
         </>
     );
 
+    // 링크
     if (props.as === "link") {
         return (
-            <Link href={props.href} className={`${innerClassName} ${className}`}>
+            <AppLink href={props.href} className={`${innerClassName} ${className}`} aria-label={props.alt || undefined}>
                 {content}
-            </Link>
+            </AppLink>
         );
     }
 
+    // 버튼
     return (
         <button
             type={props.type ?? "button"}

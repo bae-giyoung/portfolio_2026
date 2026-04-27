@@ -33,7 +33,7 @@ export default function SkillTabs() {
                         type="button"
                         onClick={() => setActive(id)}
                         className={`
-                            relative px-0 py-2.5 text-sm font-medium transition-colors duration-200 cursor-pointer
+                            relative px-0 py-2.5 text-sm lg:text-xl font-medium transition-colors duration-200 cursor-pointer
                             ${active === id ? "text-app-fg" : "text-app-fg/60 hover:text-app-fg"}
                         `}
                     >
