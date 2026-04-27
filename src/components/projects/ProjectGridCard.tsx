@@ -3,7 +3,7 @@ import type { Project } from "@/datas/projectData";
 import ProjectTechList from "./ProjectTechList";
 import ImageBox from "../ui/ImageBox";
 import AppLink from "../layout/AppLink";
-import ProjectBadge from "./ProjectBadge";
+import ProjectBadge from "./ui/ProjectBadge";
 import Image from "next/image";
 import asterisk from "@/assets/icons/asterik.svg";
 

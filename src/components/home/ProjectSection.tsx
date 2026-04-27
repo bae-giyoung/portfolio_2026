@@ -3,7 +3,7 @@
 import { useAtom } from "jotai";
 import { projectViewModeAtom } from "@/atoms/atoms";
 import SectionLayout from "../ui/section/SectionLayout";
-import ProjectViewToggle from "@/components/projects/ProjectViewToggle";
+import ProjectViewToggle from "@/components/projects/ui/ProjectViewToggle";
 import ProjectDefaultView from "@/components/projects/ProjectDefaultView";
 import ProjectListView from "@/components/projects/ProjectListView";
 import ProjectGridView from "@/components/projects/ProjectGridView";

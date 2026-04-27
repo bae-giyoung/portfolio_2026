@@ -5,7 +5,7 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import type { Project } from "@/datas/projectData";
 import type { StaticImageData } from "next/image";
-import ProjectBadge from "./ProjectBadge";
+import ProjectBadge from "./ui/ProjectBadge";
 import AppLink from "../layout/AppLink";
 
 type Props = {

@@ -3,7 +3,7 @@ import type { Project } from "@/datas/projectData";
 import ImageBox from "@/components/ui/ImageBox";
 import ProjectTechList from "./ProjectTechList";
 import SlideButton from "../ui/SlideButton";
-import ProjectBadge from "./ProjectBadge";
+import ProjectBadge from "./ui/ProjectBadge";
 import { FaGithub } from "react-icons/fa";
 import { ExternalLink } from "lucide-react";
 import AppLink from "../layout/AppLink";
