@@ -125,9 +125,14 @@ html.dark .table-scroll::-webkit-scrollbar-thumb:hover {
 }
 
 body,
+html,
+#header-wrap {
+  min-width: 320px;
+}
+
+body,
 html {
   display: block;
-  min-width: 320px;
   margin: 0;
   padding: 0;
   overflow: hidden;
