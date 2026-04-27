@@ -14,8 +14,9 @@ export default function useBackToHome() {
     const setIntroPlayed = useSetAtom(introPlayedAtom);
 
     const goBackToHome = (sectionId: string) => {
+        const cleanSectionId = sectionId.startsWith("#") ? sectionId.slice(1) : sectionId;
         setIntroPlayed(true);
-        sessionStorage.setItem(SCROLL_AFTER_NAV_KEY, sectionId);
+        sessionStorage.setItem(SCROLL_AFTER_NAV_KEY, cleanSectionId);
         navigate("/");
     }
 

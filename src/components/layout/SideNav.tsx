@@ -37,7 +37,7 @@ export default function SideNav ({
                     {
                         [homeConfig, ...menuList].map((item, i) => (
                             <li key={item.name + i} className="relative" onClick={closeMenu}>
-                                <NaviButton targetId={item.href} className="group">
+                                <NaviButton href={item.href} className="group">
                                     <SlideUpText slideUpSpeed={300}>
                                         {item.name}
                                     </SlideUpText>
