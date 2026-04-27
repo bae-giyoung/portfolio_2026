@@ -1,11 +1,11 @@
 "use client";
 
 import Nav from "./Nav";
-import MenuButton from "../ui/MenuButton";
-import NavigButton from "../ui/NaviButton";
+import MenuButton from "./MenuButton";
+import NavigButton from "./NaviButton";
 import SideNav from "./SideNav";
 import { menuList, externalLinkList } from "@/datas/menuConfig";
-import ThemeToggleButton from "../ui/ThemeToggleButton";
+import ThemeToggleButton from "./ThemeToggleButton";
 import LinkList from "./LinkList";
 import ScrolledHeader from "../effects/ScrolledHeader";
 import { usePathname } from "next/navigation";

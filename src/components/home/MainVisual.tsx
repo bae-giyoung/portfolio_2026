@@ -1,6 +1,6 @@
 'use client';
 import LiveDualClock from "../ui/LiveDualClock";
-import ToolTipText from "../ui/ToolTipText";
+import ToolTipText from "../ui/text/ToolTipText";
 import MagneticWrapper from "../ui/MagneticWrapper";
 import Polaroid from "../ui/Polaroid";
 

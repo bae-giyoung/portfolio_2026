@@ -5,8 +5,7 @@ import { profileSlides, relevantExperience } from "@/datas/profileDate";
 import ExperienceList from "../ui/ExperienceList";
 import SectionLayout from "../ui/section/SectionLayout";
 import RevealingText from "../ui/text/RevealingText";
-import SlideButton from "../ui/SlideButton";
-import SkillTabs from "../ui/SkillTabs";
+import SkillTabs from "../profile/SkillTabs";
 
 export default function ProfileSection() {
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { toggleMenu } from "@/constants/layout";
-import SlideUpText from "./text/SlideUpText";
+import SlideUpText from "../ui/text/SlideUpText";
 
 export default function MenuButton({
 	className = ""

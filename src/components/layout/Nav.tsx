@@ -1,4 +1,4 @@
-import NavigationButton from "../ui/NaviButton";
+import NavigationButton from "./NaviButton";
 import { LinkType } from "@/datas/menuConfig";
 import SlideUpText from "../ui/text/SlideUpText";
 

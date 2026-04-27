@@ -1,6 +1,6 @@
 "use client";
 
-import NaviButton from "../ui/NaviButton";
+import NaviButton from "./NaviButton";
 import LinkList from "./LinkList";
 import { LinkType } from "@/datas/menuConfig";
 import { useBreakpointClassCleanup } from "@/hooks/useBreakpointClassCleanup";

@@ -48,8 +48,8 @@ export default function RevealingText({
             defaults: { ease: "power3.out" },
             scrollTrigger: {
                 trigger: el,
-                start: "top+=30% bottom",
-                end: "top top",
+                start: "top center",
+                end: "top top+=10%",
                 markers: false,
                 scrub: true,
             },
