@@ -173,12 +173,12 @@ export default function CurtainIntro({
                 </svg>
 
                 {/* 커튼 배경 + 콘텐츠 */}
-                <div className="absolute inset-0 bg-app-fg flex flex-col items-center justify-center">
+                <div className="absolute inset-0 bg-app-fg dark:bg-app-bg text-app-bg dark:text-app-fg flex flex-col items-center justify-center">
                     <div
                         ref={contentRef}
                         className="flex flex-col items-center gap-4 opacity-0"
                     >
-                        <h2 className="relative text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-app-bg text-center leading-snug align-middle">
+                        <h2 className="relative text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-center leading-snug align-middle">
                             <span className="absolute left-[50%] -top-[1em] -translate-x-[50%] block font-space text-[2.8em] animate-bounce">*</span>
                             안녕하세요!
                             <br />

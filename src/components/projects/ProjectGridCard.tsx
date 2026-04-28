@@ -34,11 +34,11 @@ export default function ProjectGridCard({ project, image }: Props) {
                             <h3 className="text-xl font-bold leading-tight truncate">
                                 {title}
                             </h3>
-                            <p className="flex items-center text-xs md:text-lg text-app-fg/70 font-medium mt-2 line-clamp-1">
+                            <p className="flex items-center text-xs md:text-[16px] lg:text-lg text-app-fg/70 font-medium mt-2">
                                 <span className="inline-block mr-2">
                                     <Image src={asterisk} alt="" width={14} height={14} className="animate-[spin_3s_linear_infinite]" />
                                 </span>
-                                <span>{subTitle}</span>
+                                <span className="line-clamp-1 truncate">{subTitle}</span>
                             </p>
                         </div>
                         <div className="flex gap-1">
