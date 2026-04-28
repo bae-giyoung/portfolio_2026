@@ -1,5 +1,5 @@
 import { type CarouselSlide } from "@/components/ui/CarouselSlider";
-import profile01 from "@/assets/character-1.webp";
+import profile01 from "@/assets/character-2.webp";
 import profile02 from "@/assets/profile-02.webp";
 import profile03 from "@/assets/profile-03.webp";
 

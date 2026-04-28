@@ -68,9 +68,6 @@ export const metadata: Metadata = {
   keywords: ["프론트엔드 개발자", "포트폴리오", "배기영", "웹 개발", "풀스택 개발", "React", "Next.js", "JavaScript", "TypeScript", "MySQL", "Java", "Spring Boot"],
   authors: [{ name: "배기영" }],
   creator: "배기영",
-  icons: {
-    icon: "src/app/favicon.ico",
-  },
 
   openGraph: {
     title: "배기영 | 프론트엔드 개발자 포트폴리오",

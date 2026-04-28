@@ -2,18 +2,73 @@
  *
  * [포트폴리오 프로젝트 데이터]
  *
- * 핵심 작성 기준
- * 1. 프로젝트가 무엇인지
- * 2. 내가 맡은 역할
- * 3. 어떤 문제를 해결했는지
- * 4. 어떤 기술을 썼는지
- * 5. 결과적으로 무엇이 개선됐는지
+ * 구조:
+ * - projectDetails: 단일 소스 (모든 프로젝트 데이터)
+ * - projects: projectDetails에서 파생 (카드/목록 컴포넌트용)
+ * - projectCards: projectDetails에서 파생 (간단 카드용)
  */
 
 export type ProjectStatus = "Completed" | "InProgress";
 
 export type ProjectRoleCategory = "Frontend" | "Backend" | "FullStack";
 
+// == 단일 소스 타입
+export type ProjectDetail = {
+    id: number;
+    title: string;
+    subTitle: string;
+    category: string;
+    image: string;
+    keywords: string[];
+    /** 카드/목록 UI용 대표 기술 스택 */
+    tech: string[];
+    overview: {
+        summary: string;
+        period: string;
+        team: string;
+        role: string;
+        roleCategory: ProjectRoleCategory;
+        status: ProjectStatus;
+    };
+    background: string;
+    problem: string;
+    solution: string;
+    impact: string[];
+    responsibilities: string[];
+    keyFeatures: string[];
+    technicalChallenges: {
+        title: string;
+        problem: string;
+        solution: string;
+        result: string;
+    }[];
+    architecture: {
+        before: string;
+        after: string;
+    };
+    /** 상세 페이지용 카테고리별 기술 스택 */
+    techStack: {
+        frontend: string[];
+        backend: string[];
+        dataAi: string[];
+        database: string[];
+        tools: string[];
+    };
+    links: {
+        github?: string;
+        demo?: string;
+        docs?: string;
+    };
+};
+
+
+
+// == 파생 타입 (컴포넌트 호환성 유지)
+
+/** 
+ * @deprecated projectDetails에서 파생되는 타입. 
+ * [직접 편집 금지] 프로젝트 데이터는 projectDetails에서 관리하며, 필요한 형태로 파생해서 사용.
+ */
 export type Project = {
     id: number;
     title: string;
@@ -23,22 +78,17 @@ export type Project = {
     period: string;
     status: ProjectStatus;
     image: string;
-
     summary: string;
     description: string;
-
     team: string;
     role: string;
-
     contribution: string[];
     problem: string;
     solution: string;
     impact: string[];
-
     keyFeatures: string[];
     tech: string[];
     keywords: string[];
-
     links: {
         github?: string;
         demo?: string;
@@ -46,177 +96,10 @@ export type Project = {
     };
 };
 
-export const projects: Project[] = [
-    {
-        id: 1,
-        title: "물알림단",
-        subTitle: "AI 기반 지하수위 예측 대시보드",
-        category: "AI Data Dashboard",
-        roleCategory: "Frontend",
-        period: "2025.09 - 2025.11",
-        status: "Completed",
-        image: "/src/assets/project-mulalim.webp",
-
-        summary:
-            "Data/AI 경진대회 본선 진출작으로, 공공 지하수 관측 데이터와 AI 예측 결과를 시각화한 지하수위 예측 웹 대시보드입니다.",
-
-        description:
-            "Data/AI 경진대회 본선에 진출한 팀 프로젝트로, 기후변화 대응을 위한 수자원 관리 문제를 바탕으로 지하수 관측 데이터와 기상 데이터를 활용해 지하수위 변화를 예측하고 시각화했습니다. LSTM/Transformer 기반 예측 결과를 웹 대시보드에서 확인할 수 있도록 구성했으며, 사용자가 관측소별 수위 추이와 예측 데이터를 직관적으로 파악할 수 있는 UI를 구현했습니다.",
-        
-            team: "팀 프로젝트",
-        role: "프론트엔드 개발 및 팀 리드 / 대시보드 UI & 데이터 시각화",
-
-        contribution: [
-            "Next.js와 React 기반 대시보드 화면 구조 설계 및 구현",
-            "관측소별 지하수위 데이터, 예측 데이터, 기상 데이터 시각화 UI 구현",
-            "FastAPI 예측 서버와 연동되는 클라이언트 데이터 흐름 구성",
-            "차트, 테이블, 지도 기반 현황 UI 구성",
-            "로딩, 에러, 빈 데이터 상태를 고려한 화면 처리",
-            "팀 내 프론트엔드 구현 범위 정리 및 API 응답 구조 협의",
-        ],
-
-        problem:
-            "지하수 관측 데이터와 AI 예측 결과는 시계열·관측소·기상 변수 등 여러 축으로 나뉘어 있어, 사용자가 원본 데이터만으로 현재 상태와 예측 흐름을 파악하기 어려웠습니다. 또한 초기 구조에서는 Next.js가 화면 렌더링뿐 아니라 외부 API 호출, 데이터 가공, FastAPI 연동까지 담당하면서 프론트엔드 계층의 책임이 커졌습니다.",
-
-        solution:
-            "관측소별 수위 변화, 예측 결과, 기상 변수 관계를 대시보드 형태로 분리해 표현하고, Next.js API Route를 활용해 프론트엔드에서 필요한 응답 구조로 데이터를 가공했습니다. 이를 통해 사용자는 여러 데이터 소스를 직접 해석하지 않고도 차트와 테이블을 통해 지하수위 현황과 예측 흐름을 확인할 수 있도록 했습니다.",
-
-        impact: [
-            "Data/AI 경진대회 본선 진출 성과 달성",
-            "공공 데이터와 AI 예측 결과를 하나의 대시보드에서 확인할 수 있는 MVP 구현",
-            "관측소별 수위 추이, 예측 결과, 기상 데이터의 시각적 비교 가능",
-            "팀 프로젝트 내에서 프론트엔드 중심의 화면 구조와 데이터 표현 방식 정리",
-            "이후 Spring Boot 중심 리팩토링이 필요한 구조적 한계와 개선 방향 도출",
-        ],
-
-        keyFeatures: [
-            "관측소별 지하수위 현황 시각화",
-            "LSTM/Transformer 기반 지하수위 예측 결과 표시",
-            "장기 추세 차트 및 예측 요약 데이터 제공",
-            "기상 데이터와 지하수위 관계 시각화",
-            "대시보드용 테이블, 차트, 상태 UI 구성",
-        ],
-
-        tech: [
-            "Next.js",
-            "React",
-            "TypeScript",
-            "Jotai",
-            "Highcharts",
-            "Tailwind CSS",
-            "Spring Boot",
-            "MySQL",
-            "FastAPI",
-            "PyTorch",
-        ],
-
-        keywords: [
-            "AI Prediction",
-            "Groundwater",
-            "Dashboard",
-            "Data Visualization",
-            "Next.js BFF",
-            "FastAPI",
-        ],
-
-        links: {
-            github: "https://github.com/bae-giyoung/groundwater-nextjs",
-            demo: "https://www.awesomescreenshot.com/video/46379582?key=841a26872d250d5c3c5fcddca08a67d5",
-            docs: "/docs/mulalim/project-report-v1.docx",
-        },
-    },
-
-    {
-        id: 2,
-        title: "물알림단 풀스택 아키텍처 고도화",
-        subTitle: "Spring Boot 중심 데이터 허브 및 API Gateway 구조 개선",
-        category: "Full-stack Refactoring",
-        roleCategory: "Backend",
-        period: "2026.02 - 진행 중",
-        status: "InProgress",
-        image: "/src/assets/project-mulalim-refactoring.webp",
-
-        summary:
-            "Next.js에 집중되어 있던 데이터 수집·가공 책임을 Spring Boot와 MySQL 중심으로 이관한 구조 개선 프로젝트입니다.",
-
-        description:
-            "기존 물알림단 프로젝트의 구조적 한계를 개선하기 위해 진행한 고도화 프로젝트입니다. 기존에는 Next.js BFF가 사용자 요청 시점마다 공공 Open API를 호출하고, 메모리에서 통계 데이터를 가공한 뒤 화면에 전달했습니다. 고도화 프로젝트에서는 Spring Boot를 데이터 허브로 두고, Open API 데이터 수집, DB 적재, 조회 정책, 집계 API를 백엔드 계층으로 이관했습니다. Next.js는 화면 렌더링과 사용자 경험에 집중하도록 역할을 축소하는 것을 목표로 했습니다.",
-
-        team: "개인 작업 / 기존 팀 프로젝트 개선",
-        role: "백엔드 개선 / API 설계 / 데이터 파이프라인",
-
-        contribution: [
-            "Spring Boot 기반 지하수 관측 데이터 도메인 모델 재설계",
-            "station, groundwater_measurement, weather_hourly, groundwater_prediction 중심 DB 스키마 정리",
-            "LEGACY_CSV_HOURLY, API_GIMS_DAILY 데이터 출처 정책 설계",
-            "DAILY_MERGED + PREFER_API 조회 정책 구현",
-            "currentElev 집계 QueryService 구현",
-            "최신값, 전일 대비 diff, 1/7/14/30일 평균, 상태 판정 로직 구성",
-            "DashboardCurrentElevController 구현 및 WebMvcTest 작성",
-            "KST 기준 DATETIME + LocalDateTime 타임존 정책 정리",
-            "Next.js BFF 축소 및 Spring Boot API 연동 방향 설계",
-        ],
-
-        problem:
-            "기존 구조에서는 사용자가 대시보드에 접근할 때마다 Next.js BFF가 외부 Open API를 직접 호출하고, 이동평균·전일 대비 증감·상태 계산 등 비즈니스 로직까지 수행했습니다. 이 구조는 외부 API 호출 한도, 응답 지연, 데이터 일관성, 책임 분리 측면에서 운영 안정성이 낮아질 수 있는 문제가 있었습니다.",
-
-        solution:
-            "Spring Boot Scheduler가 외부 Open API 데이터를 주기적으로 수집해 MySQL에 적재하고, Spring Boot QueryService가 DB 기준으로 일 대표 시계열, diff, rolling average, 상태 정보를 조립하도록 구조를 변경했습니다. Next.js는 Spring Boot API 응답을 받아 렌더링하는 역할로 축소했습니다.",
-
-        impact: [
-            "Next.js의 역할을 데이터 수집·가공에서 UI 렌더링 중심으로 축소",
-            "외부 API 호출 수를 사용자 요청 수에 비례하지 않는 구조로 개선",
-            "DB 스냅샷 기준 응답 구조를 통해 데이터 일관성 향상",
-            "currentElev API의 조회, 집계, Controller, 테스트, 문서화까지 완료",
-            "레거시 학습/검증 데이터 보호를 위한 UPSERT 정책 명확화",
-            "KST 도메인 시계열 정책을 명확히 하여 시간 데이터 해석 오류 가능성 감소",
-        ],
-
-        keyFeatures: [
-            "Spring Boot 기반 currentElev REST API",
-            "관측소별 최신 일 대표 지하수위 조회",
-            "최근 N일 테이블 데이터 및 전일 대비 변화량 제공",
-            "1/7/14/30일 rolling average 제공",
-            "최근 10년 같은 월 분포 기반 상태 판정",
-            "DAILY_MERGED + PREFER_API 조회 정책",
-            "레거시 원본 데이터 보호 UPSERT 정책",
-            "KST 기준 시계열 처리 정책",
-        ],
-
-        tech: [
-            "Java 17",
-            "Spring Boot",
-            "Spring Data JPA",
-            "MySQL",
-            "JUnit 5",
-            "Mockito",
-            "Next.js",
-            "React",
-            "TypeScript",
-            "FastAPI",
-        ],
-
-        keywords: [
-            "Refactoring",
-            "Spring Boot",
-            "API Gateway",
-            "Data Pipeline",
-            "MySQL",
-            "Query Service",
-            "Time Series",
-            "BFF Reduction",
-        ],
-
-        links: {
-            github: "",
-            demo: "",
-            docs: "",
-        },
-    },
-];
-
-
-// 간단 버전
+/** 
+ * @deprecated projectDetails에서 파생되는 타입. 
+ * [직접 편집 금지]
+ */
 export type ProjectCard = {
     id: number;
     title: string;
@@ -232,95 +115,62 @@ export type ProjectCard = {
     };
 };
 
-export const projectCards: ProjectCard[] = [
-    {
-        id: 1,
-        title: "물알림단",
-        category: "AI Data Dashboard",
-        roleCategory: "Frontend",
-        image: "/src/assets/project-mulalim.webp",
-        summary:
-            "Data/AI 경진대회 본선 진출작으로, 지하수 관측 데이터와 AI 예측 결과를 시각화한 대시보드",
-        role: "프론트엔드 개발 및 팀 리드 / 대시보드 UI & 데이터 시각화",
-        tech: ["Next.js", "React", "TypeScript", "FastAPI", "PyTorch"],
-        links: {
-            github: "https://github.com/bae-giyoung/groundwater-nextjs",
-            demo: "https://www.awesomescreenshot.com/video/46379582?key=841a26872d250d5c3c5fcddca08a67d5",
-        },
-    },
-    {
-        id: 2,
-        title: "물알림단 풀스택 아키텍처 고도화",
-        category: "Full-stack Refactoring",
-        roleCategory: "Backend",
-        image: "/src/assets/project-mulalim-refactoring.webp",
-        summary:
-            "Next.js BFF 중심 구조를 Spring Boot 데이터 허브 구조로 개선한 고도화 프로젝트",
-        role: "백엔드 개선 / API 설계 / 데이터 파이프라인",
-        tech: ["Spring Boot", "Java", "MySQL", "JPA", "Next.js"],
-        links: {
-            github: "",
-            demo: "",
-        },
-    },
-];
 
 
-// 상세 페이지
-export type ProjectDetail = {
-    id: number;
-    title: string;
-    overview: {
-        summary: string;
-        period: string;
-        team: string;
-        role: string;
-        roleCategory: ProjectRoleCategory;
-        status: ProjectStatus;
-    };
-    background: string;
-    responsibilities: string[];
-    keyFeatures: string[];
-    technicalChallenges: {
-        title: string;
-        problem: string;
-        solution: string;
-        result: string;
-    }[];
-    architecture: {
-        before: string;
-        after: string;
-    };
-    techStack: {
-        frontend: string[];
-        backend: string[];
-        dataAi: string[];
-        database: string[];
-        tools: string[];
-    };
-    links: {
-        github?: string;
-        demo?: string;
-        docs?: string;
-    };
-};
-
+// == 단일 소스 데이터
 export const projectDetails: ProjectDetail[] = [
     {
         id: 1,
         title: "물알림단",
+        subTitle: "AI 기반 지하수위 예측 대시보드",
+        category: "AI Data Dashboard",
+        image: "/src/assets/project-mulalim.webp",
+        keywords: [
+            "AI Prediction",
+            "Groundwater",
+            "Dashboard",
+            "Data Visualization",
+            "Next.js BFF",
+            "FastAPI",
+        ],
+        tech: [
+            "Next.js",
+            "React",
+            "TypeScript",
+            "Jotai",
+            "Highcharts",
+            "Tailwind CSS",
+            "Spring Boot",
+            "MySQL",
+            "FastAPI",
+            "PyTorch",
+        ],
         overview: {
-        summary:
-            "Data/AI 경진대회 본선 진출작으로, 지하수 관측 데이터와 AI 예측 결과를 시각화한 대시보드",
-        period: "2025.09 - 2025.11",
-        team: "팀 프로젝트",
-        role: "프론트엔드 개발 및 팀 리드 / 대시보드 UI & 데이터 시각화",
-        roleCategory: "Frontend",
+            summary:
+                "Data/AI 경진대회 본선 진출작으로, 공공 지하수 관측 데이터와 AI 예측 결과를 시각화한 지하수위 예측 웹 대시보드입니다.",
+            period: "2025.09 - 2025.11",
+            team: "팀 프로젝트",
+            role: "프론트엔드 개발 및 팀 리드 / 대시보드 UI & 데이터 시각화",
+            roleCategory: "Frontend",
             status: "Completed",
         },
 
         background:
             "Data/AI 경진대회 본선 진출 팀 프로젝트로, 공모전 기반 실수요 과제인 수자원 관리·예측 문제를 웹 대시보드 서비스로 구현했습니다.",
+
+        problem:
+            "지하수 관측 데이터와 AI 예측 결과는 시계열·관측소·기상 변수 등 여러 축으로 나뉘어 있어, 사용자가 원본 데이터만으로 현재 상태와 예측 흐름을 파악하기 어려웠습니다. 또한 초기 구조에서는 Next.js가 화면 렌더링뿐 아니라 외부 API 호출, 데이터 가공, FastAPI 연동까지 담당하면서 프론트엔드 계층의 책임이 커졌습니다.",
+
+        solution:
+            "관측소별 수위 변화, 예측 결과, 기상 변수 관계를 대시보드 형태로 분리해 표현하고, Next.js API Route를 활용해 프론트엔드에서 필요한 응답 구조로 데이터를 가공했습니다. 이를 통해 사용자는 여러 데이터 소스를 직접 해석하지 않고도 차트와 테이블을 통해 지하수위 현황과 예측 흐름을 확인할 수 있도록 했습니다.",
+
+        impact: [
+            "Data/AI 경진대회 본선 진출 성과 달성",
+            "공공 데이터와 AI 예측 결과를 하나의 대시보드에서 확인할 수 있는 MVP 구현",
+            "관측소별 수위 추이, 예측 결과, 기상 데이터의 시각적 비교 가능",
+            "팀 프로젝트 내에서 프론트엔드 중심의 화면 구조와 데이터 표현 방식 정리",
+            "이후 Spring Boot 중심 리팩토링이 필요한 구조적 한계와 개선 방향 도출",
+        ],
 
         responsibilities: [
             "Next.js 기반 대시보드 화면 구현",
@@ -384,9 +234,34 @@ export const projectDetails: ProjectDetail[] = [
     {
         id: 2,
         title: "물알림단 풀스택 아키텍처 고도화",
+        subTitle: "Spring Boot 중심 데이터 허브 및 API Gateway 구조 개선",
+        category: "Full-stack Refactoring",
+        image: "/src/assets/project-mulalim-refactoring.webp",
+        keywords: [
+            "Refactoring",
+            "Spring Boot",
+            "API Gateway",
+            "Data Pipeline",
+            "MySQL",
+            "Query Service",
+            "Time Series",
+            "BFF Reduction",
+        ],
+        tech: [
+            "Java 17",
+            "Spring Boot",
+            "Spring Data JPA",
+            "MySQL",
+            "JUnit 5",
+            "Mockito",
+            "Next.js",
+            "React",
+            "TypeScript",
+            "FastAPI",
+        ],
         overview: {
             summary:
-                "Next.js BFF에 집중된 데이터 수집·가공 책임을 Spring Boot와 MySQL 중심으로 이관한 구조 개선 프로젝트",
+                "Next.js에 집중되어 있던 데이터 수집·가공 책임을 Spring Boot와 MySQL 중심으로 이관한 구조 개선 프로젝트입니다.",
             period: "2026.02 - 진행 중",
             team: "개인 작업 / 기존 팀 프로젝트 개선",
             role: "백엔드 개선 / API 설계 / 데이터 파이프라인",
@@ -396,6 +271,21 @@ export const projectDetails: ProjectDetail[] = [
 
         background:
             "초기 프로젝트에서는 Next.js BFF가 사용자 요청 시점마다 공공 Open API를 호출하고, 이동평균·전일 대비 증감·상태 계산 등 비즈니스 로직까지 처리했습니다. 이 구조는 API 호출 한도, 응답 지연, 데이터 일관성, 책임 분리 측면에서 운영상 한계가 있었습니다.",
+
+        problem:
+            "기존 구조에서는 사용자가 대시보드에 접근할 때마다 Next.js BFF가 외부 Open API를 직접 호출하고, 이동평균·전일 대비 증감·상태 계산 등 비즈니스 로직까지 수행했습니다. 이 구조는 외부 API 호출 한도, 응답 지연, 데이터 일관성, 책임 분리 측면에서 운영 안정성이 낮아질 수 있는 문제가 있었습니다.",
+
+        solution:
+            "Spring Boot Scheduler가 외부 Open API 데이터를 주기적으로 수집해 MySQL에 적재하고, Spring Boot QueryService가 DB 기준으로 일 대표 시계열, diff, rolling average, 상태 정보를 조립하도록 구조를 변경했습니다. Next.js는 Spring Boot API 응답을 받아 렌더링하는 역할로 축소했습니다.",
+
+        impact: [
+            "Next.js의 역할을 데이터 수집·가공에서 UI 렌더링 중심으로 축소",
+            "외부 API 호출 수를 사용자 요청 수에 비례하지 않는 구조로 개선",
+            "DB 스냅샷 기준 응답 구조를 통해 데이터 일관성 향상",
+            "currentElev API의 조회, 집계, Controller, 테스트, 문서화까지 완료",
+            "레거시 학습/검증 데이터 보호를 위한 UPSERT 정책 명확화",
+            "KST 도메인 시계열 정책을 명확히 하여 시간 데이터 해석 오류 가능성 감소",
+        ],
 
         responsibilities: [
             "Spring Boot 중심 데이터 파이프라인 고도화 방향 설계",
@@ -480,3 +370,44 @@ export const projectDetails: ProjectDetail[] = [
         },
     },
 ];
+
+
+
+// == 파생 배열
+export const projects: Project[] = projectDetails.map((d) => ({
+    id: d.id,
+    title: d.title,
+    subTitle: d.subTitle,
+    category: d.category,
+    roleCategory: d.overview.roleCategory,
+    period: d.overview.period,
+    status: d.overview.status,
+    image: d.image,
+    summary: d.overview.summary,
+    description: d.background,
+    team: d.overview.team,
+    role: d.overview.role,
+    contribution: d.responsibilities,
+    problem: d.problem,
+    solution: d.solution,
+    impact: d.impact,
+    keyFeatures: d.keyFeatures,
+    tech: d.tech,
+    keywords: d.keywords,
+    links: d.links,
+}));
+
+export const projectCards: ProjectCard[] = projectDetails.map((d) => ({
+    id: d.id,
+    title: d.title,
+    category: d.category,
+    roleCategory: d.overview.roleCategory,
+    image: d.image,
+    summary: d.overview.summary,
+    role: d.overview.role,
+    tech: d.tech,
+    links: {
+        github: d.links.github,
+        demo: d.links.demo,
+    },
+}));
