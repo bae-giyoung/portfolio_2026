@@ -9,8 +9,8 @@ export default function SlideUpText({
 	subClassName = "",
     slideUpSpeed = 500, // 슬라이드 업 속도 (ms)
 } : {
-    children: string;
-    subText?: string;
+    children: string | React.ReactNode;
+    subText?: string | React.ReactNode;
     className?: string;
 	subClassName?: string;
     slideUpSpeed?: number;

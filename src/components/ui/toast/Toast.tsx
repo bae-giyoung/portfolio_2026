@@ -14,9 +14,8 @@ const TOAST_CONFIG: Record<
     { icon?: string; bar: string; bg: string; border: string }
 > = {
     success: {
-        icon: "✓",
-        bar: "bg-emerald-500",
-        bg: "bg-app-bg/70 dark:bg-app-bg/70",
+        bar: "bg-transparent",
+        bg: "bg-app-bg/80 dark:bg-app-bg/80",
         border: "border-emerald-400/60 dark:border-emerald-500/40",
     },
     error: {
@@ -76,7 +75,7 @@ function ToastItem({ toast }: { toast: ToastItem }) {
                     ${config.bar}
                 `}
             >
-                {config.icon ? config.icon : <Image src={asterik} alt="아이콘" width={18} height={18} className="animate-spin" />}
+                {config.icon ? config.icon : <Image src={asterik} alt="아이콘" width={18} height={18} className="animate-[spin_2s_linear_infinite]" />}
             </span>
 
             {/* 메세지 */}

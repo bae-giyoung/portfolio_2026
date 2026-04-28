@@ -14,7 +14,7 @@ export default function MainVisual({
     mainContentsRef: React.RefObject<HTMLDivElement | null>;
 }) {
     return (
-        <main ref={mainRef} id="main" className="relative flex flex-col items-center justify-center gap-10 w-full h-screen min-h-150 3xl:min-h-225 font-inst overflow-hidden">
+        <main ref={mainRef} id="main" className="relative flex flex-col items-center justify-center gap-10 w-full h-screen min-h-150 max-h-270 3xl:min-h-225 font-inst overflow-hidden">
 
             {/* 폴라로이드 사진 */}
             <div

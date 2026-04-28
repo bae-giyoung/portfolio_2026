@@ -3,6 +3,8 @@ interface SlideButtonBaseProps {
     children: React.ReactNode;
     className?: string;
     revealText?: string;
+    revealTextColor?: string;
+    revealTextBgColor?: string;
 }
 
 interface SlideButtonAsButton extends SlideButtonBaseProps {
@@ -28,6 +30,8 @@ export default function SlideButton({
     children,
     className = "",
     revealText = "",
+    revealTextColor = "text-app-bg",
+    revealTextBgColor = "bg-app-fg",
     ...props
 }: SlideButtonProps) {
 
@@ -36,12 +40,12 @@ export default function SlideButton({
             {/* 슬라이드 배경 fill: 아래에서 위로 */}
             <span
                 aria-hidden="true"
-                className="absolute inset-0 bg-app-fg translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] rounded-none"
+                className={`absolute inset-0 ${revealTextBgColor} translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] rounded-none`}
             />
 
             {/* 기본 텍스트: 호버 시 위로 빠져나감 */}
             <span
-                className="relative block text-app-fg translate-y-0 group-hover:-translate-y-[200%] transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] select-none pointer-events-none"
+                className={`relative block text-app-fg translate-y-0 group-hover:-translate-y-[200%] transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] select-none pointer-events-none`}
             >
                 {children}
             </span>
@@ -49,7 +53,7 @@ export default function SlideButton({
             {/* 호버 텍스트: 아래에서 위로 올라옴 */}
             <span
                 aria-hidden="true"
-                className="absolute inset-0 flex items-center justify-center text-app-bg translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] select-none pointer-events-none"
+                className={`absolute inset-0 flex items-center justify-center ${revealTextColor} translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] select-none pointer-events-none`}
             >
                 {revealText || children}
             </span>

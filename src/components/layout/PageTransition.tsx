@@ -170,15 +170,21 @@ export default function PageTransition({ children }: Props) {
     const navigate = useCallback(
         (href: string) => {
             if (isAnimatingRef.current) return;
-            isAnimatingRef.current = true;
 
+            // 같은 페이지: 애니메이션 없이 맨 위로 스크롤
+            if (pathname === href) {
+                lenis?.scrollTo(0, { immediate: false });
+                return;
+            }
+
+            isAnimatingRef.current = true;
             const label = getRouteLabel(href);
 
             transitionIn(label).then(() => {
                 router.push(href);
             });
         },
-        [router, transitionIn],
+        [router, transitionIn, pathname, lenis],
     );
 
     /* pathname 변경 = 새 페이지 렌더 완료 -> 커튼 내려감 */
