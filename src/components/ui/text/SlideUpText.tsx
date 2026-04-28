@@ -6,12 +6,14 @@ export default function SlideUpText({
     children,
 	subText,
     className = "",
+	textClassName = "",
 	subClassName = "",
     slideUpSpeed = 500, // 슬라이드 업 속도 (ms)
 } : {
     children: string | React.ReactNode;
     subText?: string | React.ReactNode;
     className?: string;
+	textClassName?: string;
 	subClassName?: string;
     slideUpSpeed?: number;
 }) {
@@ -20,7 +22,7 @@ export default function SlideUpText({
 		<>
 			{/* 기본 텍스트: 호버 시 위로 빠져나감 */}
 			<span
-				className="relative block translate-y-0 group-hover:-translate-y-[200%] group-hover:opacity-0 transition-all ease-in-out select-none pointer-events-none"
+				className={`relative block translate-y-0 group-hover:-translate-y-[200%] group-hover:opacity-0 group-[.force-hover]:-translate-y-[200%] group-[.force-hover]:opacity-0 in-[.force-hover]:-translate-y-[200%] in-[.force-hover]:opacity-0 transition-all ease-in-out select-none pointer-events-none ${textClassName}`}
                 style={{ transitionDuration: `${slideUpSpeed}ms` }}
 			>
 				{children}
@@ -29,7 +31,7 @@ export default function SlideUpText({
 			{/* 호버 텍스트: 아래에서 위로 올라옴 */}
 			<span
 				aria-hidden="true"
-				className={`absolute inset-0 flex items-center justify-center translate-y-full group-hover:translate-y-0 group-hover:opacity-100 transition-all ease-in-out select-none pointer-events-none ${subClassName}`}
+				className={`absolute inset-0 flex items-center justify-center translate-y-full group-hover:translate-y-0 group-hover:opacity-100 group-[.force-hover]:translate-y-0 group-[.force-hover]:opacity-100 in-[.force-hover]:translate-y-0 in-[.force-hover]:opacity-100 transition-all ease-in-out select-none pointer-events-none ${subClassName}`}
                 style={{ transitionDuration: `${slideUpSpeed}ms` }}
 			>
 				{subText || children}

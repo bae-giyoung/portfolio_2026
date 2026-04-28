@@ -1,8 +1,8 @@
 
 "use client";
 
-import { useState } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { useState, useRef, useCallback } from "react";
+import { motion, useMotionValue, useSpring, useAnimation } from "framer-motion";
 import { useToast } from "@/hooks/useToast";
 import SlideUpText from "../ui/text/SlideUpText";
 import Image from "next/image";
@@ -10,18 +10,27 @@ import asterisk from "@/assets/icons/asterik.svg";
 
 const EMAIL = "giyoung_work@naver.com";
 
-const socialLinks = [
-    { name: "성실함" },
-    { name: "소통" },
-    { name: "함께 고민" },
-    { name: "작은 디테일" },
-    { name: "성장" },
-    { name: "Refresh" },
+const strengths = [
+    { name: "성실함", reveal: "Sincere" },
+    { name: "소통", reveal: "Listen" },
+    { name: "함께 고민", reveal: "Together" },
+    { name: "작은 디테일", reveal: "Care" },
+    { name: "계속 성장", reveal: "Growing" },
 ];
 
 export default function Footer() {
     const toast = useToast();
     const [isEmailHovered, setIsEmailHovered] = useState(false);
+    const footerRef = useRef<HTMLElement>(null);
+
+    const handleRefresh = useCallback(async () => {
+        // 1. Refresh 버튼 slide-up 재생 (force-hover 토글)
+        const footer = footerRef.current;
+        if (footer) {
+            footer.classList.add("force-hover");
+            setTimeout(() => footer.classList.remove("force-hover"), 1500);
+        }
+    }, [footerRef]);
 
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
@@ -59,12 +68,19 @@ export default function Footer() {
                 Copy Email
             </motion.div>
 
-            <footer className="relative w-full px-5 md:px-7.5 lg:px-18 3xl:max-w-480 3xl:mx-auto">
+            <footer 
+                ref={footerRef}
+                className="relative w-full px-5 md:px-7.5 lg:px-18 3xl:max-w-480 3xl:mx-auto"
+            >
                 {/* 문구 + 이메일 버튼 */}
                 <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between py-8 lg:py-16">
                     {/* 헤드라인 */}
                     <p className="flex-1 text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight text-app-fg mb-2 md:mb-0">
-                        사용자와 팀 모두에게<br />좋은 경험을 만드는<br />개발자가 되고 싶습니다.
+                        <SlideUpText subText="With Care" subClassName="justify-start!">
+                            사용자와 팀 모두에게
+                        </SlideUpText>
+                        <br />좋은 경험을 만드는
+                        <br />개발자가 되고 싶습니다.
                     </p>
 
                     {/* 이메일 버튼 컨테이너 */}
@@ -93,22 +109,35 @@ export default function Footer() {
                     </div>
                 </div>
 
-                {/* 소셜 링크 필 */}
-                <div className="flex flex-wrap items-center gap-3 pt-0 md:py-10 border-b border-app-fg/20 dark:border-app-fg/50">
-                    {socialLinks.map((link) => (
+                {/* strengths 필 */}
+                <div className="flex flex-wrap items-center gap-3 pt-0 pb-5 md:pt-10 md:pb-10 border-b border-app-fg/20 dark:border-app-fg/50">
+                    {strengths.map((link) => (
                         <div
                             key={link.name}
-                            className={`relative w-[calc(50%-0.375rem)] sm:w-[calc(33%-0.5rem)] lg:flex-1 border border-app-fg/40 dark:border-app-fg/50 hover:border-app-fg rounded-full px-8 py-3 text-sm font-medium transition-colors duration-300 group`}
+                            className={`relative w-[calc(50%-0.375rem)] sm:w-[calc(33%-0.5rem)] lg:flex-1 border border-app-fg/40 dark:border-app-fg/50 hover:border-app-fg rounded-full px-8 py-2 text-sm font-medium transition-colors duration-300 group`}
                         >
                             <SlideUpText
-                                subText={link.name}
+                                subText={link.reveal}
                                 subClassName="text-app-fg text-sm font-medium"
-                                className="w-full h-full text-sm font-medium text-app-fg"
+                                className="w-full h-full py-2 text-sm font-medium text-app-fg"
                             >
                                 {link.name}
                             </SlideUpText>
                         </div>
                     ))}
+                    <button
+                        type="button"
+                        onClick={handleRefresh}
+                        className={`relative w-[calc(50%-0.375rem)] sm:w-[calc(33%-0.5rem)] lg:flex-1 px-8 py-3 border border-app-fg/40 dark:border-app-fg/50 hover:border-app-primary rounded-full outline-4 outline-transparent hover:outline-app-primary/20 text-sm font-medium transition-colors duration-300 group motion-safe:animate-soft-ring`}
+                    >
+                        <SlideUpText
+                            subText="Click"
+                            subClassName="text-app-fg text-lg font-medium"
+                            className="w-full h-full text-sm font-medium text-app-fg"
+                        >
+                            Refresh
+                        </SlideUpText>
+                    </button>
                 </div>
 
                 {/* 카피라이트 */}
