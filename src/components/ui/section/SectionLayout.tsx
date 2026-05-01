@@ -12,7 +12,7 @@ type SectionLayoutProps = {
         label: string;
     };
     sectionTitle?: string;
-    children: React.ReactNode;
+    children?: React.ReactNode;
 };
 
 const observerOptions = {

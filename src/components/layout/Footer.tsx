@@ -62,6 +62,7 @@ export default function Footer() {
                     translateX: "-50%",
                     translateY: "-70%",
                 }}
+                initial={{ scale: 0 }}
                 animate={{ scale: isEmailHovered ? 1 : 0 }}
                 transition={{ type: "spring", stiffness: 400, damping: 30 }}
             >

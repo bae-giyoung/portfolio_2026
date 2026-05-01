@@ -5,7 +5,7 @@
 @custom-variant can-hover (@media (hover: hover));
 
 :root {
-  --background: oklch(100% 0.00011 271.152);
+  --background: oklch(97.8% 0 0);
   --foreground: oklch(0.145 0 0);
   --radius: 0.625rem;
   --primary: #189e48;
@@ -131,36 +131,6 @@ body ::-webkit-selection {
 
 ::-webkit-scrollbar {
   display: none;  
-}
-
-/* 테이블 반응형 스크롤 바 */
-.table-scroll {
-  scrollbar-width: 10px;
-  scrollbar-color: oklch(0.5 0 0 / 0.25) transparent;
-}
-.table-scroll::-webkit-scrollbar {
-  display: block !important;
-  height: 5px;
-}
-.table-scroll::-webkit-scrollbar-track {
-  background: transparent;
-  border-radius: 9999px;
-}
-.table-scroll::-webkit-scrollbar-thumb {
-  background: oklch(0.5 0 0 / 0.25);
-  border-radius: 9999px;
-}
-.table-scroll::-webkit-scrollbar-thumb:hover {
-  background: oklch(0.5 0 0 / 0.45);
-}
-html.dark .table-scroll {
-  scrollbar-color: oklch(0.8 0 0 / 0.25) transparent;
-}
-html.dark .table-scroll::-webkit-scrollbar-thumb {
-  background: oklch(0.8 0 0 / 0.25);
-}
-html.dark .table-scroll::-webkit-scrollbar-thumb:hover {
-  background: oklch(0.8 0 0 / 0.45);
 }
 
 body,
@@ -412,7 +382,7 @@ html.dark .pt-label {
 
 /* == Scrolled Header */
 #header-wrap.scrolled {
-  background-color: #ffffffdf;
+  background-color: #f9f9f9df;
   backdrop-filter: blur(12px);
   border-bottom: 1px solid #00000022;
 }
@@ -475,4 +445,42 @@ html.menu-open .side-nav-inner {
 
 html.menu-open .side-nav-inner li {
   transform: translateX(0);
+}
+
+/* == Writing Mode */
+@layer utilities {
+  .writing-vertical-rl {
+    writing-mode: vertical-rl;
+  }
+}
+
+/* == Table Scroll */
+/* 테이블 반응형 스크롤 바 */
+.table-scroll {
+  scrollbar-width: 10px;
+  scrollbar-color: oklch(0.5 0 0 / 0.25) transparent;
+}
+.table-scroll::-webkit-scrollbar {
+  display: block !important;
+  height: 5px;
+}
+.table-scroll::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 9999px;
+}
+.table-scroll::-webkit-scrollbar-thumb {
+  background: oklch(0.5 0 0 / 0.25);
+  border-radius: 9999px;
+}
+.table-scroll::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.5 0 0 / 0.45);
+}
+html.dark .table-scroll {
+  scrollbar-color: oklch(0.8 0 0 / 0.25) transparent;
+}
+html.dark .table-scroll::-webkit-scrollbar-thumb {
+  background: oklch(0.8 0 0 / 0.25);
+}
+html.dark .table-scroll::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.8 0 0 / 0.45);
 }

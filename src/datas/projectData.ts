@@ -124,7 +124,7 @@ export const projectDetails: ProjectDetail[] = [
         title: "물알림단",
         subTitle: "AI 기반 지하수위 예측 대시보드",
         category: "AI Data Dashboard",
-        image: "/src/assets/project-mulalim.webp",
+        image: "/src/assets/projects/project-mulalim.webp",
         keywords: [
             "AI Prediction",
             "Groundwater",
@@ -236,7 +236,7 @@ export const projectDetails: ProjectDetail[] = [
         title: "물알림단 풀스택 아키텍처 고도화",
         subTitle: "Spring Boot 중심 데이터 허브 및 API Gateway 구조 개선",
         category: "Full-stack Refactoring",
-        image: "/src/assets/project-mulalim-refactoring.webp",
+        image: "/src/assets/projects/project-mulalim-refactoring.webp",
         keywords: [
             "Refactoring",
             "Spring Boot",

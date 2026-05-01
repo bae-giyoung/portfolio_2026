@@ -10,6 +10,7 @@ import ProfileSection from "@/components/home/ProfileSection";
 import WorkSection from "@/components/home/WorkSection";
 import { useScrollAfterNav } from "@/hooks/useScrollAfterNav";
 import Footer from "@/components/layout/Footer";
+import WorkGallery from "@/components/home/WorkGallery";
 
 export default function Home() {
 	const introPlayed = useAtomValue(introPlayedAtom);
@@ -37,13 +38,11 @@ export default function Home() {
 
 					{/* 작업 섹션 */}
 					<WorkSection />
-
-					{/* 작업 갤러리 */}
-					{/* <div className="relative w-full">
-						<MarqueeGallery galleryItems={galleryItems} />
-					</div> */}
 				</div>
 			</div>
+
+			{/* 작업 갤러리 */}
+			<WorkGallery />
 
 			{/* 푸터 */}
 			<Footer />

@@ -1,4 +1,4 @@
-import MulAlim from "@/assets/project-mulalim.webp";
+import MulAlim from "@/assets/projects/project-mulalim.webp";
 import type { StaticImageData } from "next/image";
 
 /**
