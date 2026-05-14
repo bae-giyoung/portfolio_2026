@@ -8,65 +8,90 @@ import { CirclePlus, FileDown, ExternalLink } from "lucide-react";
 import SlideButton from "../ui/SlideButton";
 import { workListData } from "@/datas/workData";
 
-export default function WorkSection() {
-    const modalState = useSetAtom(modalStateAtom);
-    
-    const modalContent = (
+const colStyle = {
+    index: "w-7 shrink-0 text-current/30 text-sm tabular-nums",
+    title: "flex-1 min-w-0",
+    description: "hidden md:block w-56 shrink-0 text-current/50 text-sm truncate",
+    link: "w-5 shrink-0 flex items-center justify-end",
+};
+
+function WorkListContent() {
+    return (
         <div className="w-full">
-            <div className="flex justify-between items-center mb-4">
-                <h2 className="text-4xl font-bold mr-4">Works</h2>
-                <SlideButton as="download" href="/docs/works/배기영_소프트웨어기술자+경력증명서.pdf" alt="경력 증명서 다운로드">
-                    <span className="flex items-center gap-1">
-                        <FileDown strokeWidth={1} size={18} />
-                        경력 증명서
-                    </span>
-                </SlideButton>
+            <div className="flex items-center gap-4 px-4 py-3 border-b border-current/30 text-xs font-medium uppercase tracking-wider text-current/60" aria-hidden="true">
+                <span className={colStyle.index}>#</span>
+                <span className={colStyle.title}>Title</span>
+                <span className={colStyle.description}>Description</span>
+                <span className={colStyle.link} />
             </div>
-            <ul className="w-full divide-y divide-black/8 dark:divide-white/8">
-                {
-                    workListData.map(({title, description, period, link}, i) => {
-                        const Tag = link ? "a" : "div";
-                        const linkProps = link ? { href: link, target: "_blank", rel: "noopener noreferrer" } : {};
-                        return (
-                            <li key={i}>
-                                <Tag
-                                    {...linkProps}
-                                    className={`group flex items-center justify-between gap-4 py-3.5 sm:py-4 ${link ? "cursor-pointer" : ""}`}
+
+            <ul>
+                {workListData.map(({ title, description, link }, i) => {
+                    const Tag = link ? "a" : "div";
+                    const linkProps = link
+                        ? { href: link, target: "_blank", rel: "noopener noreferrer" }
+                        : {};
+
+                    return (
+                        <li key={i}>
+                            <Tag
+                                {...linkProps}
+                                className="group"
+                            >
+                                <div
+                                    className={`flex items-center gap-4 px-4 py-4 border-b border-current/8 transition-all duration-300`}
                                 >
-                                    <div className="min-w-0 flex-1">
-                                        <span className="block font-semibold text-base leading-snug mb-0.5 group-hover:text-app-primary transition-colors duration-200">
+                                    <span className={colStyle.index}>
+                                        {String(i + 1).padStart(2, "0")}
+                                    </span>
+
+                                    <div className={colStyle.title}>
+                                        <span className="block text-base font-semibold leading-snug group-hover:text-app-primary transition-colors duration-200 truncate">
                                             {title}
                                         </span>
                                         {description && (
-                                            <span className="block text-[13px] text-current/50 leading-relaxed truncate">
+                                            <span className="md:hidden block text-[12px] text-current/50 mt-0.5 truncate">
                                                 {description}
                                             </span>
                                         )}
                                     </div>
-                                    <div className="flex items-center gap-3 shrink-0">
-                                        {period && (
-                                            <span className="text-xs text-current/40 tabular-nums">{period}</span>
-                                        )}
-                                        {link && (
-                                            <span className="text-xs font-medium text-current/30 group-hover:text-app-primary transition-colors duration-200 whitespace-nowrap">
-                                                <ExternalLink strokeWidth={1.25} size={14} />
-                                            </span>
-                                        )}
-                                    </div>
-                                </Tag>
-                            </li>
-                        );
-                    })
-                }
+
+                                    <span className={colStyle.description}>{description}</span>
+
+                                    <span className={`${colStyle.link} text-current/25 group-hover:text-app-primary transition-colors duration-200`}>
+                                        {link && <ExternalLink strokeWidth={1.25} size={14} />}
+                                    </span>
+                                </div>
+                            </Tag>
+                        </li>
+                    );
+                })}
             </ul>
         </div>
     );
-    
+}
+
+export default function WorkSection() {
+    const modalState = useSetAtom(modalStateAtom);
+
     const openModal = () => {
         modalState({
             isOpen: true,
             header: "전체 작업 리스트",
-            content: modalContent,
+            content: (
+                <div className="w-full">
+                    <div className="flex justify-between items-center px-4 pt-1 pb-4">
+                        <h2 className="text-2xl font-bold">Works</h2>
+                        <SlideButton as="download" href="/docs/works/배기영_소프트웨어기술자+경력증명서.pdf" alt="경력 증명서 다운로드">
+                            <span className="flex items-center gap-1">
+                                <FileDown strokeWidth={1} size={16} />
+                                경력 증명서
+                            </span>
+                        </SlideButton>
+                    </div>
+                    <WorkListContent />
+                </div>
+            ),
         });
     }
 
