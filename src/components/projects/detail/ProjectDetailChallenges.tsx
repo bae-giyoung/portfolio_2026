@@ -47,7 +47,7 @@ function ChallengeItem({
             {/* 콘텐츠 - 아코디언 */}
             <div
                 className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                    isOpen ? "max-h-[600px] opacity-100 pb-6" : "max-h-0 opacity-0 pb-0"
+                    isOpen ? "max-h-[900px] opacity-100 pb-6" : "max-h-0 opacity-0 pb-0"
                 }`}
             >
                 <div className="ml-9 grid grid-cols-1 md:grid-cols-3 gap-5 xl:gap-6">
@@ -80,7 +80,7 @@ function ChallengeItem({
                             alt={challenge.title}
                             width={1200}
                             height={600}
-                            className="w-full max-w-225"
+                            className="w-full max-w-225 object-contain"
                         />
                     </div>
                 )}

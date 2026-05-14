@@ -175,6 +175,7 @@ export default function GrabPeelImage({
                     src={backSrc}
                     alt={backAlt}
                     fill
+                    sizes="(min-width: 1920px) 20vw, 256px"
                     className="object-cover pointer-events-none"
                 />
             </div>
@@ -193,6 +194,7 @@ export default function GrabPeelImage({
                     src={frontSrc}
                     alt={frontAlt}
                     fill
+                    sizes="(min-width: 1920px) 20vw, 256px"
                     className="object-cover pointer-events-none"
                 />
             </div>

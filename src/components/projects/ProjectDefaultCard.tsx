@@ -37,6 +37,7 @@ export default function ProjectDefaultCard({
                 <ImageBox
                     src={image}
                     alt={title}
+                    sizes="(min-width: 768px) 45vw, 100vw"
                     className="rounded-xl cursor-none"
                     asLink={{
                         src: `/projects/${id}`,

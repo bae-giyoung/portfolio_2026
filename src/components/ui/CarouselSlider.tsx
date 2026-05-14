@@ -105,6 +105,7 @@ export default function CarouselSlider({
                             src={slide.src}
                             alt={slide.alt}
                             fill
+                            sizes="(min-width: 1536px) 480px, (min-width: 1024px) 320px, 100vw"
                             className="object-cover pointer-events-none"
                             priority={i === 0}
                         />
