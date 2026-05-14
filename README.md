@@ -133,9 +133,9 @@ npm run build
 # 1. 의존성 설치
 npm install
 
-# 2. 환경변수 설정 (선택 - /lab 프록시 사용 시)
+# 2. 환경변수 설정 (선택 - /lab iframe 사용 시)
 # .env.local
-PRIVATE_PLAY_URL=http://localhost:xxxx
+NEXT_PUBLIC_PRIVATE_PLAY_URL=http://localhost:xxxx
 
 # 3. 개발 서버 실행
 npm run dev
