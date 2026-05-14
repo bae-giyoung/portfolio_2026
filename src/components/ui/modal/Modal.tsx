@@ -4,13 +4,15 @@ import { useEffect, useState } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { AnimatePresence, motion } from "framer-motion";
 import { createPortal } from "react-dom";
+import { useLenis } from "lenis/react";
 import { closeModalAtom, modalStateAtom } from "@/atoms/atoms";
 
 export default function Modal() {
     const [mounted, setMounted] = useState(false);
     const modalState = useAtomValue(modalStateAtom);
     const closeModal = useSetAtom(closeModalAtom);
-    
+    const lenis = useLenis();
+
     useEffect(() => setMounted(true), []);
 
     useEffect(() => {
@@ -21,16 +23,15 @@ export default function Modal() {
                 closeModal();
             }
         };
-        
-        const originalOverflow = document.body.style.overflow;
-        document.body.style.overflow = "hidden";
+
+        lenis?.stop();
         window.addEventListener("keydown", handleKeyDown);
-        
+
         return () => {
-            document.body.style.overflow = originalOverflow;
+            lenis?.start();
             window.removeEventListener("keydown", handleKeyDown);
         };
-    }, [closeModal, modalState.isOpen]);
+    }, [closeModal, lenis, modalState.isOpen]);
     
     // SSR 방지 및 클라이언트에서만 렌더링
     if (!mounted) return null;
@@ -95,7 +96,7 @@ export default function Modal() {
 
                         <div className="flex-1 min-h-0 overflow-hidden bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.75),_transparent_42%),linear-gradient(180deg,_rgba(255,255,255,0.85),_rgba(244,244,245,0.96))] dark:bg-[radial-gradient(circle_at_top,_rgba(63,63,70,0.35),_transparent_38%),linear-gradient(180deg,_rgba(24,24,27,0.96),_rgba(9,9,11,0.98))]">
                             <div className="h-full min-h-0 overflow-hidden p-3 sm:p-5">
-                                <div className="h-full min-h-0 overflow-y-auto p-3 rounded-[22px] border border-black/6 bg-white/80 shadow-[inset_0_1px_0_rgba(255,255,255,0.95)] backdrop-blur-sm dark:border-white/8 dark:bg-zinc-900/78">
+                                <div id="modal-content" data-lenis-prevent className="h-full min-h-0 overflow-y-auto p-3 rounded-[22px] border border-black/6 bg-white/80 shadow-[inset_0_1px_0_rgba(255,255,255,0.95)] backdrop-blur-sm dark:border-white/8 dark:bg-zinc-900/78">
                                     {modalState.content}
                                 </div>
                             </div>

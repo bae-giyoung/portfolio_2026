@@ -4,15 +4,61 @@ import SectionLayout from "../ui/section/SectionLayout";
 import SectionTitle from "../ui/section/SectionTitle";
 import { useSetAtom } from "jotai";
 import { modalStateAtom } from "@/atoms/atoms";
-import { CirclePlus } from "lucide-react";
+import { CirclePlus, FileDown, ExternalLink } from "lucide-react";
 import SlideButton from "../ui/SlideButton";
+import { workListData } from "@/datas/workData";
 
 export default function WorkSection() {
     const modalState = useSetAtom(modalStateAtom);
     
     const modalContent = (
-        <div className="w-full h-[80vh]">
-            리스트 형태로 작업 상세 설명이 들어갈 예정입니다. PDF로도 제공할 계획입니다.
+        <div className="w-full">
+            <div className="flex justify-between items-center mb-4">
+                <h2 className="text-4xl font-bold mr-4">Works</h2>
+                <SlideButton as="download" href="/docs/works/배기영_소프트웨어기술자+경력증명서.pdf" alt="경력 증명서 다운로드">
+                    <span className="flex items-center gap-1">
+                        <FileDown strokeWidth={1} size={18} />
+                        경력 증명서
+                    </span>
+                </SlideButton>
+            </div>
+            <ul className="w-full divide-y divide-black/8 dark:divide-white/8">
+                {
+                    workListData.map(({title, description, period, link}, i) => {
+                        const Tag = link ? "a" : "div";
+                        const linkProps = link ? { href: link, target: "_blank", rel: "noopener noreferrer" } : {};
+                        return (
+                            <li key={i}>
+                                <Tag
+                                    {...linkProps}
+                                    className={`group flex items-center justify-between gap-4 py-3.5 sm:py-4 ${link ? "cursor-pointer" : ""}`}
+                                >
+                                    <div className="min-w-0 flex-1">
+                                        <span className="block font-semibold text-base leading-snug mb-0.5 group-hover:text-app-primary transition-colors duration-200">
+                                            {title}
+                                        </span>
+                                        {description && (
+                                            <span className="block text-[13px] text-current/50 leading-relaxed truncate">
+                                                {description}
+                                            </span>
+                                        )}
+                                    </div>
+                                    <div className="flex items-center gap-3 shrink-0">
+                                        {period && (
+                                            <span className="text-xs text-current/40 tabular-nums">{period}</span>
+                                        )}
+                                        {link && (
+                                            <span className="text-xs font-medium text-current/30 group-hover:text-app-primary transition-colors duration-200 whitespace-nowrap">
+                                                <ExternalLink strokeWidth={1.25} size={14} />
+                                            </span>
+                                        )}
+                                    </div>
+                                </Tag>
+                            </li>
+                        );
+                    })
+                }
+            </ul>
         </div>
     );
     
