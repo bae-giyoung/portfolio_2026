@@ -8,9 +8,18 @@
  * - projectCards: projectDetails에서 파생 (간단 카드용)
  */
 
+import { StaticImageData } from "next/image";
+
 export type ProjectStatus = "Completed" | "InProgress";
 
 export type ProjectRoleCategory = "Frontend" | "Backend" | "FullStack";
+
+export type ArchitectureDiagram = {
+    src?: StaticImageData | string;
+    alt?: string;
+    title?: string;
+    description?: string[];
+};
 
 // == 단일 소스 타입
 export type ProjectDetail = {
@@ -41,10 +50,12 @@ export type ProjectDetail = {
         problem: string;
         solution: string;
         result: string;
+        image?: string;
     }[];
     architecture: {
-        before: string;
-        after: string;
+        diagram?: ArchitectureDiagram;
+        before?: ArchitectureDiagram;
+        after?: ArchitectureDiagram;
     };
     /** 상세 페이지용 카테고리별 기술 스택 */
     techStack: {
@@ -58,6 +69,7 @@ export type ProjectDetail = {
         github?: string;
         demo?: string;
         docs?: string;
+        presentation?: string;
     };
 };
 
@@ -156,7 +168,7 @@ export const projectDetails: ProjectDetail[] = [
         },
 
         background:
-            "Data/AI 경진대회 본선 진출 팀 프로젝트로, 공모전 기반 실수요 과제인 수자원 관리·예측 문제를 웹 대시보드 서비스로 구현했습니다.",
+            "Data/AI 경진대회 팀 프로젝트로, 공모전 기반 실수요 과제인 수자원 관리·예측 문제를 웹 대시보드 서비스로 구현했습니다.",
 
         problem:
             "지하수 관측 데이터와 AI 예측 결과는 시계열·관측소·기상 변수 등 여러 축으로 나뉘어 있어, 사용자가 원본 데이터만으로 현재 상태와 예측 흐름을 파악하기 어려웠습니다. 또한 초기 구조에서는 Next.js가 화면 렌더링뿐 아니라 외부 API 호출, 데이터 가공, FastAPI 연동까지 담당하면서 프론트엔드 계층의 책임이 커졌습니다.",
@@ -181,6 +193,8 @@ export const projectDetails: ProjectDetail[] = [
         ],
 
         keyFeatures: [
+            "회원가입 및 로그인 기능 구현",
+            "Session 기반 인증 처리 및 로그인 상태 유지",
             "관측소별 지하수위 현황 조회",
             "장기 수위 추세 시각화",
             "AI 예측 결과 차트 표시",
@@ -190,35 +204,53 @@ export const projectDetails: ProjectDetail[] = [
 
         technicalChallenges: [
             {
-                title: "여러 데이터 소스의 화면 표현 구조 정리",
+                title: "다중 서버 환경에서의 CORS 및 세션 쿠키 전달 문제",
                 problem:
-                    "지하수 관측 데이터, 기상 데이터, AI 예측 결과가 서로 다른 형태로 제공되어 화면에서 일관된 구조로 표현하기 어려웠습니다.",
+                    "Next.js, Spring Boot, FastAPI가 서로 다른 Origin에서 동작하면서 브라우저가 Cross-Origin 요청으로 판단해 CORS 에러가 발생했고, 세션 쿠키(JSESSIONID)도 정상적으로 전달되지 않았습니다.",
                 solution:
-                    "Next.js API Route와 클라이언트 데이터 타입을 기준으로 화면에 필요한 응답 구조를 정리하고, 차트와 테이블 컴포넌트가 재사용 가능한 형태로 데이터를 소비하도록 구성했습니다.",
+                    "SameSite=None/Secure, Nginx Reverse Proxy 등 여러 방법을 검토한 뒤, 개발 환경에서 즉시 대응 가능한 Next.js rewrites 프록시를 최종 선택했습니다. 프론트 서버를 중계 서버로 활용해 모든 요청이 동일 Origin으로 처리되도록 구성했습니다.",
                 result:
-                    "관측소별 수위, 예측 결과, 기상 데이터를 대시보드에서 통합적으로 확인할 수 있는 MVP를 구현했습니다.",
+                    "CORS 문제가 해결되었고, JSESSIONID HttpOnly 쿠키가 프론트 서버 도메인으로 저장되어 이후 인증 요청 시 백엔드로 정상 전달되었습니다.",
+                image: "/docs/mulalim/trouble-shooting-cors-session.webp",
             },
             {
-                title: "예측 서버와 프론트엔드 연동",
+                title: "로그인 상태 유지 시 초기 UI 깜빡임 문제",
                 problem:
-                    "FastAPI 예측 서버는 모델 추론 결과를 반환하지만, 프론트엔드에서는 차트와 테이블에 맞는 데이터 구조가 필요했습니다.",
+                    "페이지 로딩 시 인증 상태가 비동기적으로 확인되면서, 로그인된 사용자에게도 잠시 로그아웃 상태 UI가 표시되었다가 전환되는 깜빡임이 발생했습니다.",
                 solution:
-                    "예측 결과의 timestamp, predicted value, latest value 등을 화면에서 사용하기 좋은 구조로 변환해 시각화 흐름을 구성했습니다.",
+                    "LocalStorage 직접 사용(보안 취약), React Context(전역 리렌더링 비효율) 등을 검토한 뒤, Jotai atomWithStorage로 localStorage에 세션 상태를 저장·복원하고 AuthProvider에서 페이지 로드·전환 시마다 세션을 재검증하는 방식을 채택했습니다.",
                 result:
-                    "AI 예측 결과를 사용자가 확인 가능한 대시보드 UI로 연결했습니다.",
+                    "인증 상태 확인 전 UI 깜빡임이 제거되었고, CSR 환경에서도 로그인 상태가 부드럽게 유지되었습니다. 인증/비인증 상태에 따른 조건부 렌더링과 페이지 보호 로직도 단순화되었습니다.",
+            },
+            {
+                title: "Open API 간헐적 502 오류로 인한 전체 데이터 요청 중단",
+                problem:
+                    "Next.js 서버에서 여러 관측소의 Open API를 병렬 호출할 때, 일부 관측소에서 간헐적으로 502 Bad Gateway 오류가 발생하면서 전체 데이터 요청이 중단되었습니다.",
+                solution:
+                    "Promise.all() 대신 Promise.allSettled()를 적용하여 일부 요청이 실패해도 나머지 관측소 데이터는 정상 수집되도록 구성하고, fulfilled/rejected 결과를 분리해 부분 성공 처리 구조를 구현했습니다.",
+                result:
+                    "API 요청 안정성이 개선되었고, 실패한 관측소만 예외 처리하여 나머지 데이터는 정상적으로 대시보드에 표시할 수 있게 되었습니다.",
+                image: "/docs/mulalim/trouble-shooting-open-api-error.webp",
             },
         ],
 
         architecture: {
-            before:
-                "공공 데이터와 AI 예측 결과가 각각 분리되어 있어 사용자가 직접 데이터 흐름을 이해하기 어려운 상태",
-            after:
-                "Next.js 대시보드에서 관측 데이터, 예측 결과, 기상 데이터를 통합적으로 조회하고 시각화하는 구조",
+            diagram: {
+                src: "/docs/mulalim/architecture.webp",
+                alt: "물알림단 아키텍처 다이어그램",
+                /* title: "웹 클라이언트 → Next.js BFF → 외부 Open API/FastAPI 호출 → Next.js 메모리 가공 → 웹 클라이언트 응답", */
+                description: [
+                        "Next.js (Front Server): API 프록시 및 Open API 데이터 가공 담당",
+                        "Spring Boot (Back Server): MySQL 연동 RESTful API 제공",
+                        "FastAPI (AI Model Server): LSTM+Transformer 모델로 예측 결과 반환",
+                        "CORS 문제: Next.js rewrites 프록시로 Origin 통일 해결",
+                    ],
+            },
         },
 
         techStack: {
-            frontend: ["Next.js", "React", "TypeScript", "Jotai", "Highcharts"],
-            backend: ["Spring Boot"],
+            frontend: ["Next.js 15.5.9", "React 19.1.2", "TypeScript", "Jotai", "Highcharts"],
+            backend: ["Spring Boot 3.5.4", "Java 17", "Spring Data JPA", "Spring Security"],
             dataAi: ["FastAPI", "PyTorch", "LSTM", "Transformer"],
             database: ["MySQL"],
             tools: ["GitHub", "Figma", "Notion"],
@@ -228,6 +260,7 @@ export const projectDetails: ProjectDetail[] = [
             github: "https://github.com/bae-giyoung/groundwater-nextjs",
             demo: "https://www.awesomescreenshot.com/video/46379582?key=841a26872d250d5c3c5fcddca08a67d5",
             docs: "/docs/mulalim/project-report-v1.docx",
+            presentation: "/docs/mulalim/presentation.pdf",
         },
     },
 
@@ -349,15 +382,27 @@ export const projectDetails: ProjectDetail[] = [
         ],
 
         architecture: {
-            before:
-                "웹 클라이언트 → Next.js BFF → 외부 Open API/FastAPI 호출 → Next.js 메모리 가공 → 웹 클라이언트 응답",
-            after:
-                "Spring Boot Scheduler → Open API 수집 → MySQL 적재 → Spring Boot QueryService/API 응답 → Next.js 렌더링",
+            before: {
+                title: "웹 클라이언트 → Next.js BFF → 외부 Open API/FastAPI 호출 → Next.js 메모리 가공 → 웹 클라이언트 응답",
+                description: [
+                    "사용자 요청 시 Next.js BFF가 외부 Open API를 직접 호출",
+                    "이동평균·증감·상태 계산 등 비즈니스 로직을 Next.js 메모리에서 처리",
+                    "API 호출 한도 소진, 응답 지연, 데이터 일관성 문제 발생",
+                ],
+            },
+            after: {
+                title: "Spring Boot API → 외부 Open API/FastAPI 호출 → DB 적재 → 웹 클라이언트 요청 시 응답",
+                description: [
+                    "Spring Boot Scheduler가 Open API 데이터를 주기적으로 MySQL에 적재",
+                    "Spring Boot QueryService가 DB 기준으로 시계열·집계 데이터 조립",
+                    "Next.js는 Spring Boot API 응답을 받아 렌더링하는 역할로 축소",
+                ],
+            },
         },
 
         techStack: {
-            frontend: ["Next.js", "React", "TypeScript"],
-            backend: ["Java 17", "Spring Boot", "Spring Data JPA"],
+            frontend: ["Next.js 16.2.3", "React 19.2.4", "TypeScript"],
+            backend: ["Java 17", "Spring Boot 4.0.2", "Spring Data JPA", "Spring Security"],
             dataAi: ["FastAPI", "PyTorch"],
             database: ["MySQL"],
             tools: ["JUnit 5", "Mockito", "GitHub", "Notion"],

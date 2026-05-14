@@ -22,7 +22,7 @@ export const allMenuList : LinkType[] = [
     {name: "물알림단 고도화 프로젝트", href: "/projects/2", type: "sub-hidden"},
 
     {name: "Github", href: "https://github.com/bae-giyoung", type: "external"},
-    {name: "Notion", href: "https://github.com/bae-giyoung", type: "external"},
+    /* {name: "Notion", href: "https://github.com/bae-giyoung", type: "external"}, */
 ]
 
 export const menuList : LinkType[] = allMenuList.filter(menu => menu.type === "main");
