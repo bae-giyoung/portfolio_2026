@@ -49,7 +49,7 @@ export default function SideNav ({
                 </ul>
                 <LinkList
                     linkList={linkList}
-                    listClassName="flex gap-6 font-noto"
+                    listClassName="flex gap-6 font-inst"
                     className="border border-app-fg rounded-4xl px-4 py-1 font-bold hover:-translate-y-1 transition-transform duration-300"
                 />
             </div>

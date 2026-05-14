@@ -43,13 +43,10 @@ html.dark {
   --color-app-primary: var(--primary);
   
   /* 폰트 */
-  --font-noto: var(--font-noto-sans-kr);
-  --font-urbanist: var(--font-urbanist);
   --font-inst: var(--font-instrument-sans);
   --font-space: var(--font-space-grotesk);
   --font-serif: var(--font-instrument-serif);
   --font-hurricane: var(--font-hurricane);
-  --font-display: var(--font-instrument-sans) var(--font-noto-sans-kr), sans-serif;
 
 
   /* 반응형 미디어 쿼리 (Breakpoint) */

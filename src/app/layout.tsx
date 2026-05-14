@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Noto_Sans_KR, Urbanist, Instrument_Sans, Space_Grotesk, Instrument_Serif, Hurricane } from "next/font/google";
+import { Instrument_Sans, Space_Grotesk, Instrument_Serif, Hurricane } from "next/font/google";
 import "./globals.css";
 import Modal from "@/components/ui/modal/Modal";
 import Toast from "@/components/ui/toast/Toast";
@@ -9,18 +9,6 @@ import PointerClickCursor from "@/components/effects/PointerClickCursor";
 import FloatingLabelCursor from "@/components/effects/FloatingLabelCursor";
 import PageTransition from "@/components/layout/PageTransition";
 import Header from "@/components/layout/Header";
-
-const notoSansKR = Noto_Sans_KR({
-  variable: "--font-noto-sans-kr",
-  display: "swap",
-  subsets: ["latin"],
-});
-
-const urbanist = Urbanist({
-  variable: "--font-urbanist",
-  display: "swap",
-  subsets: ["latin"],
-});
 
 const instrumentSans = Instrument_Sans({
   variable: "--font-instrument-sans",
@@ -96,7 +84,7 @@ export default function RootLayout({
   return (
     <html
       lang="ko"
-      className={`${notoSansKR.variable} ${urbanist.variable} ${instrumentSans.variable} ${spaceGrotesk.variable} ${instrumentSerif.variable} ${hurricane.variable} antialiased`}
+      className={`${instrumentSans.variable} ${spaceGrotesk.variable} ${instrumentSerif.variable} ${hurricane.variable} antialiased`}
     >
       <body>
         <ThemeProvider>

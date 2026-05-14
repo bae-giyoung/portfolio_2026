@@ -28,7 +28,7 @@ export default function ThemeToggleButton({
                             duration: 0.3
                         }}
                         className={`
-                            absolute transform mr-2 px-3 py-1 bg-app-fg text-app-bg text-sm font-noto rounded-lg shadow-lg whitespace-nowrap
+                            absolute transform mr-2 px-3 py-1 bg-app-fg text-app-bg text-sm rounded-lg shadow-lg whitespace-nowrap
                             left-[50%] top-full -translate-x-[50%] translate-y-4 animate-pulse
                             sm:-left-2 sm:top-[50%] sm:-translate-y-[50%] sm:-translate-x-full sm:animate-none
                             lg:left-[50%] lg:top-full lg:translate-y-4 lg:-translate-x-[50%] lg:animate-none
