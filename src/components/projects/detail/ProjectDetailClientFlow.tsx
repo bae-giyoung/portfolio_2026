@@ -1,10 +1,10 @@
 import type { ArchitecturePanel, ProjectDetail } from "@/datas/projectData";
-import Image from "next/image";
 import asterisk from "@/assets/icons/asterik.svg";
+import Image from "next/image";
 import UnorderedList01 from "@/components/ui/list/UnorderedList01";
 
 type Props = {
-    architecture: ProjectDetail["architecture"];
+    clientFlow: NonNullable<ProjectDetail["clientFlow"]>;
 };
 
 function Panel({ panel }: { panel: ArchitecturePanel }) {
@@ -18,8 +18,8 @@ function Panel({ panel }: { panel: ArchitecturePanel }) {
         ? "border-app-fg/10 bg-app-fg/2"
         : "border-app-fg/20 bg-app-bg";
     const labelColors = isPrimary
-        ? "text-app-primary/70"
-        : "text-app-fg/70";
+        ? "text-app-primary/60"
+        : "text-app-fg/30";
     const dotColors = isForeground
         ? "foreground"
         : "primary";
@@ -27,24 +27,12 @@ function Panel({ panel }: { panel: ArchitecturePanel }) {
     return (
         <div className={`p-6 xl:p-8 rounded-2xl border ${borderColors} ${isFull ? "md:col-span-2" : ""}`}>
             {panel.label && (
-                <p className={`text-[14px] font-semibold uppercase tracking-widest mb-4 ${labelColors}`}>
+                <p className={`text-xs font-semibold uppercase tracking-widest mb-4 ${labelColors}`}>
                     {panel.label}
                 </p>
             )}
-            {panel.src && (
-                <div className="rounded-xl border border-app-fg/10 bg-app-fg/2 p-4 flex items-center justify-center mb-5">
-                    <Image
-                        src={panel.src}
-                        alt={panel.alt ?? "Architecture Diagram"}
-                        width={900}
-                        height={500}
-                        priority
-                        className="object-contain"
-                    />
-                </div>
-            )}
             {panel.title && (
-                <p className="text-lg leading-relaxed text-app-fg break-keep font-inst font-bold mb-5">
+                <p className="text-sm leading-relaxed text-app-fg break-keep font-inst mb-5">
                     {panel.title}
                 </p>
             )}
@@ -59,14 +47,14 @@ function Panel({ panel }: { panel: ArchitecturePanel }) {
     );
 }
 
-export default function ProjectDetailArchitecture({ architecture }: Props) {
+export default function ProjectDetailClientFlow({ clientFlow }: Props) {
     return (
         <section className="w-full">
             <h2 className="text-[16px] font-semibold uppercase tracking-widest text-app-fg/60 mb-6">
-                <Image src={asterisk} alt="Asterisk" className="inline-block mr-2" width={16} height={16} />아키텍처
+                <Image src={asterisk} alt="Asterisk" className="inline-block mr-2" width={16} height={16} />클라이언트 진입 흐름
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {architecture.panels.map((panel, i) => (
+                {clientFlow.panels.map((panel, i) => (
                     <Panel key={i} panel={panel} />
                 ))}
             </div>

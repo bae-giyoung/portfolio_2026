@@ -14,11 +14,18 @@ export type ProjectStatus = "Completed" | "InProgress";
 
 export type ProjectRoleCategory = "Frontend" | "Backend" | "FullStack";
 
-export type ArchitectureDiagram = {
+export type ArchitecturePanel = {
+    /** 패널 상단 Label */
+    label?: string;
+    /** 패널 부제목 */
+    title?: string;
     src?: StaticImageData | string;
     alt?: string;
-    title?: string;
     description?: string[];
+    /** 색상 스타일: default = 흰색, foreground = 전경색 강조, primary = 녹색 강조 */
+    variant?: "default" | "foreground" | "primary";
+    /** 레이아웃: full = 전체 폭, half = 절반 (기본값) */
+    span?: "full" | "half";
 };
 
 // == 단일 소스 타입
@@ -53,9 +60,11 @@ export type ProjectDetail = {
         image?: string;
     }[];
     architecture: {
-        diagram?: ArchitectureDiagram;
-        before?: ArchitectureDiagram;
-        after?: ArchitectureDiagram;
+        panels: ArchitecturePanel[];
+    };
+    /** 클라이언트 앱 실행 흐름 (진입 / 전환 / 상세) */
+    clientFlow?: {
+        panels: ArchitecturePanel[];
     };
     /** 상세 페이지용 카테고리별 기술 스택 */
     techStack: {
@@ -235,17 +244,19 @@ export const projectDetails: ProjectDetail[] = [
         ],
 
         architecture: {
-            diagram: {
-                src: "/docs/mulalim/architecture.webp",
-                alt: "물알림단 아키텍처 다이어그램",
-                /* title: "웹 클라이언트 → Next.js BFF → 외부 Open API/FastAPI 호출 → Next.js 메모리 가공 → 웹 클라이언트 응답", */
-                description: [
+            panels: [
+                {
+                    span: "full",
+                    src: "/docs/mulalim/architecture.webp",
+                    alt: "물알림단 아키텍처 다이어그램",
+                    description: [
                         "Next.js (Front Server): API 프록시 및 Open API 데이터 가공 담당",
                         "Spring Boot (Back Server): MySQL 연동 RESTful API 제공",
                         "FastAPI (AI Model Server): LSTM+Transformer 모델로 예측 결과 반환",
                         "CORS 문제: Next.js rewrites 프록시로 Origin 통일 해결",
                     ],
-            },
+                },
+            ],
         },
 
         techStack: {
@@ -382,22 +393,28 @@ export const projectDetails: ProjectDetail[] = [
         ],
 
         architecture: {
-            before: {
-                title: "웹 클라이언트 → Next.js BFF → 외부 Open API/FastAPI 호출 → Next.js 메모리 가공 → 웹 클라이언트 응답",
-                description: [
-                    "사용자 요청 시 Next.js BFF가 외부 Open API를 직접 호출",
-                    "이동평균·증감·상태 계산 등 비즈니스 로직을 Next.js 메모리에서 처리",
-                    "API 호출 한도 소진, 응답 지연, 데이터 일관성 문제 발생",
-                ],
-            },
-            after: {
-                title: "Spring Boot API → 외부 Open API/FastAPI 호출 → DB 적재 → 웹 클라이언트 요청 시 응답",
-                description: [
-                    "Spring Boot Scheduler가 Open API 데이터를 주기적으로 MySQL에 적재",
-                    "Spring Boot QueryService가 DB 기준으로 시계열·집계 데이터 조립",
-                    "Next.js는 Spring Boot API 응답을 받아 렌더링하는 역할로 축소",
-                ],
-            },
+            panels: [
+                {
+                    label: "Before",
+                    title: "웹 클라이언트 → Next.js BFF → 외부 Open API/FastAPI 호출 → Next.js 메모리 가공 → 웹 클라이언트 응답",
+                    variant: "foreground",
+                    description: [
+                        "사용자 요청 시 Next.js BFF가 외부 Open API를 직접 호출",
+                        "이동평균·증감·상태 계산 등 비즈니스 로직을 Next.js 메모리에서 처리",
+                        "API 호출 한도 소진, 응답 지연, 데이터 일관성 문제 발생",
+                    ],
+                },
+                {
+                    label: "After",
+                    variant: "primary",
+                    title: "Spring Boot API → 외부 Open API/FastAPI 호출 → DB 적재 → 웹 클라이언트 요청 시 응답",
+                    description: [
+                        "Spring Boot Scheduler가 Open API 데이터를 주기적으로 MySQL에 적재",
+                        "Spring Boot QueryService가 DB 기준으로 시계열·집계 데이터 조립",
+                        "Next.js는 Spring Boot API 응답을 받아 렌더링하는 역할로 축소",
+                    ],
+                },
+            ],
         },
 
         techStack: {
@@ -405,7 +422,7 @@ export const projectDetails: ProjectDetail[] = [
             backend: ["Java 17", "Spring Boot 4.0.2", "Spring Data JPA", "Spring Security"],
             dataAi: ["FastAPI", "PyTorch"],
             database: ["MySQL"],
-            tools: ["JUnit 5", "Mockito", "GitHub", "Notion"],
+            tools: ["AWS", "JUnit 5", "Mockito", "GitHub", "Notion"],
         },
 
         links: {
@@ -519,14 +536,76 @@ export const projectDetails: ProjectDetail[] = [
         ],
 
         architecture: {
-            diagram: {
-                description: [
-                    "Next.js App Router 기반 정적 사이트 생성(SSG) — 별도 백엔드 없음",
-                    "Jotai: 테마·인트로 재생 여부 등 클라이언트 전역 상태 관리",
-                    "GSAP: 커튼 인트로 및 페이지 전환 애니메이션 제어",
-                    "Lenis + GSAP ScrollTrigger: 부드러운 스크롤 및 스크롤 기반 애니메이션",
-                ],
-            },
+            panels: [
+                {
+                    span: "full",
+                    src: "/docs/portfolio/architecture.webp",
+                    alt: "포트폴리오 아키텍처 다이어그램",
+                },
+                {
+                    label: "빌드 & 배포",
+                    variant: "foreground",
+                    title: "Static-first Deployment on Vercel",
+                    description: [
+                        "포트폴리오의 프로젝트 데이터는 정적 데이터로 관리하고, Next.js 빌드 시점에 주요 페이지를 사전 생성",
+                        "GitHub push/PR을 기준으로 Vercel Preview·Production Deployment 자동화",
+                        "generateStaticParams()를 사용해 /projects/[id] 상세 페이지를 빌드 타임에 정적 생성",
+                        "정적 HTML/CSS/JS 아티팩트는 Vercel Edge CDN을 통해 전 세계 사용자에게 빠르게 제공",
+                    ],
+                },
+                {
+                    label: "요청 & 응답",
+                    variant: "primary",
+                    title: "Edge CDN 기반 사용자 응답 흐름",
+                    description: [
+                        "사용자 요청은 Vercel Edge Network로 라우팅되고, 정적 페이지는 서버 함수 실행 없이 CDN에서 즉시 응답",
+                        "브라우저는 HTML을 먼저 수신한 뒤 JS 번들을 로드하고 React Hydration을 통해 인터랙션을 활성화",
+                        "이미지는 Next.js Image Optimization을 통해 요청 시점에 최적화되며, 최적화 결과는 캐시되어 재사용",
+                        "정적 페이지 중심 구조로 초기 응답 속도와 운영 복잡도를 낮춘 배포 구조를 구성",
+                    ],
+                },
+            ],
+        },
+
+        clientFlow: {
+            panels: [
+                {
+                    label: "① Entry & Init",
+                    span: "full",
+                    title: "진입 & 초기화 흐름",
+                    description: [
+                        "브라우저 요청 → Vercel/CDN에서 SSG 정적 파일 즉시 서빙 (별도 백엔드 없음)",
+                        "React Hydration 완료 → ThemeProvider 초기화: localStorage 저장값 확인 → 없으면 prefers-color-scheme 폴백 → html 클래스에 light/dark 적용",
+                        "레이아웃 마운트: Header → PointerClickCursor → FloatingLabelCursor → PageTransition → SmoothScrollProvider(Lenis + ScrollTrigger 동기화) 순서로 초기화",
+                        "introPlayedAtom 확인 → 최초 방문: CurtainIntro 마운트 → GSAP 인트로 타임라인 실행 → is-loading 클래스로 스크롤 잠금 → 완료 후 atom = true, 언마운트",
+                        "재방문 또는 인트로 완료: 홈 콘텐츠 렌더 → MainVisual → ProfileSection → ProjectSection → WorkSection → WorkGallery → Footer",
+                    ],
+                },
+                {
+                    label: "② Page Transition",
+                    variant: "foreground",
+                    title: "페이지 전환 흐름",
+                    description: [
+                        "링크 클릭 → AppLink가 usePageTransition().navigate(href) 호출",
+                        "transitionIn 실행: GSAP 커튼 올라옴 → pointer-events 활성화(클릭 차단) → 페이지명 레이블 fade-in",
+                        "Lenis.scrollTo(0, { immediate: true }) → 커튼이 화면을 덮은 직후 최상단으로 즉시 이동",
+                        "router.push(href) 실행 → Next.js 라우팅 + 새 페이지 렌더 시작",
+                        "pathname 변경 감지(새 페이지 렌더 완료 신호) → transitionOut 실행: GSAP 커튼 내려감 → 새 페이지 노출",
+                    ],
+                },
+                {
+                    label: "③ Project Detail",
+                    variant: "primary",
+                    title: "프로젝트 상세 페이지 흐름",
+                    description: [
+                        "빌드 타임: generateStaticParams()가 projectDetails 배열을 순회 → /projects/1 · /projects/2 · /projects/3 정적 HTML 생성",
+                        "런타임: 브라우저 요청 → CDN에서 정적 파일 즉시 서빙 → React Hydration",
+                        "generateMetadata(): id로 projectDetails 조회 → 페이지별 title / description 자동 적용",
+                        "상세 컴포넌트 렌더: ProjectDetailHero → ProjectDetailOverview → ProjectDetailSpecs → ProjectDetailArchitecture → ProjectDetailChallenges → 이전/다음 탐색 nav",
+                        "projectImageMap(id → StaticImageData)으로 대표 이미지 연결 → next/image priority 최적화 서빙",
+                    ],
+                },
+            ],
         },
 
         techStack: {
@@ -534,7 +613,7 @@ export const projectDetails: ProjectDetail[] = [
             backend: [],
             dataAi: [],
             database: [],
-            tools: ["GitHub", "Figma"],
+            tools: ["Vercel", "GitHub", "Figma"],
         },
 
         links: {

@@ -6,6 +6,7 @@ import ProjectDetailHero from "@/components/projects/detail/ProjectDetailHero";
 import ProjectDetailOverview from "@/components/projects/detail/ProjectDetailOverview";
 import ProjectDetailChallenges from "@/components/projects/detail/ProjectDetailChallenges";
 import ProjectDetailArchitecture from "@/components/projects/detail/ProjectDetailArchitecture";
+import ProjectDetailClientFlow from "@/components/projects/detail/ProjectDetailClientFlow";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -104,6 +105,11 @@ export default async function ProjectDetailPage({
 
                     {/* 아키텍처 */}
                     <ProjectDetailArchitecture architecture={project.architecture} />
+
+                    {/* 클라이언트 진입 흐름 */}
+                    {/* {project.clientFlow && (
+                        <ProjectDetailClientFlow clientFlow={project.clientFlow} />
+                    )} */}
                     
                     {/* 기술적 도전 아코디언 */}
                     <ProjectDetailChallenges challenges={project.technicalChallenges} />

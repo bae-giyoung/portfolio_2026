@@ -17,7 +17,7 @@ export default function ProjectDetailTechStack({
         { label: "백엔드", items: techStack.backend },
         { label: "Data / AI", items: techStack.dataAi },
         { label: "DB", items: techStack.database },
-        { label: "Tools", items: techStack.tools },
+        { label: "Tools / Infra", items: techStack.tools },
     ].filter((c) => c.items.length > 0);
 
     return (
