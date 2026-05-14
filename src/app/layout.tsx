@@ -6,6 +6,7 @@ import Toast from "@/components/ui/toast/Toast";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import SmoothScrollProvider from "@/components/providers/SmoothScrollProvider";
 import PointerClickCursor from "@/components/effects/PointerClickCursor";
+import FloatingLabelCursor from "@/components/effects/FloatingLabelCursor";
 import PageTransition from "@/components/layout/PageTransition";
 import Header from "@/components/layout/Header";
 
@@ -100,6 +101,7 @@ export default function RootLayout({
       <body>
         <ThemeProvider>
           <PointerClickCursor />
+          <FloatingLabelCursor />
           <PageTransition>
             <Header />
             <SmoothScrollProvider>

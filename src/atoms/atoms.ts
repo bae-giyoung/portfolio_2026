@@ -1,5 +1,8 @@
 import { atom } from 'jotai';
 
+// == 전역 플로팅 라벨 상태
+export const floatingCursorLabelAtom = atom<string | null>(null);
+
 //* == 토스트 Toast
 export type ToastType = 'info' | 'success' | 'warning' | 'error';
 

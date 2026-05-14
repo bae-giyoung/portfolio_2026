@@ -5,7 +5,6 @@ import {
     motion,
     useMotionValue,
     useAnimationFrame,
-    useSpring,
 } from "framer-motion";
 import Image, { type StaticImageData } from "next/image";
 
@@ -45,12 +44,10 @@ const GalleryCard = memo(function GalleryCard({
     item,
     isDragging,
     hasDraggedRef,
-    onLinkHover,
 }: {
     item: DraggableMarqueeItem;
     isDragging: boolean;
     hasDraggedRef: React.RefObject<boolean>;
-    onLinkHover: (hovering: boolean) => void;
 }) {
     const [hovered, setHovered] = useState(false);
     const showOverlay = hovered && !isDragging;
@@ -87,9 +84,8 @@ const GalleryCard = memo(function GalleryCard({
                             href={item.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="mt-3 px-6 py-4 bg-black/70 rounded-4xl text-white text-[16px] font-medium hover:bg-black transition-colors duration-300"
-                            onMouseEnter={() => onLinkHover(true)}
-                            onMouseLeave={() => onLinkHover(false)}
+                            data-cursor-label="Hide"
+                            className="mt-3 px-6 py-4 bg-black/70 rounded-4xl text-white text-[16px] font-medium hover:bg-black transition-colors duration-300 cursor-pointer"
                             onClick={(e) => {
                                 if (hasDraggedRef.current) e.preventDefault();
                             }}
@@ -162,13 +158,6 @@ export default function DraggableMarqueeGallery({
     };
 
     const onPointerMove = (e: React.PointerEvent) => {
-        // 커서 위치 추적 (드래그 여부와 무관하게 항상)
-        const rect = containerRef.current?.getBoundingClientRect();
-        if (rect) {
-            cursorRawX.set(e.clientX - rect.left);
-            cursorRawY.set(e.clientY - rect.top);
-        }
-
         if (!isDraggingRef.current) return;
 
         const delta = e.clientX - pointerStartXRef.current;
@@ -179,6 +168,7 @@ export default function DraggableMarqueeGallery({
             setIsDragging(true);
             capturedPointerIdRef.current = e.pointerId;
             containerRef.current?.setPointerCapture(e.pointerId);
+            containerRef.current?.setAttribute('data-cursor-label', '···');
         }
 
         if (!hasDraggedRef.current) return;
@@ -203,20 +193,9 @@ export default function DraggableMarqueeGallery({
         }
         isDraggingRef.current = false;
         setIsDragging(false);
+        containerRef.current?.setAttribute('data-cursor-label', 'Drag');
     };
 
-
-    const [isOverLink, setIsOverLink] = useState(false);
-
-    // == 커서 추적
-    const cursorRawX = useMotionValue(0);
-    const cursorRawY = useMotionValue(0);
-    const cursorX = useSpring(cursorRawX, { stiffness: 600, damping: 35, mass: 0.4 });
-    const cursorY = useSpring(cursorRawY, { stiffness: 600, damping: 35, mass: 0.4 });
-    const [cursorVisible, setCursorVisible] = useState(false);
-
-    const onMouseEnterGallery = () => setCursorVisible(true);
-    const onMouseLeaveGallery = () => setCursorVisible(false);
 
     // == 렌더링
     const doubled = useMemo(() => [...items, ...items], [items]);
@@ -224,36 +203,20 @@ export default function DraggableMarqueeGallery({
     return (
         <div
             ref={containerRef}
-            className={`w-full select-none ${className}`}
-            style={{ overflow: "clip", cursor: "none" }}
+            className={`w-full select-none cursor-none ${className}`}
+            style={{ overflow: "clip" }}
+            data-cursor-label="Drag"
             onPointerDown={onPointerDown}
             onPointerMove={onPointerMove}
             onPointerUp={onPointerUp}
             onPointerLeave={onPointerUp}
-            onMouseEnter={onMouseEnterGallery}
-            onMouseLeave={onMouseLeaveGallery}
         >
-            {/* 커스텀 커서 */}
-            <motion.div
-                className="pointer-events-none absolute z-50 flex items-center justify-center px-6 py-3 rounded-full bg-white border border-black/20 text-black text-xs font-semibold tracking-widest uppercase transition-width"
-                style={{
-                    x: cursorX,
-                    y: cursorY,
-                    translateX: "-30%",
-                    translateY: "50px",
-                }}
-                animate={{ opacity: cursorVisible ? 1 : 0, scale: isDragging ? 0.85 : 1 }}
-                transition={{ opacity: { duration: 0.2 }, scale: { duration: 0.15 } }}
-            >
-                {isDragging ? "···" : isOverLink ? "새창 열림" : "Drag"}
-            </motion.div>
-
             <motion.div
                 className="flex items-end"
                 style={{ x, gap: `${gap}px` }}
             >
                 {doubled.map((item, i) => (
-                    <GalleryCard key={i} item={item} isDragging={isDragging} hasDraggedRef={hasDraggedRef} onLinkHover={setIsOverLink} />
+                    <GalleryCard key={i} item={item} isDragging={isDragging} hasDraggedRef={hasDraggedRef} />
                 ))}
             </motion.div>
         </div>

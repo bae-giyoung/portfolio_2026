@@ -186,7 +186,11 @@ body a *,
 body button,
 body button *,
 .cursor-pointer,
-.cursor-pointer * {
+.cursor-pointer *,
+.cursor-grab .cursor-pointer,
+.cursor-grab .cursor-pointer *,
+html body .cursor-none .cursor-pointer,
+html body .cursor-none .cursor-pointer * {
   cursor: url('/cursors/cursor-pointer.png') 7 0, pointer !important;
 }
 
@@ -212,6 +216,11 @@ html body .cursor-grab * {
 html body .cursor-grab.grabbed,
 html body .cursor-grab.grabbed * {
   cursor: url('/cursors/cursor-grabbed.png') 9 0, grab !important;
+}
+
+html body .cursor-none,
+html body .cursor-none * {
+  cursor: none !important;
 }
 
 /* == Curious 플로팅 박스 애니메이션 */

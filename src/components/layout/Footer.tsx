@@ -1,8 +1,7 @@
 
 "use client";
 
-import { useState, useRef, useCallback } from "react";
-import { motion, useMotionValue, useSpring, useAnimation } from "framer-motion";
+import { useRef, useCallback } from "react";
 import { useToast } from "@/hooks/useToast";
 import SlideUpText from "../ui/text/SlideUpText";
 import Image from "next/image";
@@ -20,7 +19,6 @@ const strengths = [
 
 export default function Footer() {
     const toast = useToast();
-    const [isEmailHovered, setIsEmailHovered] = useState(false);
     const footerRef = useRef<HTMLElement>(null);
 
     const handleRefresh = useCallback(async () => {
@@ -31,16 +29,6 @@ export default function Footer() {
             setTimeout(() => footer.classList.remove("force-hover"), 1500);
         }
     }, [footerRef]);
-
-    const mouseX = useMotionValue(0);
-    const mouseY = useMotionValue(0);
-    const springX = useSpring(mouseX, { stiffness: 350, damping: 28 });
-    const springY = useSpring(mouseY, { stiffness: 350, damping: 28 });
-
-    const handleMouseMove = (e: React.MouseEvent) => {
-        mouseX.set(e.clientX);
-        mouseY.set(e.clientY);
-    };
 
     const handleEmailCopy = async () => {
         try {
@@ -53,22 +41,6 @@ export default function Footer() {
 
     return (
         <div id="footer-wrap" className="relative w-full h-full py-10 bg-app-fg/2 border-t border-app-fg/20 dark:border-app-fg/50 font-inst">
-            {/* Copy 커서 버블 */}
-            <motion.div
-                className="fixed top-0 left-0 pointer-events-none z-9999 bg-white border border-app-fg/20 text-black text-sm md:text-lg font-semibold px-5 py-2.5 rounded-full"
-                style={{
-                    x: springX,
-                    y: springY,
-                    translateX: "-50%",
-                    translateY: "-70%",
-                }}
-                initial={{ scale: 0 }}
-                animate={{ scale: isEmailHovered ? 1 : 0 }}
-                transition={{ type: "spring", stiffness: 400, damping: 30 }}
-            >
-                Copy Email
-            </motion.div>
-
             <footer 
                 ref={footerRef}
                 className="relative w-full px-5 md:px-7.5 lg:px-18 3xl:max-w-480 3xl:mx-auto"
@@ -87,11 +59,9 @@ export default function Footer() {
                     {/* 이메일 버튼 컨테이너 */}
                     <div
                         className="shrink-0 w-full md:w-[38%] md:min-w-97 h-20 md:min-h-28 border border-app-fg/40 dark:border-app-fg/50 rounded-2xl overflow-hidden"
-                        onMouseEnter={() => setIsEmailHovered(true)}
-                        onMouseLeave={() => setIsEmailHovered(false)}
-                        onMouseMove={handleMouseMove}
                     >
                         <button
+                            data-cursor-label="Copy Email"
                             type="button"
                             onClick={handleEmailCopy}
                             className="relative w-full h-full flex items-center justify-center group overflow-hidden hover:bg-app-fg/5 transition-colors duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]"

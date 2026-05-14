@@ -16,7 +16,10 @@ export default function ProjectGridCard({ project, image }: Props) {
     const { id, title, subTitle, roleCategory, period, status, summary, tech } = project;
 
     return (
-        <article className="group flex flex-col border border-app-fg/40 rounded-xl overflow-hidden hover:border-app-fg/30 transition-colors duration-300 font-inst">
+        <article 
+            data-cursor-label="View"
+            className="group flex flex-col border border-app-fg/40 rounded-xl overflow-hidden hover:border-app-fg/30 transition-colors duration-300 font-inst cursor-none"
+        >
             <AppLink href={`/projects/${id}`}>
                 {/* 이미지 */}
                 <ImageBox
