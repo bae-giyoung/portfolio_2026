@@ -1,0 +1,57 @@
+name,size(Bytes),size(KB),path,status
+asterik.svg,694,0.68,C:\_workplace\portfolio_2026\portfolio_2026\public\asterik.svg,unchanged
+cursor-basic-2.png,685,0.67,C:\_workplace\portfolio_2026\portfolio_2026\public\cursors\cursor-basic-2.png,unchanged
+cursor-basic.png,1217,1.19,C:\_workplace\portfolio_2026\portfolio_2026\public\cursors\cursor-basic.png,unchanged
+cursor-grab.png,729,0.71,C:\_workplace\portfolio_2026\portfolio_2026\public\cursors\cursor-grab.png,unchanged
+cursor-grabbed.png,551,0.54,C:\_workplace\portfolio_2026\portfolio_2026\public\cursors\cursor-grabbed.png,unchanged
+cursor-loading.png,655,0.64,C:\_workplace\portfolio_2026\portfolio_2026\public\cursors\cursor-loading.png,unchanged
+cursor-pointer-click.png,707,0.69,C:\_workplace\portfolio_2026\portfolio_2026\public\cursors\cursor-pointer-click.png,unchanged
+cursor-pointer.png,1224,1.20,C:\_workplace\portfolio_2026\portfolio_2026\public\cursors\cursor-pointer.png,unchanged
+cursor-text.png,332,0.32,C:\_workplace\portfolio_2026\portfolio_2026\public\cursors\cursor-text.png,unchanged
+css.svg,953,0.93,C:\_workplace\portfolio_2026\portfolio_2026\public\icons\skills\css.svg,unchanged
+eclipse.svg,3540,3.46,C:\_workplace\portfolio_2026\portfolio_2026\public\icons\skills\eclipse.svg,unchanged
+git.svg,2947,2.88,C:\_workplace\portfolio_2026\portfolio_2026\public\icons\skills\git.svg,unchanged
+github.svg,3040,2.97,C:\_workplace\portfolio_2026\portfolio_2026\public\icons\skills\github.svg,unchanged
+html.svg,886,0.87,C:\_workplace\portfolio_2026\portfolio_2026\public\icons\skills\html.svg,unchanged
+java.svg,2399,2.34,C:\_workplace\portfolio_2026\portfolio_2026\public\icons\skills\java.svg,unchanged
+jquery.svg,13436,13.12,C:\_workplace\portfolio_2026\portfolio_2026\public\icons\skills\jquery.svg,unchanged
+js.svg,1355,1.32,C:\_workplace\portfolio_2026\portfolio_2026\public\icons\skills\js.svg,unchanged
+mysql.svg,4260,4.16,C:\_workplace\portfolio_2026\portfolio_2026\public\icons\skills\mysql.svg,unchanged
+next.svg,2302,2.25,C:\_workplace\portfolio_2026\portfolio_2026\public\icons\skills\next.svg,unchanged
+python.svg,2023,1.98,C:\_workplace\portfolio_2026\portfolio_2026\public\icons\skills\python.svg,unchanged
+pytorch.svg,1032,1.01,C:\_workplace\portfolio_2026\portfolio_2026\public\icons\skills\pytorch.svg,unchanged
+react.svg,2103,2.05,C:\_workplace\portfolio_2026\portfolio_2026\public\icons\skills\react.svg,unchanged
+sklearn.svg,9349,9.13,C:\_workplace\portfolio_2026\portfolio_2026\public\icons\skills\sklearn.svg,unchanged
+spring.svg,1588,1.55,C:\_workplace\portfolio_2026\portfolio_2026\public\icons\skills\spring.svg,unchanged
+supabase.svg,1561,1.52,C:\_workplace\portfolio_2026\portfolio_2026\public\icons\skills\supabase.svg,unchanged
+tailwind.svg,1112,1.09,C:\_workplace\portfolio_2026\portfolio_2026\public\icons\skills\tailwind.svg,unchanged
+ts.svg,1998,1.95,C:\_workplace\portfolio_2026\portfolio_2026\public\icons\skills\ts.svg,unchanged
+vercel.svg,466,0.46,C:\_workplace\portfolio_2026\portfolio_2026\public\icons\skills\vercel.svg,unchanged
+vscode.svg,1427,1.39,C:\_workplace\portfolio_2026\portfolio_2026\public\icons\skills\vscode.svg,unchanged
+og-image.png,52548,51.32,C:\_workplace\portfolio_2026\portfolio_2026\public\og-image.png,unchanged
+adererror-1.webp,29500,28.81,C:\_workplace\portfolio_2026\portfolio_2026\src\assets\adererror-1.webp,webp optimized
+branding.webp,16842,16.45,C:\_workplace\portfolio_2026\portfolio_2026\src\assets\branding.webp,webp optimized
+character-1.webp,29694,29.00,C:\_workplace\portfolio_2026\portfolio_2026\src\assets\character-1.webp,webp optimized
+character-2.webp,29520,28.83,C:\_workplace\portfolio_2026\portfolio_2026\src\assets\character-2.webp,webp optimized
+gall-1.webp,34600,33.79,C:\_workplace\portfolio_2026\portfolio_2026\src\assets\gall-1.webp,webp optimized
+gall-2.webp,46150,45.07,C:\_workplace\portfolio_2026\portfolio_2026\src\assets\gall-2.webp,webp optimized
+gall-3-2.webp,11710,11.44,C:\_workplace\portfolio_2026\portfolio_2026\src\assets\gall-3-2.webp,webp optimized
+gall-4.webp,20318,19.84,C:\_workplace\portfolio_2026\portfolio_2026\src\assets\gall-4.webp,webp optimized
+asterik.svg,694,0.68,C:\_workplace\portfolio_2026\portfolio_2026\src\assets\icons\asterik.svg,unchanged
+neopharm.webp,14788,14.44,C:\_workplace\portfolio_2026\portfolio_2026\src\assets\neopharm.webp,webp optimized
+profile-00.webp,13028,12.72,C:\_workplace\portfolio_2026\portfolio_2026\src\assets\profile-00.webp,webp optimized
+profile-02.webp,40912,39.95,C:\_workplace\portfolio_2026\portfolio_2026\src\assets\profile-02.webp,webp optimized
+profile-03.webp,82648,80.71,C:\_workplace\portfolio_2026\portfolio_2026\src\assets\profile-03.webp,webp optimized
+project-mulalim.webp,31176,30.45,C:\_workplace\portfolio_2026\portfolio_2026\src\assets\projects\project-mulalim.webp,webp optimized
+project-portfolio.webp,10742,10.49,C:\_workplace\portfolio_2026\portfolio_2026\src\assets\projects\project-portfolio.webp,webp optimized
+work-busan-waman.webp,27834,27.18,C:\_workplace\portfolio_2026\portfolio_2026\src\assets\works\work-busan-waman.webp,webp optimized
+work-daedong.webp,44560,43.52,C:\_workplace\portfolio_2026\portfolio_2026\src\assets\works\work-daedong.webp,webp optimized
+work-hytrans.webp,17140,16.74,C:\_workplace\portfolio_2026\portfolio_2026\src\assets\works\work-hytrans.webp,webp optimized
+work-kyungbok.webp,19524,19.07,C:\_workplace\portfolio_2026\portfolio_2026\src\assets\works\work-kyungbok.webp,webp optimized
+work-ubi-decision.webp,46610,45.52,C:\_workplace\portfolio_2026\portfolio_2026\src\assets\works\work-ubi-decision.webp,webp optimized
+work-ulsan-univ.webp,28774,28.10,C:\_workplace\portfolio_2026\portfolio_2026\src\assets\works\work-ulsan-univ.webp,webp optimized
+work-young.webp,14384,14.05,C:\_workplace\portfolio_2026\portfolio_2026\src\assets\works\work-young.webp,webp optimized
+architecture.webp,29928,29.23,C:\_workplace\portfolio_2026\portfolio_2026\public\docs\mulalim\architecture.webp,png→webp
+trouble-shooting-cors-session.webp,64630,63.12,C:\_workplace\portfolio_2026\portfolio_2026\public\docs\mulalim\trouble-shooting-cors-session.webp,png→webp
+trouble-shooting-open-api-error.webp,105304,102.84,C:\_workplace\portfolio_2026\portfolio_2026\public\docs\mulalim\trouble-shooting-open-api-error.webp,png→webp
+TOTAL,928129,906.38,,

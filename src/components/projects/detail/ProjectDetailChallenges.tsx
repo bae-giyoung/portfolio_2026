@@ -53,24 +53,24 @@ function ChallengeItem({
                 <div className="ml-9 grid grid-cols-1 md:grid-cols-3 gap-5 xl:gap-6">
                     {/* Problem */}
                     <div className="p-4 rounded-xl border border-app-fg/10 bg-app-fg/2">
-                        <p className="text-xs font-semibold uppercase tracking-widest text-app-fg/50 mb-3">
-                            Problem
+                        <p className="text-[16px] font-semibold uppercase tracking-widest text-app-fg mb-3">
+                            문제
                         </p>
                         <UnorderedList02 items={challenge.problem} color="foreground" />
                     </div>
                     {/* Solution */}
-                    <div className="p-4 rounded-xl border border-app-primary/20 bg-app-primary/3">
-                        <p className="text-xs font-semibold uppercase tracking-widest text-app-primary/60 mb-3">
-                            Solution
+                    <div className="p-4 rounded-xl border border-app-fg/20 bg-app-bg">
+                        <p className="text-[16px] font-semibold uppercase tracking-widest text-app-primary mb-3">
+                            해결
                         </p>
                         <UnorderedList02 items={challenge.solution} color="primary" />
                     </div>
                     {/* Result */}
-                    <div className="p-4 rounded-xl border border-app-fg/10 bg-app-fg/2">
-                        <p className="text-xs font-semibold uppercase tracking-widest text-app-fg/50 mb-3">
-                            Result
+                    <div className="p-4 rounded-xl border border-app-primary/20 bg-app-primary/3">
+                        <p className="text-[16px] font-semibold uppercase tracking-widest text-app-primary mb-3">
+                            결과
                         </p>
-                        <UnorderedList02 items={challenge.result} color="foreground" />
+                        <UnorderedList02 items={challenge.result} color="primary" />
                     </div>
                 </div>
                 {challenge.image && (
@@ -97,7 +97,7 @@ export default function ProjectDetailChallenges({
     return (
         <section className="w-full">
             <h2 className="text-[16px] font-semibold uppercase tracking-widest text-app-fg/60 mb-2">
-                <Image src={asterisk} alt="Asterisk" className="inline-block mr-2" width={16} height={16}/>기술적 문제 해결
+                <Image src={asterisk} alt="Asterisk" className="inline-block mr-2" width={16} height={16}/>기술적 성과 및 문제 해결
             </h2>
             <div className="mt-4">
                 {challenges.map((challenge, i) => (

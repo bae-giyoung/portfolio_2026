@@ -45,3 +45,6 @@ src/assets/originals/*
 src/components/experiment/*
 00_*.ts
 00_*.tsx
+
+# optimized images manifest Cache file for optimized images tracking
+.image-optimize-manifest.json

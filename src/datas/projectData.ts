@@ -497,15 +497,16 @@ export const projectDetails: ProjectDetail[] = [
         solution:
             "GSAP으로 커튼 인트로와 페이지 전환 애니메이션을 직접 구현하고, Lenis smooth scroll과 GSAP ScrollTrigger를 동기화했습니다. Jotai로 인트로 재생 여부와 테마 상태를 전역 관리하고, Next.js App Router의 정적 생성(SSG)을 활용해 프로젝트 상세 페이지를 빌드 타임에 생성했습니다.",
 
-        impact: [
+            impact: [
+            "이미지 자동화 압축: 빌드 시 정적 에셋 WebP 압축 → 전체 에셋 10,528 KB → 906 KB (약 91.4% 감소)",
             "커튼 인트로·페이지 전환·커스텀 커서 등 인터랙티브 요소 직접 구현",
             "다크/라이트 테마, 반응형 레이아웃 대응",
             "Next.js App Router + React Compiler 기반 최신 구조 적용",
             "프로젝트 데이터를 단일 소스(projectDetails)로 관리해 파생 배열 자동 생성",
-            "정적 에셋 이미지 최적화: 전체 에셋 용량 10,528 KB → 1,601 KB (약 84.8% 감소)",
         ],
 
         responsibilities: [
+            "정적 에셋 이미지 최적화 자동화",
             "전체 페이지 기획 및 UI 설계",
             "GSAP 기반 커튼 인트로 애니메이션 구현",
             "GSAP 기반 페이지 전환 애니메이션 및 커스텀 라우터 훅 구현",
@@ -514,10 +515,10 @@ export const projectDetails: ProjectDetail[] = [
             "드래그 가능한 마퀴 갤러리(DraggableMarqueeGallery) 구현",
             "프로젝트 상세 페이지 정적 생성(generateStaticParams)",
             "반응형 레이아웃 및 커스텀 커서 구현",
-            "정적 에셋 이미지 최적화 (PNG→WebP 변환, WebP 재압축 84.8% 절감)",
         ],
 
         keyFeatures: [
+            "이미지 최적화 자동화: prebuild 스크립트",
             "GSAP SVG 커튼 인트로 애니메이션",
             "GSAP 페이지 전환 애니메이션 (커튼 슬라이드)",
             "Lenis 기반 부드러운 전체 스크롤",
@@ -530,18 +531,20 @@ export const projectDetails: ProjectDetail[] = [
 
         technicalChallenges: [
             {
-                title: "정적 에셋 이미지 용량 최적화",
+                title: "정적 에셋 이미지 빌드 자동화 압축",
                 problem: [
-                    "src/assets/ 하위 정적 임포트 이미지들이 최적화 없이 원본 크기 그대로 번들에 포함",
-                    "profile-02.webp(2,126 KB), profile-03.webp(1,364 KB), work-daedong.webp(1,853 KB) 등 일부 파일이 과도하게 커 초기 로딩 성능에 영향을 주고 있었음",
+                    "next/image에 src 문자열로 넘기는 public/ 이미지는 Vercel이 on-demand로 최적화하지만, import 방식의 정적 임포트 이미지는 번들에 원본 그대로 포함됨",
+                    "일부 파일이 과도하게 커 초기 로딩 성능에 영향 발생",
+                    "기존 수동 압축(Squoosh) 방식은 파일 추가·수정 시 반복 작업이 필요하고, 누락 위험이 있었음",
                 ],
                 solution: [
-                    "Squoosh 기반 수동 압축으로 WebP 품질 75~80 기준 재압축을 적용",
-                    "docs/mulalim/ 하위 PNG 3종(architecture, trouble-shooting ×2)은 WebP로 포맷 변환했고, 실제 렌더 크기를 고려한 해상도로 리사이징",
+                    "npm prebuild 훅에 sharp 기반 이미지 최적화 스크립트를 연결해 npm run build 실행 시 자동 압축 처리",
+                    "매니페스트 파일로 파일 크기+수정시간 기반 변경 감지 → 미변경 파일 스킵으로 빌드 속도 보존",
+                    "toBuffer() 방식으로 파일 핸들을 완전히 해제한 뒤 writeFile 처리 → Windows 파일 락 문제 해결",
                 ],
                 result: [
-                    "전체 에셋 용량이 10,528 KB → 1,601 KB로 약 84.8% 감소",
-                    "주요 절감 파일: profile-02.webp 2,126 KB → 79.8 KB (96.2%), work-daedong.webp 1,853 KB → 96 KB (94.8%), profile-03.webp 1,364 KB → 82.3 KB (94.0%).",
+                    "전체 에셋 용량 10,528 KB → 906 KB (약 91.4% 감소)",
+                    "파일 추가 시 스크립트 수정 없이 자동 처리 → 유지보수 비용 제거",
                 ],
             },
             {
