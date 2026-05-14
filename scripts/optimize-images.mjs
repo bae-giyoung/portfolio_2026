@@ -67,7 +67,8 @@ async function processDir(dirPath, manifest) {
             console.log(`- ${file} 스킵 (이미 최적화됨)`);
         }
 
-        manifest[filePath] = hash;
+        // writeFile 이후 실제 파일 상태(크기+mtime)로 저장 → 다음 실행 시 정확히 스킵
+        manifest[filePath] = await getFileHash(filePath);
     }
 
     return count;
