@@ -414,6 +414,134 @@ export const projectDetails: ProjectDetail[] = [
             docs: "",
         },
     },
+
+    {
+        id: 3,
+        title: "포트폴리오",
+        subTitle: "프론트엔드 개발자 포트폴리오 웹사이트",
+        category: "Portfolio Website",
+        image: "/src/assets/projects/project-portfolio.webp",
+        keywords: [
+            "Next.js",
+            "Animation",
+            "GSAP",
+            "Lenis",
+            "Jotai",
+            "Responsive",
+            "Dark Mode",
+        ],
+        tech: [
+            "Next.js",
+            "React",
+            "TypeScript",
+            "Tailwind CSS",
+            "GSAP",
+            "Framer Motion",
+            "Lenis",
+            "Jotai",
+        ],
+        overview: {
+            summary:
+                "프로젝트 경험과 작업물을 소개하는 개인 포트폴리오 웹사이트입니다. 커튼 인트로, 페이지 전환 애니메이션, 드래그 갤러리 등 인터랙티브 요소를 직접 구현했습니다.",
+            period: "2026.04 - 2026.05",
+            team: "개인 프로젝트",
+            role: "기획 / 디자인 / 프론트엔드 개발 전담",
+            roleCategory: "Frontend",
+            status: "InProgress",
+        },
+
+        background:
+            "퍼블리셔 경력과 풀스택 과정 이후의 개발 경험을 한 곳에 정리하고, 애니메이션과 인터랙션 구현 역량을 직접 보여줄 수 있는 포트폴리오 사이트가 필요했습니다.",
+
+        problem:
+            "단순히 이력을 나열하는 것이 아니라, 사용자가 페이지를 탐색하는 경험 자체가 개발 역량을 보여줄 수 있어야 했습니다. 또한 커튼 인트로·페이지 전환·스크롤 애니메이션처럼 여러 애니메이션 라이브러리가 함께 동작하는 구조에서 상태 충돌과 타이밍 문제를 다뤄야 했습니다.",
+
+        solution:
+            "GSAP으로 커튼 인트로와 페이지 전환 애니메이션을 직접 구현하고, Lenis smooth scroll과 GSAP ScrollTrigger를 동기화했습니다. Jotai로 인트로 재생 여부와 테마 상태를 전역 관리하고, Next.js App Router의 정적 생성(SSG)을 활용해 프로젝트 상세 페이지를 빌드 타임에 생성했습니다.",
+
+        impact: [
+            "커튼 인트로·페이지 전환·커스텀 커서 등 인터랙티브 요소 직접 구현",
+            "다크/라이트 테마, 반응형 레이아웃 대응",
+            "Next.js App Router + React Compiler 기반 최신 구조 적용",
+            "프로젝트 데이터를 단일 소스(projectDetails)로 관리해 파생 배열 자동 생성",
+        ],
+
+        responsibilities: [
+            "전체 페이지 기획 및 UI 설계",
+            "GSAP 기반 커튼 인트로 애니메이션 구현",
+            "GSAP 기반 페이지 전환 애니메이션 및 커스텀 라우터 훅 구현",
+            "Lenis smooth scroll + GSAP ScrollTrigger 동기화",
+            "다크/라이트 테마 토글 구현",
+            "드래그 가능한 마퀴 갤러리(DraggableMarqueeGallery) 구현",
+            "프로젝트 상세 페이지 정적 생성(generateStaticParams)",
+            "반응형 레이아웃 및 커스텀 커서 구현",
+        ],
+
+        keyFeatures: [
+            "GSAP SVG 커튼 인트로 애니메이션",
+            "GSAP 페이지 전환 애니메이션 (커튼 슬라이드)",
+            "Lenis 기반 부드러운 전체 스크롤",
+            "다크/라이트 테마 토글",
+            "드래그 가능한 마퀴 작업 갤러리",
+            "프로젝트 목록 / 상세 페이지",
+            "커스텀 커서 (PointerClick / FloatingLabel)",
+            "Next.js App Router 정적 사이트 생성(SSG)",
+        ],
+
+        technicalChallenges: [
+            {
+                title: "GSAP 페이지 전환과 Next.js 라우터 연동",
+                problem:
+                    "Next.js App Router는 router.push() 호출 즉시 페이지를 교체하기 때문에, 전환 커튼이 올라오는 도중 화면이 바뀌거나 반대로 커튼이 내려가기 전에 애니메이션이 종료되는 타이밍 문제가 발생했습니다.",
+                solution:
+                    "usePageTransition 훅을 직접 구현해 transitionIn(커튼 올림) → router.push() → pathname 변경 감지 → transitionOut(커튼 내림) 순으로 실행되도록 제어했습니다. pathname 변경을 새 페이지 렌더 완료 신호로 활용했습니다.",
+                result:
+                    "모든 페이지 이동에서 커튼 인/아웃 애니메이션이 끊김 없이 실행되고, 페이지 이름 레이블도 전환 도중 자연스럽게 표시됩니다.",
+            },
+            {
+                title: "Lenis smooth scroll과 GSAP ScrollTrigger 동기화",
+                problem:
+                    "Lenis가 기본 scroll 이벤트를 가로채 처리하기 때문에, GSAP ScrollTrigger가 스크롤 위치를 제대로 감지하지 못해 트리거 타이밍이 어긋나는 문제가 발생했습니다.",
+                solution:
+                    "useLenis 훅의 콜백 내에서 ScrollTrigger.update()를 호출하도록 LenisScrollTriggerSync 컴포넌트를 구성해, Lenis 스크롤 이벤트마다 ScrollTrigger가 위치를 재계산하도록 동기화했습니다.",
+                result:
+                    "부드러운 스크롤 환경에서도 GSAP ScrollTrigger 기반 애니메이션이 올바른 타이밍에 실행됩니다.",
+            },
+            {
+                title: "커튼 인트로 한 번만 재생",
+                problem:
+                    "SPA 구조에서 페이지를 이동할 때마다 state가 초기화되어 인트로 애니메이션이 반복 재생될 수 있었습니다.",
+                solution:
+                    "Jotai의 atomWithStorage로 introPlayedAtom을 구성해 세션 내 재생 여부를 유지하고, 인트로 완료 시 플래그를 설정해 이후 방문에서는 렌더링 자체를 건너뛰도록 처리했습니다.",
+                result:
+                    "첫 방문 시에만 인트로가 재생되고, 같은 세션의 페이지 이동에서는 인트로 없이 바로 콘텐츠가 표시됩니다.",
+            },
+        ],
+
+        architecture: {
+            diagram: {
+                description: [
+                    "Next.js App Router 기반 정적 사이트 생성(SSG) — 별도 백엔드 없음",
+                    "Jotai: 테마·인트로 재생 여부 등 클라이언트 전역 상태 관리",
+                    "GSAP: 커튼 인트로 및 페이지 전환 애니메이션 제어",
+                    "Lenis + GSAP ScrollTrigger: 부드러운 스크롤 및 스크롤 기반 애니메이션",
+                ],
+            },
+        },
+
+        techStack: {
+            frontend: ["Next.js 16.2.3", "React 19.2.4", "TypeScript", "Tailwind CSS 4", "GSAP", "Framer Motion", "Lenis", "Jotai"],
+            backend: [],
+            dataAi: [],
+            database: [],
+            tools: ["GitHub", "Figma"],
+        },
+
+        links: {
+            github: "",
+            demo: "",
+        },
+    },
 ];
 
 

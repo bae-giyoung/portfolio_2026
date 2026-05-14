@@ -1,4 +1,5 @@
 import MulAlim from "@/assets/projects/project-mulalim.webp";
+import Portfolio from "@/assets/projects/project-portfolio.webp";
 import type { StaticImageData } from "next/image";
 
 /**
@@ -7,4 +8,5 @@ import type { StaticImageData } from "next/image";
 export const projectImageMap: Record<number, StaticImageData> = {
     1: MulAlim,
     2: MulAlim,
+    3: Portfolio
 };
