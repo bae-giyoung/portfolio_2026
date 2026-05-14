@@ -54,9 +54,9 @@ export type ProjectDetail = {
     keyFeatures: string[];
     technicalChallenges: {
         title: string;
-        problem: string;
-        solution: string;
-        result: string;
+        problem: string[];
+        solution: string[];
+        result: string[];
         image?: string;
     }[];
     architecture: {
@@ -214,31 +214,40 @@ export const projectDetails: ProjectDetail[] = [
         technicalChallenges: [
             {
                 title: "다중 서버 환경에서의 CORS 및 세션 쿠키 전달 문제",
-                problem:
+                problem: [
                     "Next.js, Spring Boot, FastAPI가 서로 다른 Origin에서 동작하면서 브라우저가 Cross-Origin 요청으로 판단해 CORS 에러가 발생했고, 세션 쿠키(JSESSIONID)도 정상적으로 전달되지 않았습니다.",
-                solution:
+                ],
+                solution: [
                     "SameSite=None/Secure, Nginx Reverse Proxy 등 여러 방법을 검토한 뒤, 개발 환경에서 즉시 대응 가능한 Next.js rewrites 프록시를 최종 선택했습니다. 프론트 서버를 중계 서버로 활용해 모든 요청이 동일 Origin으로 처리되도록 구성했습니다.",
-                result:
+                ],
+                result: [
                     "CORS 문제가 해결되었고, JSESSIONID HttpOnly 쿠키가 프론트 서버 도메인으로 저장되어 이후 인증 요청 시 백엔드로 정상 전달되었습니다.",
+                ],
                 image: "/docs/mulalim/trouble-shooting-cors-session.webp",
             },
             {
                 title: "로그인 상태 유지 시 초기 UI 깜빡임 문제",
-                problem:
+                problem: [
                     "페이지 로딩 시 인증 상태가 비동기적으로 확인되면서, 로그인된 사용자에게도 잠시 로그아웃 상태 UI가 표시되었다가 전환되는 깜빡임이 발생했습니다.",
-                solution:
+                ],
+                solution: [
                     "LocalStorage 직접 사용(보안 취약), React Context(전역 리렌더링 비효율) 등을 검토한 뒤, Jotai atomWithStorage로 localStorage에 세션 상태를 저장·복원하고 AuthProvider에서 페이지 로드·전환 시마다 세션을 재검증하는 방식을 채택했습니다.",
-                result:
+                ],
+                result: [
                     "인증 상태 확인 전 UI 깜빡임이 제거되었고, CSR 환경에서도 로그인 상태가 부드럽게 유지되었습니다. 인증/비인증 상태에 따른 조건부 렌더링과 페이지 보호 로직도 단순화되었습니다.",
+                ],
             },
             {
                 title: "Open API 간헐적 502 오류로 인한 전체 데이터 요청 중단",
-                problem:
+                problem: [
                     "Next.js 서버에서 여러 관측소의 Open API를 병렬 호출할 때, 일부 관측소에서 간헐적으로 502 Bad Gateway 오류가 발생하면서 전체 데이터 요청이 중단되었습니다.",
-                solution:
+                ],
+                solution: [
                     "Promise.all() 대신 Promise.allSettled()를 적용하여 일부 요청이 실패해도 나머지 관측소 데이터는 정상 수집되도록 구성하고, fulfilled/rejected 결과를 분리해 부분 성공 처리 구조를 구현했습니다.",
-                result:
+                ],
+                result: [
                     "API 요청 안정성이 개선되었고, 실패한 관측소만 예외 처리하여 나머지 데이터는 정상적으로 대시보드에 표시할 수 있게 되었습니다.",
+                ],
                 image: "/docs/mulalim/trouble-shooting-open-api-error.webp",
             },
         ],
@@ -356,39 +365,51 @@ export const projectDetails: ProjectDetail[] = [
         technicalChallenges: [
             {
                 title: "Next.js BFF 책임 비대화",
-                problem:
+                problem: [
                     "Next.js API Route가 외부 Open API 호출, 데이터 수집, 통계 가공, 화면 응답 조립까지 담당하면서 프론트엔드 계층의 책임이 과도해졌습니다.",
-                solution:
+                ],
+                solution: [
                     "Spring Boot를 데이터 허브로 두고, 수집·저장·조회·집계 책임을 백엔드로 이관했습니다. Next.js는 Spring Boot API 응답을 받아 렌더링하는 역할로 축소했습니다.",
-                result:
+                ],
+                result: [
                     "관심사가 분리되어 프론트엔드는 UI와 사용자 경험에 집중할 수 있는 구조로 개선되었습니다.",
+                ],
             },
             {
                 title: "레거시 데이터와 실시간 API 데이터의 충돌 방지",
-                problem:
+                problem: [
                     "모델 학습과 검증에 사용한 레거시 데이터는 보존되어야 하지만, 운영 구간에서는 Open API 일자료를 새로 적재해야 했습니다.",
-                solution:
+                ],
+                solution: [
                     "groundwater_measurement에는 station_id + measurement_date 유니크 키를 두고, data_source가 같은 경우에만 update를 허용하는 UPSERT 정책을 설계했습니다.",
-                result:
+                ],
+                result: [
                     "레거시 원본 데이터 오염을 방지하면서 API_GIMS_DAILY 데이터는 안전하게 적재할 수 있는 기준을 마련했습니다.",
+                ],
             },
             {
                 title: "일 대표 시계열 조회 정책 설계",
-                problem:
+                problem: [
                     "레거시 데이터는 시간 단위이고 Open API 데이터는 일 단위이므로, 화면과 통계에서 사용할 하나의 daily 대표 시계열 기준이 필요했습니다.",
-                solution:
+                ],
+                solution: [
                     "LEGACY_DAILY_AVG와 API_GIMS_DAILY를 병합하고, 같은 날짜에 둘 다 존재하면 API 데이터를 우선하는 DAILY_MERGED + PREFER_API 정책을 구현했습니다.",
-                result:
+                ],
+                result: [
                     "대시보드, diff, rolling average, status 계산에서 일관된 daily 대표 시계열을 사용할 수 있게 되었습니다.",
+                ],
             },
             {
                 title: "KST 기준 시계열 처리",
-                problem:
-                    "DB DATETIME, Java LocalDateTime, 외부 API 시간, FastAPI 예측 시간이 섞이면 UTC 변환 여부에 따라 시간 해석 오류가 발생할 수 있었습니다.",
-                solution:
+                problem: [
+                    "DB DATETIME, Java LocalDateTime, 외부 API 시간, FastAPI 예측 시간이 섯이면 UTC 변환 여부에 따라 시간 해석 오류가 발생할 수 있었습니다.",
+                ],
+                solution: [
                     "프로젝트의 도메인 시계열은 KST 자체가 데이터 의미라는 원칙을 세우고, DB DATETIME과 Java LocalDateTime을 KST 의미로 다루도록 정책을 정리했습니다.",
-                result:
+                ],
+                result: [
                     "도메인 시간과 시스템 시간을 분리해 시계열 조회·적재·응답 기준을 명확히 했습니다.",
+                ],
             },
         ],
 
@@ -481,6 +502,7 @@ export const projectDetails: ProjectDetail[] = [
             "다크/라이트 테마, 반응형 레이아웃 대응",
             "Next.js App Router + React Compiler 기반 최신 구조 적용",
             "프로젝트 데이터를 단일 소스(projectDetails)로 관리해 파생 배열 자동 생성",
+            "정적 에셋 이미지 최적화: 전체 에셋 용량 10,528 KB → 1,601 KB (약 84.8% 감소)",
         ],
 
         responsibilities: [
@@ -492,6 +514,7 @@ export const projectDetails: ProjectDetail[] = [
             "드래그 가능한 마퀴 갤러리(DraggableMarqueeGallery) 구현",
             "프로젝트 상세 페이지 정적 생성(generateStaticParams)",
             "반응형 레이아웃 및 커스텀 커서 구현",
+            "정적 에셋 이미지 최적화 (PNG→WebP 변환, WebP 재압축 84.8% 절감)",
         ],
 
         keyFeatures: [
@@ -507,31 +530,56 @@ export const projectDetails: ProjectDetail[] = [
 
         technicalChallenges: [
             {
+                title: "정적 에셋 이미지 용량 최적화",
+                problem: [
+                    "src/assets/ 하위 정적 임포트 이미지들이 최적화 없이 원본 크기 그대로 번들에 포함",
+                    "profile-02.webp(2,126 KB), profile-03.webp(1,364 KB), work-daedong.webp(1,853 KB) 등 일부 파일이 과도하게 커 초기 로딩 성능에 영향을 주고 있었음",
+                ],
+                solution: [
+                    "Squoosh 기반 수동 압축으로 WebP 품질 75~80 기준 재압축을 적용",
+                    "docs/mulalim/ 하위 PNG 3종(architecture, trouble-shooting ×2)은 WebP로 포맷 변환했고, 실제 렌더 크기를 고려한 해상도로 리사이징",
+                ],
+                result: [
+                    "전체 에셋 용량이 10,528 KB → 1,601 KB로 약 84.8% 감소",
+                    "주요 절감 파일: profile-02.webp 2,126 KB → 79.8 KB (96.2%), work-daedong.webp 1,853 KB → 96 KB (94.8%), profile-03.webp 1,364 KB → 82.3 KB (94.0%).",
+                ],
+            },
+            {
                 title: "GSAP 페이지 전환과 Next.js 라우터 연동",
-                problem:
-                    "Next.js App Router는 router.push() 호출 즉시 페이지를 교체하기 때문에, 전환 커튼이 올라오는 도중 화면이 바뀌거나 반대로 커튼이 내려가기 전에 애니메이션이 종료되는 타이밍 문제가 발생했습니다.",
-                solution:
-                    "usePageTransition 훅을 직접 구현해 transitionIn(커튼 올림) → router.push() → pathname 변경 감지 → transitionOut(커튼 내림) 순으로 실행되도록 제어했습니다. pathname 변경을 새 페이지 렌더 완료 신호로 활용했습니다.",
-                result:
-                    "모든 페이지 이동에서 커튼 인/아웃 애니메이션이 끊김 없이 실행되고, 페이지 이름 레이블도 전환 도중 자연스럽게 표시됩니다.",
+                problem: [
+                    "Next.js App Router는 router.push() 호출 즉시 페이지를 교체하기 때문에, 전환 커튼이 올라오는 도중 화면이 바뀌거나 커튼이 내려가기 전에 애니메이션이 종료되는 타이밍 문제가 발생",
+                ],
+                solution: [
+                    "usePageTransition 훅을 직접 구현해 transitionIn(커튼 올림) → router.push() → pathname 변경 감지 → transitionOut(커튼 내림) 순으로 실행되도록 제어",
+                    "pathname 변경을 새 페이지 렌더 완료 신호로 활용",
+                ],
+                result: [
+                    "모든 페이지 이동에서 커튼 인/아웃 애니메이션이 끊김 없이 실행되고, 페이지 이름 레이블도 전환 도중 자연스럽게 표시됨",
+                ],
             },
             {
                 title: "Lenis smooth scroll과 GSAP ScrollTrigger 동기화",
-                problem:
-                    "Lenis가 기본 scroll 이벤트를 가로채 처리하기 때문에, GSAP ScrollTrigger가 스크롤 위치를 제대로 감지하지 못해 트리거 타이밍이 어긋나는 문제가 발생했습니다.",
-                solution:
-                    "useLenis 훅의 콜백 내에서 ScrollTrigger.update()를 호출하도록 LenisScrollTriggerSync 컴포넌트를 구성해, Lenis 스크롤 이벤트마다 ScrollTrigger가 위치를 재계산하도록 동기화했습니다.",
-                result:
-                    "부드러운 스크롤 환경에서도 GSAP ScrollTrigger 기반 애니메이션이 올바른 타이밍에 실행됩니다.",
+                problem: [
+                    "Lenis가 기본 scroll 이벤트를 가로채 처리하기 때문에, GSAP ScrollTrigger가 스크롤 위치를 제대로 감지하지 못해 트리거 타이밍이 어긋나는 문제가 발생",
+                ],
+                solution: [
+                    "useLenis 훅의 콜백 내에서 ScrollTrigger.update()를 호출하도록 LenisScrollTriggerSync 컴포넌트를 구성해, Lenis 스크롤 이벤트마다 ScrollTrigger가 위치를 재계산하도록 동기화",
+                ],
+                result: [
+                    "부드러운 스크롤 환경에서도 GSAP ScrollTrigger 기반 애니메이션이 올바른 타이밍에 실행됨",
+                ],
             },
             {
                 title: "커튼 인트로 한 번만 재생",
-                problem:
+                problem: [
                     "SPA 구조에서 페이지를 이동할 때마다 state가 초기화되어 인트로 애니메이션이 반복 재생될 수 있었습니다.",
-                solution:
-                    "Jotai의 atomWithStorage로 introPlayedAtom을 구성해 세션 내 재생 여부를 유지하고, 인트로 완료 시 플래그를 설정해 이후 방문에서는 렌더링 자체를 건너뛰도록 처리했습니다.",
-                result:
-                    "첫 방문 시에만 인트로가 재생되고, 같은 세션의 페이지 이동에서는 인트로 없이 바로 콘텐츠가 표시됩니다.",
+                ],
+                solution: [
+                    "Jotai의 atomWithStorage로 introPlayedAtom을 구성해 세션 내 재생 여부를 유지하고, 인트로 완료 시 플래그를 설정해 이후 방문에서는 렌더링 자체를 건너뛰도록 처리",
+                ],
+                result: [
+                    "첫 방문 시에만 인트로가 재생되고, 같은 세션의 페이지 이동에서는 인트로 없이 바로 콘텐츠가 표시됨",
+                ],
             },
         ],
 

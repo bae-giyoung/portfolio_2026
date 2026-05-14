@@ -5,6 +5,7 @@ import { ChevronDown } from "lucide-react";
 import type { ProjectDetail } from "@/datas/projectData";
 import Image from "next/image";
 import asterisk from "@/assets/icons/asterik.svg";
+import UnorderedList02 from "@/components/ui/list/UnorderedList02";
 
 type Challenge = ProjectDetail["technicalChallenges"][number];
 
@@ -55,27 +56,21 @@ function ChallengeItem({
                         <p className="text-xs font-semibold uppercase tracking-widest text-app-fg/50 mb-3">
                             Problem
                         </p>
-                        <p className="text-sm leading-relaxed text-app-fg/65 break-keep">
-                            {challenge.problem}
-                        </p>
+                        <UnorderedList02 items={challenge.problem} color="foreground" />
                     </div>
                     {/* Solution */}
                     <div className="p-4 rounded-xl border border-app-primary/20 bg-app-primary/3">
                         <p className="text-xs font-semibold uppercase tracking-widest text-app-primary/60 mb-3">
                             Solution
                         </p>
-                        <p className="text-sm leading-relaxed text-app-fg/65 break-keep">
-                            {challenge.solution}
-                        </p>
+                        <UnorderedList02 items={challenge.solution} color="primary" />
                     </div>
                     {/* Result */}
                     <div className="p-4 rounded-xl border border-app-fg/10 bg-app-fg/2">
                         <p className="text-xs font-semibold uppercase tracking-widest text-app-fg/50 mb-3">
                             Result
                         </p>
-                        <p className="text-sm leading-relaxed text-app-fg/65 break-keep">
-                            {challenge.result}
-                        </p>
+                        <UnorderedList02 items={challenge.result} color="foreground" />
                     </div>
                 </div>
                 {challenge.image && (

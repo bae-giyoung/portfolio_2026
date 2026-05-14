@@ -1,4 +1,4 @@
-export default function UnorderedList01({
+export default function UnorderedList02({
     items,
     className,
     color = "primary",
