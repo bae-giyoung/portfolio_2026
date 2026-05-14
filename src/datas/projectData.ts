@@ -538,7 +538,7 @@ export const projectDetails: ProjectDetail[] = [
         },
 
         links: {
-            github: "",
+            github: "https://github.com/bae-giyoung/portfolio_2026",
             demo: "",
         },
     },
