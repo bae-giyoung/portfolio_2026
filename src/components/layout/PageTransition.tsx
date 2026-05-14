@@ -81,10 +81,14 @@ export default function PageTransition({ children }: Props) {
                 }
 
                 if (labelRef.current) {
-                    labelRef.current.innerHTML = `
-                        <span class="absolute left-1/2 -top-[1em] -translate-x-1/2 block font-space text-[2em] animate-bounce">*</span>
-                        <span>${label}</span>
-                    `;
+                    const star = document.createElement("span");
+                    star.className = "absolute left-1/2 -top-[1em] -translate-x-1/2 block font-space text-[2em] animate-bounce";
+                    star.textContent = "*";
+
+                    const text = document.createElement("span");
+                    text.textContent = label;
+
+                    labelRef.current.replaceChildren(star, text);
                 }
 
                 const tl = gsap.timeline({
