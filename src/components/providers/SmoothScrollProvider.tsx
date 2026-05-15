@@ -24,7 +24,7 @@ export default function SmoothScrollProvider({ children }: { children: ReactNode
   }, []);
 
   // 터치 기기에서 html의 overflow-y를 auto로 복원 (CSS에서 html { overflow-x: hidden } 유지)
-  // body의 overflow-x: hidden은 CSS에서 그대로 유효 → 별도 JS 처리 불필요
+  // body의 overflow-x: hidden은 CSS에서 그대로 유효, 별도 JS 처리 불필요
   useEffect(() => {
     if (!isTouch) return;
     document.documentElement.style.overflowY = "auto";

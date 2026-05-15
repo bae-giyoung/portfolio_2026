@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import SkillTabContent from "./SkillTabContent";
 import {
     frontendSkillItems, frontendCaps,
@@ -10,15 +10,21 @@ import {
     toolsSkillItems,    toolsCaps,
 } from "@/datas/profileDate";
 
-type TabId = "frontend" | "backend" | "data" | "tools" | "all";
+type TabId = "frontend" | "backend" | "data" | "tools";
 
 const TABS: { id: TabId; label: string }[] = [
     { id: "frontend", label: "프론트엔드" },
     { id: "backend",  label: "백엔드" },
     { id: "data", label: "Data / AI" },
     { id: "tools", label: "Tools / Infra" },
-    /* { id: "all", label: "All" }, */
 ];
+
+const TAB_DATA = {
+    frontend: { skills: frontendSkillItems, capabilities: frontendCaps },
+    backend:  { skills: backendSkillItems,  capabilities: backendCaps  },
+    data:     { skills: dataAiSkillItems,   capabilities: dataAiCaps   },
+    tools:    { skills: toolsSkillItems,    capabilities: toolsCaps    },
+} satisfies Record<TabId, { skills: unknown[]; capabilities: string[] }>;
 
 export default function SkillTabs() {
     const [active, setActive] = useState<TabId>("frontend");
@@ -49,31 +55,24 @@ export default function SkillTabs() {
                 ))}
             </div>
 
-            {/* Tab 컨텐츠 */}
-            <AnimatePresence mode="wait">
-                <motion.div
-                    key={active}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -4 }}
-                    transition={{ duration: 0.18, ease: "easeOut" }}
-                >
-                    {active === "all" ? (
+            {/* Tab 컨텐츠
+                - 모든 탭을 항상 마운트 유지 -> 이미지가 DOM에서 제거되지 않으므로 재요청/깜빡임 없음
+                - 비활성 탭은 hidden(display:none)으로 숨김 -> 전환 즉시 표시
+            */}
+            <div>
+                {TABS.map(({ id }) => (
+                    <div
+                        key={id}
+                        aria-hidden={id !== active}
+                        className={id !== active ? "hidden" : undefined}
+                    >
                         <SkillTabContent
-                            skills={[...frontendSkillItems, ...backendSkillItems, ...dataAiSkillItems, ...toolsSkillItems]}
-                            capabilities={[...frontendCaps, ...backendCaps, ...dataAiCaps, ...toolsCaps]}
+                            skills={TAB_DATA[id].skills}
+                            capabilities={TAB_DATA[id].capabilities}
                         />
-                    ) : active === "frontend" ? (
-                        <SkillTabContent skills={frontendSkillItems} capabilities={frontendCaps} />
-                    ) : active === "backend" ? (
-                        <SkillTabContent skills={backendSkillItems} capabilities={backendCaps} />
-                    ) : active === "data" ? (
-                        <SkillTabContent skills={dataAiSkillItems} capabilities={dataAiCaps} />
-                    ) : active === "tools" ? (
-                        <SkillTabContent skills={toolsSkillItems} capabilities={toolsCaps} />
-                    ) : null}
-                </motion.div>
-            </AnimatePresence>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }

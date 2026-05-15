@@ -47,21 +47,6 @@ export default function ProfileSection() {
                         <ul>
                             <ExperienceList type="ui-1" items={relevantExperience} />
                         </ul>
-
-                        {/* 버튼 모음 */}
-                        {/* <div className="flex flex-wrap gap-2 md:gap-4 mt-8 lg:mt-10">
-                            <SlideButton
-                                as="button"
-                                className="flex-1 sm:flex-none"
-                                onClick={() => openModal("전체 약력 보기", <CareerHistoryModal />)}
-                            >
-                                전체 약력 보기
-                            </SlideButton>
-
-                            <SlideButton as="button" className="flex-1 sm:flex-none">
-                                이력서 보기
-                            </SlideButton>
-                        </div> */}
                     </div>
                 </div>
 
