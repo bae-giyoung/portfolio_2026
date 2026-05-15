@@ -33,17 +33,19 @@ export default function ProjectDefaultCard({
             } gap-8 xl:gap-16 py-10 xl:py-16 border-b border-app-fg/10 last:border-none first:pt-0 last:pb-0`}
         >
             {/* 이미지 */}
-            <div className="w-full md:w-[45%] shrink-0" data-cursor-label="View">
-                <ImageBox
-                    src={image}
-                    alt={title}
-                    sizes="(min-width: 768px) 45vw, 100vw"
-                    className="rounded-xl cursor-none"
-                    asLink={{
-                        src: `/projects/${id}`,
-                        alt: `${title} 상세 보기`,
-                    }}
-                />
+            <div className="w-full md:w-[45%] shrink-0">
+                <div data-cursor-label="View">
+                    <ImageBox
+                        src={image}
+                        alt={title}
+                        sizes="(min-width: 768px) 45vw, 100vw"
+                        className="rounded-xl cursor-none"
+                        asLink={{
+                            src: `/projects/${id}`,
+                            alt: `${title} 상세 보기`,
+                        }}
+                    />
+                </div>
                 <p className="flex justify-between mt-3 text-sm text-app-fg/50">
                     <span>{category}</span>
                     <span>{period}</span>

@@ -56,7 +56,7 @@ export default function ProjectGridCard({ project, image }: Props) {
 
                     <div className="flex items-center justify-between mt-auto pt-4 border-t border-app-fg/10">
                         <ProjectTechList tech={tech} max={4} />
-                        <span className="text-xs text-app-fg/30 shrink-0 ml-2">
+                        <span className="text-xs text-app-fg shrink-0 ml-2">
                             {period.split(" - ")[0]}
                         </span>
                     </div>

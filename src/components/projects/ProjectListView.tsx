@@ -14,11 +14,11 @@ type Props = {
 };
 
 const colStyle = {
-    index: "w-8 shrink-0 text-app-fg/30 text-sm tabular-nums",
+    index: "w-8 shrink-0 tabular-nums text-app-fg/40",
     title: "flex-1 min-w-0",
-    category: "hidden md:block w-48 shrink-0 text-app-fg/60 text-sm",
-    role: "hidden xl:block w-60 shrink-0 text-app-fg/60 text-sm truncate",
-    period: "hidden sm:block w-28 shrink-0 text-right text-app-fg/50 text-sm",
+    category: "hidden md:block w-48 shrink-0",
+    role: "hidden xl:block w-60 shrink-0 truncate",
+    period: "hidden sm:block w-28 shrink-0 text-right",
 };
 
 export default function ProjectListView({ projects, images }: Props) {
@@ -30,7 +30,7 @@ export default function ProjectListView({ projects, images }: Props) {
         <div className="relative w-full">
             {/* 헤더 행 */}
             <div
-                className="flex items-center gap-4 px-4 py-3 border-b border-app-fg/20 text-xs font-medium uppercase tracking-wider text-app-fg/30"
+                className="flex items-center gap-4 px-4 py-3 border-b border-app-fg/20 text-sm font-bold uppercase tracking-wider text-app-fg/40"
                 aria-hidden="true"
             >
                 <span className={colStyle.index}>#</span>

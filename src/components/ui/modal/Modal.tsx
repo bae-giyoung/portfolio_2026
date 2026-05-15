@@ -67,7 +67,7 @@ export default function Modal() {
                             mass: 0.95,
                         }}
                         className={`
-                            relative z-10 flex h-[min(760px,92vh)] w-full max-w-5xl flex-col overflow-hidden rounded-[28px] 
+                            relative z-10 flex h-[min(760px,80vh)] w-full max-w-5xl flex-col overflow-hidden rounded-[28px] 
                             border border-app-fg bg-app-bg shadow-[0_32px_100px_rgba(15,23,42,0.38)] 
                             backdrop-blur-xl 
                             dark:border-white/10 dark:bg-zinc-950/90
