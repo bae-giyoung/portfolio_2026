@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactLenis, useLenis } from "lenis/react";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from "gsap";
 
@@ -16,9 +16,16 @@ function LenisScrollTriggerSync() {
 }
 
 export default function SmoothScrollProvider({ children }: { children: ReactNode }) {
+  const [isTouch, setIsTouch] = useState(false);
+
   useEffect(() => {
+    setIsTouch(window.matchMedia("(hover: none) and (pointer: coarse)").matches);
     ScrollTrigger.refresh();
   }, []);
+
+  if (isTouch) {
+    return <>{children}</>;
+  }
 
   return (
     <ReactLenis root options={{ 
