@@ -15,9 +15,10 @@
 ## 📖 목차
 
 - [개요](#-개요-overview)
+- [성과](#-성과-impact)
 - [기술 스택](#-기술-스택-tech-stack)
 - [프로젝트 구조](#-프로젝트-구조-project-structure)
-- [주요 구현](#-주요-구현-key-implementations)
+- [기술적 도전](#-기술적-도전-technical-challenges)
 - [Setup & Run](#-getting-started)
 
 ---
@@ -25,9 +26,9 @@
 ## 🧩 개요 (Overview)
 
 > 개인 포트폴리오 웹사이트 구축 (1인 프로젝트)<br />
-> 기간: 2025.05 ~<br />
-> 역할: 기획 · 디자인 · 개발 전담<br />
-> 기술: Next.js · TypeScript · Tailwind CSS · GSAP · Lenis · Jotai<br />
+> 기간: 2026.04 ~ 2026.05<br />
+> 역할: 기획 · 디자인 · 프론트엔드 개발 전담<br />
+> 기술: Next.js · TypeScript · Tailwind CSS · GSAP · Framer Motion · Lenis · Jotai<br />
 
 #### 페이지 구성
 
@@ -39,7 +40,16 @@
 
 ---
 
-## 🛠 기술 스택 (Tech Stack)
+## 🎉 성과 (Impact)
+
+- 이미지 압축 자동화로 수동 최적화 작업 누락 리스크 감소 및 유지보수성 개선
+- 이미지 에셋 **10,528 KB → 906 KB** 로 약 **91.4% 용량 절감** 하여 초기 로딩 부담 완화
+- GitHub-Vercel 연동으로 자동 배포 흐름 구성
+- SSG 기반 상세 페이지 사전 생성으로 CDN 중심 정적 응답 구조 구현
+
+---
+
+## 🛠️ 기술 스택 (Tech Stack)
 
 | 구분 | 기술 | 용도 |
 | :--- | :--- | :--- |
@@ -83,28 +93,19 @@ src/
 
 ---
 
-## ✨ 주요 구현 (Key Implementations)
+## ✨ 기술적 도전 (Technical Challenges)
 
-### 1. GSAP SVG 커튼 인트로 (`CurtainIntro.tsx`)
+### 1. 정적 에셋 이미지 빌드 자동화 압축
 
-SVG `<path>`를 `objectBoundingBox` 좌표계(0~1)로 제어하여 리사이즈에 자동 대응하는 곡선 커튼 와이프 인트로를 구현했습니다. `introPlayedAtom`으로 최초 1회만 재생하고 이후 방문 시 스킵합니다.
+**문제**
+- `next/image`에 src 문자열로 넘기는 `public/` 이미지는 Vercel이 on-demand로 최적화하지만, `import` 방식의 정적 임포트 이미지는 번들에 원본 그대로 포함됨
+- 일부 파일이 과도하게 커 초기 로딩 성능에 영향 발생
+- 기존 수동 압축(Squoosh) 방식은 파일 추가·수정 시 반복 작업이 필요하고 누락 위험이 있었음
 
-### 2. GSAP 페이지 전환 (`PageTransition.tsx`)
-
-`PageTransitionContext`와 `usePageTransition()` 훅으로 하위 컴포넌트에서 전환 인식 네비게이션을 사용할 수 있도록 구성했습니다. `transitionIn → router.push → pathname 변경 감지 → transitionOut` 순서로 실행됩니다.
-
-### 3. Lenis + GSAP ScrollTrigger 동기화
-
-`ReactLenis root` 적용 후, `useLenis` 콜백 내에서 매 스크롤 이벤트마다 `ScrollTrigger.update()`를 호출하여 두 라이브러리 간 스크롤 위치 불일치를 방지합니다.
-
-### 4. 프로젝트 데이터 싱글 소스 패턴
-
-`projectDetails[]` (단일 원본) → `projects[]` (카드 목록) 파생 구조로 관리합니다. SSG `generateStaticParams()`도 동일한 배열을 순회하므로 데이터 추가만으로 신규 상세 페이지가 자동 생성됩니다.
-
-### 5. 정적 에셋 이미지 최적화 자동화
-
-`src/assets/` 하위 정적 임포트 이미지는 `next/image`를 거치지 않고 번들에 그대로 포함되기 때문에 빌드 전 사전 최적화가 필요합니다.  
-`prebuild` 스크립트에 `sharp` 기반 WebP 자동 압축 파이프라인을 구성해, **`npm run build` 실행 시 이미지 최적화가 자동으로 수행**됩니다.
+**해결**
+- `npm prebuild` 훅에 `sharp` 기반 이미지 최적화 스크립트를 연결해 `npm run build` 실행 시 자동 압축 처리
+- 매니페스트 파일로 파일 크기+수정시간 기반 변경 감지 → 미변경 파일 스킵으로 빌드 속도 보존
+- `toBuffer()` 방식으로 파일 핸들을 완전히 해제한 뒤 `writeFile` 처리 → Windows 파일 락 문제 해결
 
 ```
 npm run build
@@ -113,7 +114,9 @@ npm run build
        └─ 변경된 파일만 처리 (매니페스트 기반 증분 실행)
 ```
 
-전체 에셋 용량 **10,528 KB → 906 KB (약 91.4% 감소)**
+**결과**
+- 전체 에셋 용량 **10,528 KB → 906 KB (약 91.4% 감소)**
+- 파일 추가 시 스크립트 수정 없이 자동 처리 → 유지보수 비용 제거
 
 | 파일 | Before | After | 감소율 |
 |---|---|---|---|
@@ -123,7 +126,35 @@ npm run build
 | work-ubi-decision.webp | 842 KB | 45.5 KB | 94.6% |
 | profile-03.webp | 1,364 KB | 80.7 KB | 94.1% |
 
-`next/image`로 서빙되는 `public/` 이미지는 Vercel Image Optimization이 on-demand로 처리합니다.
+---
+
+### 2. GSAP 페이지 전환과 Next.js 라우터 연동
+
+**문제**
+- Next.js App Router는 `router.push()` 호출 즉시 페이지를 교체하기 때문에, 전환 커튼이 올라오는 도중 화면이 바뀌거나 커튼이 내려가기 전에 애니메이션이 종료되는 타이밍 문제가 발생
+
+**해결**
+- `usePageTransition` 훅을 직접 구현해 `transitionIn(커튼 올림)` → `router.push()` → `pathname 변경 감지` → `transitionOut(커튼 내림)` 순으로 실행되도록 제어
+- `pathname` 변경을 새 페이지 렌더 완료 신호로 활용
+
+**결과**
+- 모든 페이지 이동에서 커튼 인/아웃 애니메이션이 끊김 없이 실행되고, 페이지 이름 레이블도 전환 도중 자연스럽게 표시됨
+
+---
+
+### 3. 동적 라우트 메타데이터 누락 → generateStaticParams SSG 전환으로 해결
+
+**문제**
+- 동적 라우트(`/projects/[id]`)를 CSR로 구현하면 초기 HTML에 콘텐츠가 없어 OG 태그·title 등 메타데이터를 크롤러가 수집하지 못함
+- 프로젝트 데이터는 빌드 시점에 확정되는 정적 데이터임에도, 런타임마다 서버 처리가 발생하는 구조적 비효율이 존재
+
+**해결**
+- `generateStaticParams()`로 `projectDetails` 배열을 순회해 빌드 타임에 `/projects/1` · `/projects/2` · `/projects/3` 정적 경로를 사전 생성
+- `generateMetadata()`로 각 프로젝트의 `title` / `description` 메타데이터를 자동 생성해 크롤러 호환성 확보
+
+**결과**
+- 상세 페이지가 순수 정적 HTML로 빌드되어 Vercel CDN에서 서버 함수 실행 없이 즉시 응답
+- `projectDetails`에 데이터를 추가하는 것만으로 신규 상세 페이지와 메타데이터가 자동 생성 → 배포 외 별도 작업 불필요
 
 ---
 
