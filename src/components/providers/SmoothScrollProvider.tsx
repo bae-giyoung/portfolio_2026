@@ -23,11 +23,11 @@ export default function SmoothScrollProvider({ children }: { children: ReactNode
     ScrollTrigger.refresh();
   }, []);
 
-  // Lenis 언마운트 이후 overflow 복원 (globals.css에서 html,body에 overflow:hidden 설정됨)
+  // 터치 기기에서 html의 overflow-y를 auto로 복원 (CSS에서 html { overflow-x: hidden } 유지)
+  // body의 overflow-x: hidden은 CSS에서 그대로 유효 → 별도 JS 처리 불필요
   useEffect(() => {
     if (!isTouch) return;
     document.documentElement.style.overflowY = "auto";
-    document.body.style.overflowY = "auto";
   }, [isTouch]);
 
   if (isTouch) {

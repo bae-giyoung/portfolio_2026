@@ -137,7 +137,12 @@ html {
   display: block;
   margin: 0;
   padding: 0;
-  overflow: hidden;
+}
+
+/* html은 Lenis의 가상 스크롤 컨테이너. overflow-y는 Lenis가 터치 이벤트 preventDefault로 제어하고,
+   모바일(터치 기기)에서는 SmoothScrollProvider가 JS로 overflow-y: auto 복원. */
+html {
+  overflow-x: hidden;
 }
 
 body {
