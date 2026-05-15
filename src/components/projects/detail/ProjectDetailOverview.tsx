@@ -29,7 +29,7 @@ export default function ProjectDetailOverview({
                         성과
                     </h3>
                     <div className="text-[15px] leading-relaxed text-app-fg break-keep">
-                        <UnorderedList01 items={impact} color="primary" emphasisTopN={1} />
+                        <UnorderedList01 items={impact} color="primary" emphasisTopN={2} />
                     </div>
                 </div>
             </div>

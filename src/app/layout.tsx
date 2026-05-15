@@ -45,7 +45,9 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  //metadataBase: new URL("https://"),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
+  ),
 
   robots: {
     index: true,
@@ -61,7 +63,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "배기영 | 프론트엔드 개발자 포트폴리오",
     description: "믿을 수 있는 동료가 되고 싶은 프론트엔드 개발자, 배기영입니다.",
-    //url: "https://",
+    url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
     siteName: "배기영 포트폴리오",
     images: [
       {

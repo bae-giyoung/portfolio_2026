@@ -133,9 +133,9 @@ npm run build
 # 1. 의존성 설치
 npm install
 
-# 2. 환경변수 설정 (선택 - /lab iframe 사용 시)
-# .env.local
-NEXT_PUBLIC_PRIVATE_PLAY_URL=http://localhost:xxxx
+# 2. 환경변수 설정 (.env.local)
+NEXT_PUBLIC_SITE_URL=https://your-domain.vercel.app   # metadataBase, OG URL 해석에 사용
+NEXT_PUBLIC_PRIVATE_PLAY_URL=http://localhost:xxxx   # /lab 경로 프록시 (선택)
 
 # 3. 개발 서버 실행
 npm run dev

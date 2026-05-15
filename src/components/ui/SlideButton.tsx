@@ -25,6 +25,8 @@ interface SlideButtonAsLink extends SlideButtonBaseProps {
 interface SlideButtonAsDownload extends SlideButtonBaseProps {
     as: "download";
     href: string;
+    /** 저장 시 사용할 파일명 (한글 등 지정 가능) */
+    downloadAs?: string;
     onClick?: never;
     type?: never;
     alt?: string;
@@ -73,7 +75,7 @@ export default function SlideButton({
         return (
             <a
                 href={props.href}
-                download
+                download={props.downloadAs ?? true}
                 className={`${innerClassName} ${className}`}
                 aria-label={props.alt || undefined}
             >

@@ -80,15 +80,17 @@ export default function WorkSection() {
             header: "전체 작업 리스트",
             content: (
                 <div className="w-full">
+                    {/* 상단 버튼 그룹 */}
                     <div className="flex justify-between items-center px-4 pt-1 pb-4">
                         <h2 className="text-2xl font-bold">Works</h2>
-                        <SlideButton as="download" href="/docs/works/배기영_소프트웨어기술자+경력증명서.pdf" alt="경력 증명서 다운로드">
+                        <SlideButton as="download" href="/docs/works/career-certificate.pdf" downloadAs="배기영_경력증명서.pdf" alt="경력 증명서 다운로드">
                             <span className="flex items-center gap-1">
                                 <FileDown strokeWidth={1} size={16} />
                                 경력 증명서
                             </span>
                         </SlideButton>
                     </div>
+                    {/* 작업 리스트 */}
                     <WorkListContent />
                 </div>
             ),
@@ -102,13 +104,14 @@ export default function WorkSection() {
             sectionTitle=""
         >
 
-            {/*  */}
+            {/* 섹션 타이틀 */}
             <div className="relative w-full flex justify-between items-center gap-10 lg:gap-20">
                 <div className="relative w-max-content">
                     <SectionTitle>Works</SectionTitle>
                 </div>
             </div>
 
+            {/* 섹션 설명 */}
             <p className="w-full text-app-fg text-lg leading-relaxed">
                 <span className="block">실무에서 참여한 웹사이트 퍼블리싱 작업입니다.</span> 
                 <span className="block">공개된 사이트 기준으로 정리했습니다. 각 카드의 <em className="italic underline decoration-app-fg/20 decoration underline-offset-4 mr-2">사이트 보기</em> 버튼을 클릭하면 해당 사이트로 이동합니다.</span>

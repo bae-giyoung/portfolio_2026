@@ -497,12 +497,11 @@ export const projectDetails: ProjectDetail[] = [
         solution:
             "GSAP으로 커튼 인트로와 페이지 전환 애니메이션을 직접 구현하고, Lenis smooth scroll과 GSAP ScrollTrigger를 동기화했습니다. Jotai로 인트로 재생 여부와 테마 상태를 전역 관리하고, Next.js App Router의 정적 생성(SSG)을 활용해 프로젝트 상세 페이지를 빌드 타임에 생성했습니다.",
 
-            impact: [
-            "이미지 자동화 압축: 빌드 시 정적 에셋 WebP 압축 → 전체 에셋 10,528 KB → 906 KB (약 91.4% 감소)",
-            "커튼 인트로·페이지 전환·커스텀 커서 등 인터랙티브 요소 직접 구현",
-            "다크/라이트 테마, 반응형 레이아웃 대응",
-            "Next.js App Router + React Compiler 기반 최신 구조 적용",
-            "프로젝트 데이터를 단일 소스(projectDetails)로 관리해 파생 배열 자동 생성",
+        impact: [
+            "이미지 압축 자동화로 수동 최적화 작업 누락 리스크 감소 및 유지보수성 개선",
+            "이미지 에셋 10,528 KB → 906 KB로 약 91.4% 용량 절감하여 초기 로딩 부담 완화",
+            "GitHub-Vercel 연동으로 자동 배포 흐름 구성",
+            "SSG 기반 상세 페이지 사전 생성으로 CDN 중심 정적 응답 구조 구현",
         ],
 
         responsibilities: [
@@ -561,27 +560,18 @@ export const projectDetails: ProjectDetail[] = [
                 ],
             },
             {
-                title: "Lenis smooth scroll과 GSAP ScrollTrigger 동기화",
+                title: "동적 라우트 메타데이터 누락 → generateStaticParams SSG 전환으로 해결",
                 problem: [
-                    "Lenis가 기본 scroll 이벤트를 가로채 처리하기 때문에, GSAP ScrollTrigger가 스크롤 위치를 제대로 감지하지 못해 트리거 타이밍이 어긋나는 문제가 발생",
+                    "동적 라우트(/projects/[id])를 CSR로 구현하면 초기 HTML에 콘텐츠가 없어 OG 태그·title 등 메타데이터를 크롤러가 수집하지 못함",
+                    "프로젝트 데이터는 빌드 시점에 확정되는 정적 데이터임에도, 런타임마다 서버 처리가 발생하는 구조적 비효율이 존재",
                 ],
                 solution: [
-                    "useLenis 훅의 콜백 내에서 ScrollTrigger.update()를 호출하도록 LenisScrollTriggerSync 컴포넌트를 구성해, Lenis 스크롤 이벤트마다 ScrollTrigger가 위치를 재계산하도록 동기화",
+                    "generateStaticParams()로 projectDetails 배열을 순회해 빌드 타임에 /projects/1 · /projects/2 · /projects/3 정적 경로를 사전 생성",
+                    "generateMetadata()로 각 프로젝트의 title / description 메타데이터를 자동 생성해 크롤러 호환성 확보",
                 ],
                 result: [
-                    "부드러운 스크롤 환경에서도 GSAP ScrollTrigger 기반 애니메이션이 올바른 타이밍에 실행됨",
-                ],
-            },
-            {
-                title: "커튼 인트로 한 번만 재생",
-                problem: [
-                    "SPA 구조에서 페이지를 이동할 때마다 state가 초기화되어 인트로 애니메이션이 반복 재생될 수 있었습니다.",
-                ],
-                solution: [
-                    "Jotai의 atomWithStorage로 introPlayedAtom을 구성해 세션 내 재생 여부를 유지하고, 인트로 완료 시 플래그를 설정해 이후 방문에서는 렌더링 자체를 건너뛰도록 처리",
-                ],
-                result: [
-                    "첫 방문 시에만 인트로가 재생되고, 같은 세션의 페이지 이동에서는 인트로 없이 바로 콘텐츠가 표시됨",
+                    "상세 페이지가 순수 정적 HTML로 빌드되어 Vercel CDN에서 서버 함수 실행 없이 즉시 응답",
+                    "projectDetails에 데이터를 추가하는 것만으로 신규 상세 페이지와 메타데이터가 자동 생성 → 배포 외 별도 작업 불필요",
                 ],
             },
         ],
