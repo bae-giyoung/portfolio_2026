@@ -9,6 +9,7 @@ import PointerClickCursor from "@/components/effects/PointerClickCursor";
 import FloatingLabelCursor from "@/components/effects/FloatingLabelCursor";
 import PageTransition from "@/components/layout/PageTransition";
 import Header from "@/components/layout/Header";
+import { Analytics } from "@vercel/analytics/next"
 
 const instrumentSans = Instrument_Sans({
   variable: "--font-instrument-sans",
@@ -103,6 +104,7 @@ export default function RootLayout({
         <div id="modal-root"></div>
         <div id="toast-root"></div>
         <Toast />
+        <Analytics />
       </body>
     </html>
   );
