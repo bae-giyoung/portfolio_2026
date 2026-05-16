@@ -60,9 +60,11 @@ export default function PageTransition({ children }: Props) {
     /* DOM 초기 상태 세팅 */
     useEffect(() => {
         if (!screenRef.current || !curveTopRef.current || !curveBotRef.current || !labelRef.current) return;
-        gsap.set(screenRef.current, { top: "100%" });
-        gsap.set(curveTopRef.current, { height: "0vh" });
-        gsap.set(curveBotRef.current, { height: "10vh" });
+        gsap.set(screenRef.current, { xPercent: 0, yPercent: 100 });
+        // rotateX:180 = CSS의 scaleY(-1) 플립 대체 (GSAP이 transform 관리)
+        // yPercent:0 + rotateX:180 = translateY(-99%) scaleY(-1) 대체, scaleY:0 = 초기 숨김, height:10vh 대체
+        gsap.set(curveTopRef.current, { yPercent: 0, rotateX: 180, scaleY: 0 });
+        gsap.set(curveBotRef.current, { yPercent: 99, scaleY: 1 });
         gsap.set(labelRef.current, { opacity: 0, xPercent: -50, yPercent: -50 });
     }, []);
 
@@ -100,19 +102,19 @@ export default function PageTransition({ children }: Props) {
                 });
 
                 // 커튼 올라옴
-                tl.set(screenRef.current, { top: "100%" });
-                tl.set(curveTopRef.current, { height: "0vh" });
-                tl.set(curveBotRef.current, { height: "10vh" });
+                tl.set(screenRef.current, { yPercent: 100 });
+                tl.set(curveTopRef.current, { scaleY: 0 });
+                tl.set(curveBotRef.current, { scaleY: 1 });
                 tl.set(labelRef.current, { opacity: 0, xPercent: -50, yPercent: -50 });
 
                 tl.to(screenRef.current, {
-                    top: "0%",
+                    yPercent: 0,
                     duration: 0.5,
                     ease: "power4.in",
                 });
                 tl.to(
                     curveTopRef.current,
-                    { height: "10vh", duration: 0.4, ease: "power4.in" },
+                    { scaleY: 1, duration: 0.4, ease: "power4.in" },
                     "<+0",
                 );
                 tl.to(labelRef.current, {
@@ -138,9 +140,9 @@ export default function PageTransition({ children }: Props) {
             const tl = gsap.timeline({
                 onComplete: () => {
                     // 커튼 대기 위치로 복구
-                    gsap.set(screenRef.current!, { top: "100%" });
-                    gsap.set(curveTopRef.current!, { height: "0vh" });
-                    gsap.set(curveBotRef.current!, { height: "10vh" });
+                    gsap.set(screenRef.current!, { yPercent: 100 });
+                    gsap.set(curveTopRef.current!, { scaleY: 0 });
+                    gsap.set(curveBotRef.current!, { scaleY: 1 });
                     gsap.set(labelRef.current!, { opacity: 0, xPercent: -50, yPercent: -50 });
                     if (containerRef.current) {
                         containerRef.current.style.pointerEvents = "none";
@@ -150,10 +152,10 @@ export default function PageTransition({ children }: Props) {
                 },
             });
 
-            tl.set(curveTopRef.current, { height: "0vh" });
+            tl.set(curveTopRef.current, { scaleY: 0 });
 
             tl.to(screenRef.current, {
-                top: "-100%",
+                yPercent: -100,
                 duration: 0.8,
                 ease: "power3.inOut",
             });
@@ -164,7 +166,7 @@ export default function PageTransition({ children }: Props) {
             );
             tl.to(
                 curveBotRef.current,
-                { height: "0vh", duration: 0.85, ease: "power3.inOut" },
+                { scaleY: 0, duration: 0.85, ease: "power3.inOut" },
                 "<+0.1",
             );
         });
